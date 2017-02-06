@@ -1,0 +1,14 @@
+Nedim Hadzimahmutovic wrote:
+> Hi, is there a localization project for icwmw, or how could I do it, 
+
+Localization in icewm currently is done by copying "po/icewm.pot" to a 
+file called "po/$LOCALE.pot" (e.g. "po/ba.po", if "ba" is your locale -- 
+don't know), filling the stubs (msgstr "") with proper text and finally 
+sending back the file to the developers or submitting it the patch 
+manager on sourceforge  ---  In the hope no one forgets to put the new 
+file into CVS.
+
+
+Ciao,
+Mathias
+
