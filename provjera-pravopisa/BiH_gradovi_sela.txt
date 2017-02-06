@@ -1,0 +1,450 @@
+/ N.H. grungy@linux.org.ba - nije kompletna , ali za pocetak... /
+
+
+banovici
+banja luka
+banja vrucica
+batkovic
+begov han
+berkovici
+bihac
+bijela
+bijelo brdo
+bijeljinja
+bijeljinsko suho polje
+bila
+bileca
+biljesevo
+bijelimici
+blagaj
+blatnica
+blatnica kod mostara
+balzuj
+bok
+boljanic
+bosanska dubica
+kozarska dubica
+bosanska gradiska
+gradiska
+bosanska kostajnica
+srpska kostajnica
+bosanska krupa
+bosanski aleksandrovac
+bosanski brod
+srpski brod
+bosanski kobas
+srpski kobas
+bosanski novi
+novi grad
+bosanski petrovac
+bosanski samac
+samac
+bradina
+bratunac
+brcko
+brekovica
+brestovo
+brestovsko
+breza
+brezicani
+breznik
+brezovo polje
+brijesnica kod doboja
+brka
+brnjic
+brocinac
+brod
+brod kod foce
+brodac
+bronzani majdan
+bucici
+bugojno
+bukinje
+buletic
+buna
+busovaca
+butrovic polje
+buzim
+caparde
+careva cuprija
+carevacuprija
+cazin
+cerovica
+cerovljani
+crkvina
+crnici
+crnjelovo
+cajnice
+capljina
+cardak
+catici
+cecava
+celebici
+lusnic
+celebici kod foce
+celic
+celinac
+cemerno
+cerin
+citluk
+coralici
+dejcici
+demirovac
+derventa
+derventa kod vlasenice
+divin
+doboj
+doborovci
+dobrinja
+dobrinj
+dobro selo
+dobroselo
+dobrun
+dokanj
+dolac na lasvi
+dolacnalasvi
+domaljevac
+domanovici
+donja mahala
+donjamahala
+donja medida
+donjamedida
+donjamedjidja
+donja medjidja
+donja slatina
+donjaslatina
+donja mostre
+donjaemostre
+donji agici
+donjiagici
+donji mamici
+donjimamici
+donj ivakuf
+donjivakuf
+donji vrbljanji
+donjivrbljanji
+dragolovci
+dragaljevac
+dragocaj
+dreznica
+drinovci
+drinjaca
+drvar
+duboki potok
+dubokipotok
+dubostica
+dubovik
+dubrave
+dubrave donje
+dubravedonje
+dubrave gornje
+dubavegornje
+dugo polje
+dugopolje
+dusanovo
+duvno
+tomislavgrad
+duzice
+dvorovi
+durdervik
+djurdjevik
+fajtovci
+foca
+srbinje
+fojnica
+fojnica kod gacka
+fojnicakodgacka
+gabela
+gacko
+glamoc
+glavicice
+globarica
+gojevici
+gorazde
+gornja kopriva
+gornjakopriva
+gornja slatina
+gornjaslatina
+gornja tuzla
+gornjatuzla
+gornji kamengrad
+gornjikamengrad
+donjikamengrad
+donji kamengrad
+gornji podgradci
+gornjipodgradci
+gornji rahic
+gornjirahic
+gornji strpci
+gornjistrpci
+gornji teslic
+gornjiteslic
+gornjivakuf
+gornjivakuf
+uskoplje
+grab
+grabovica
+gracanica
+gracanica kod bugojna
+gracanicakodbugojna
+gracanica selo
+gracanicaselo
+gradac
+gradacac
+grude
+guber
+gubin
+listani
+guca gora
+gucagora
+hadjici
+hadici
+hajdarevici
+haljinjici
+han bila
+hanbila
+han pijesak
+hanpijesak
+homoljska cuprija
+homoljskacuprija
+hrasnica
+hrasno
+hresa
+hrvacani
+husino
+hutovo
+ilida
+ilidja
+ilijas
+ilovaca
+imljani
+ivanjska kod
+banja luke
+ivanjskakodbanjaluke
+izacic
+jablanica
+jahorina
+jajce
+janja
+janjici
+jare
+javorani
+jelah
+jezerski
+johova
+josanica
+josavka
+kacuni
+kakanj
+kalenderovci
+kalesija
+kalinovik
+kamenica
+kaonik
+kasindo
+kazaginac
+kafino selo
+kafinoselo
+kiseljak
+kiseljak tuzlanski
+kiseljaktuzlanski
+kladanj
+klakar donji
+klakardonji
+klobuk
+klokotnica
+kljuc
+kenzica
+knezina
+knezevo
+kocerin
+kocicevo
+kola
+kongora
+konjic
+konjoder
+koprivna
+koraj
+kornica
+kosova
+kostric
+kotor varos
+kotorvaros
+kovaci
+kozarac
+kozluk
+kraljeva sutjeska
+kraljevasutjeska
+kresevo
+kukinje
+kula
+kulasi
+kalen vakuf
+kalenvakuf
+kupres
+laktasi
+laminci sredjani
+laminci sredjani
+laminci sredani
+lamovita
+lasva
+lastva
+lipnje
+lisnja
+listica
+livno
+loncari
+lopare
+lukavac
+lukavac mjesto
+lukavacmjesto
+lukavica
+lusci palanka
+luscipalanka
+ljubace
+ljubija
+ljubinje
+ljobomir
+ljubuski
+ljuto dolac
+ljutidolac
+maglaj
+majevac
+mala kladusa
+malakladusa
+mala socanica
+malasocanica
+malesici
+moaca
+maslovare
+masici
+matici
+matuzici
+medugorje
+medjugorje
+meduvode
+medjuvodje
+mehurici
+mesihovina
+milici
+milosevac
+miljeno
+miljevina
+miricina
+modrica
+mokro
+mosko
+mostar
+mramor
+mravinjac
+mrkonjic grad
+mrkonjicgrad
+nemila
+neum
+nevesinje
+nova bila
+novabila
+nova kasaba
+novakasaba
+dusanovo
+nova topola
+novatopola
+novi seher
+noviseher
+novi travnik
+novitravnik
+nozicko
+oborci
+obudovac
+odzak
+odzak kod nevesinja
+odzakkodnevesinja
+olovo
+omarska
+orahova
+orahovica
+orasje
+osinja
+osjecani
+osmaci
+ostrozac
+ostra luka
+ostraluka
+otoka
+ozimica
+palackovci
+pale
+papraca
+pazaric
+pecigrad
+pelagicevo
+perin han
+perinhan
+petrovo
+pilica
+piskavica
+poculica
+podgrab
+podhum
+podlugovi
+podnovlje
+podorasje
+podzvizd
+poljice
+poljice kod tuzle
+posusje
+potoci
+potocani
+praca
+prelovo
+prelevo
+previja
+pribinic
+priboj
+priboj kod lprara
+prijedor
+priluka
+prisoje
+prnjavor
+prolog
+orguz
+prozor
+prusac
+przici
+puhovac
+puracic
+radisici
+rainci
+rainci gornji
+rakitno
+rakovica
+rasko polje
+raskopolje
+roskopolje
+rosko polje
+razboj lijevce
+razljevo
+ripac
+rogatica
+rudice
+rudo
+ruzici kod ljubuskog
+sanica gornja
+sanski most
+sapna
+saeacica
+sarajevo
+semizovac
+seonjaci
+simin han
+sitnesi
+sitnica
+skelani
+skelen vakuf
+skelenvakuf
+knezevo
+skugric
+sladina
+slatina ilidza
+slatinailidza
+smrtici
