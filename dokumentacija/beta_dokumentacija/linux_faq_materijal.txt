@@ -1,0 +1,249 @@
+Za Prevesti!!!! 
+
+----------------------------------------------------------------------------
+2.6.  Moving directories between filesystems. Alan Cox,
+  A.Cox@swansea.ac.uk
+
+  Quick way to move an entire tree of files from one disk to another
+
+
+       (cd /source/directory && tar cf - . ) | (cd /dest/directory && tar xvfp -)
+
+
+
+  [ Change from cd /source/directory; tar....etc.  to prevent possibil-
+  ity of trashing directory in case of disaster.  Thanks to Jim Dennis,
+  jim@starshine.org, for letting me know. -Maint. ]
+  
+
+
+2.16.  simon@foobar.co.uk How to find out what process is eating the
+  most memory. Simon Amor,
+
+
+
+       ps -aux | sort +4n
+
+
+
+  -OR-
+
+
+       ps -aux | sort +5n
+---
+3.2.  Desperate Undelete. Michael Hamilton,  michael@actrix.gen.nz
+
+  Here's a trick I've had to use a few times.
+
+
+  Desperate person's text file undelete.
+
+  If you accidentally remove a text file, for example, some email, or
+  the results of a late night programming session, all may not be lost.
+  If the file ever made it to disk, ie it was around for more than 30
+  seconds, its contents may still be in the disk partition.
+
+  You can use the grep command to search the raw disk partition for the
+  contents of file.
+
+  For example, recently, I accidentally deleted a piece of email.  So I
+  immediately ceased any activity that could modify that partition: in
+  this case I just refrained from saving any files or doing any compiles
+  etc.  On other occasions, I've actually gone to the trouble of bring
+  the system down to single user mode, and unmounted the filesystem.
+
+  I then used the egrep command on the disk partition:  in my case the
+  email message was in /usr/local/home/michael/, so from the output from
+  df, I could see this was in /dev/hdb5
+
+
+         sputnik3:~ % df
+           Filesystem         1024-blocks  Used Available Capacity Mounted on
+           /dev/hda3              18621    9759     7901     55%   /
+           /dev/hdb3             308852  258443    34458     88%   /usr
+           /dev/hdb5             466896  407062    35720     92%   /usr/local
+
+           sputnik3:~ % su
+           Password:
+           [michael@sputnik3 michael]# egrep -50 'ftp.+COL' /dev/hdb5 > /tmp/x
+
+
+
+  Now I'm ultra careful when fooling around with disk partitions, so I
+  paused to make sure I understood the command syntax BEFORE pressing
+  return.  In this case the email contained the word 'ftp' followed by
+  some text followed by the word 'COL'.  The message was about 20 lines
+  long, so I used -50 to get all the lines around the phrase.  In the
+  past I've used -3000 to make sure I got all the lines of some source
+  code.  I directed the output from the egrep to a different disk parti-
+  tion - this prevented it from over writing the message I was looking
+  for.
+
+  I then used strings to help me inspect the output
+
+
+          strings /tmp/x | less
+
+
+
+  Sure enough the email was in there.
+
+  This method can't be relied on, all, or some, of the disk space may
+  have already been re-used.
+
+  This trick is probably only useful on single user systems.  On multi-
+  users systems with high disk activity, the space you free'ed up may
+  have already been reused.  And most of use can't just rip the box out
+  from under our users when ever we need to recover a file.
+
+  On my home system this trick has come in handy on about three
+  occasions in the past few years - usually when I accidentally trash
+  some of the days work.  If what I'm working survives to a point where
+  I feel I made significant progress, it get's backed up onto floppy, so
+  I haven't needed this trick very often.
+  ----3.5.  Converting all files in a directory to lowercase. Justin Dossey,
+  dossey@ou.edu
+
+
+  I noticed a few overly difficult or unnecessary procedures recommended
+  in the 2c tips section of Issue 12.  Since there is more than one, I'm
+  sending it to you:
+
+
+       ______________________________________________________________________
+       #!/bin/sh
+                # lowerit
+                # convert all file names in the current directory to lower case
+                # only operates on plain files--does not change the name of directories
+                # will ask for verification before overwriting an existing file
+                for x in `ls`
+                  do
+                  if [ ! -f $x ]; then
+                    continue
+                    fi
+                  lc=`echo $x  | tr '[A-Z]' '[a-z]'`
+                  if [ $lc != $x ]; then
+                    mv -i $x $lc
+                  fi
+                  done
+       ______________________________________________________________________
+
+
+
+  Wow.  That's a long script.  I wouldn't write a script to do that;
+  instead, I would use this command:
+
+
+       for i in * ; do [ -f $i ] && mv -i $i `echo $i | tr '[A-Z]' '[a-z]'`;
+       done;
+
+
+
+  on the command line.
+
+  The contributor says he wrote the script how he did for
+  understandability (see below).
+
+  On the next tip, this one about adding and removing users, Geoff is
+  doing fine until that last step.  Reboot?  Boy, I hope he doesn't
+  reboot every time he removes a user.  All you have to do is the first
+  two steps.  What sort of processes would that user have going, anyway?
+  An irc bot?  Killing the processes with a simple
+
+
+       kill -9 `ps -aux |grep ^<username> |tr -s " " |cut -d " " -f2`
+
+
+
+  Example, username is foo
+
+
+       kill -9 `ps -aux |grep ^foo |tr -s " " |cut -d " " -f2`
+
+
+
+  That taken care of, let us move to the forgotten root password.
+
+  The solution given in the Gazette is the most universal one, but not
+  the easiest one.  With both LILO and loadlin, one may provide the boot
+  parameter "single" to boot directly into the default shell with no
+  login or password prompt.  From there, one may change or remove any
+  passwords before typing "init 3" to start multiuser mode.  Number of
+  reboots: 1 The other way Number of reboots: 2
+
+
+  Justin Dossey
+
+  3.7.  Jim Dennis,  jadestar@rahul.net Some tips for new sysadmins.
+
+  Create and maintain a /README.`hostname` and/or a
+  /etc/README.`hostname` [Or possibly /usr/local/etc/README.`hostname`
+  -Maint. ]
+
+  Absolutely, from *day one* of administering a system take notes in an
+  online log file.  You might make "vi /README.$(hostname)" a line in
+  root's  /bash_logout.  Another way to do this is to write an su or a
+  sudo script that does something like:
+
+
+
+                  function exit \
+                          { unset exit; exit; \
+                            cat ~/tmp/session.$(date +%y%m%d) \
+                            >> /README.$(hostname) && \
+                            vi /README.$(hostname)
+                            }
+                  script -a ~/tmp/session.$(date +%y%m%d)
+                  /bin/su.org -
+
+
+
+  (use the typescript command to create a session log and create a
+  function to automate appending and updating the log).
+
+  I'll admit that I haven't implemented this automation of policy --
+  I've just relied on self-discipline so far.  However I have been
+  toying with the idea (even to the point of prototyping the scripts and
+  shell functions as you see them).  One thing that holds me back on
+  this is the 'script' command itself.  I think I'll have to grab the
+  sources and add a couple of command line parameters (to pause/stop the
+  script recording from the command line) before I commit to using
+  this).
+
+  My last suggestion (for this round):
+
+  Root's path should consist of 'PATH= /bin'
+
+  That's it.  Nothing else on root's path.  Everything root does is
+  provided by a symlink from  /bin or by an alias or shell function, or
+  is a script or binary in  /bin, or is typed out with an explicit path.
+
+  This makes anyone running as root aware (sometimes painfully so) of
+  how he or she is trusting binaries.  The wise admin of a multi-user
+  host will periodically look through his or here  /bin and  /.*history
+  files to look for patterns and loopholes.
+
+  The really motivated admin will spot sequences that can be automated,
+  places where sanity checks can be inserted, and tasks for which "root"
+  privileges should be temporarily eschewed (launching editors, MTA's
+  and other large interactive programs with elaborate scripting features
+  that *might* be embedded in transparent or data files -- like the
+  infamous vi ./.exrc and emacs ./.emacs and the even more insidous
+  $EXINIT and the embedded header/footer macros).  Naturally those sorts
+  of commands can be run with something like:
+
+
+                       cp $data $some_users_home/tmp
+                       su -c $origcommand $whatever_switches
+                       cp $some_users_home/tmp $data
+
+
+
+  (...where the specifics depend on the command).
+
+  Mostly these last sorts of precautions are overboard for the home or
+  "single" user workstation -- but they are very good policy the admin
+  of a multi-user -- particular a publicly exposed system (like the
+  one's at netcom).
+
+  

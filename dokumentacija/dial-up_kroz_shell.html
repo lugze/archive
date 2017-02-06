@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Dial-up kroz shell - FreeBSD 4.5</title>
+<meta http-equiv="Content-Type" content="Dial-up kroz shell - FreeBSD 4.5 - Linux Dokumentacija">
+<meta name="GENERATOR" content="Quanta Plus">
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#000000" alink="#008000" vlink="#660000">
+<h2> <u><font size="5">Dial-up kroz shell - FreeBSD 4.5</font></u></h2>
+<h2><font size="3">Mesa Sacirovic <a href="mailto:mesa@tesanj.ba"><font color="#6666FF">mesa@tesanj.ba</font></a><br>
+  <i><small>v 0.1 02/03/25 </small></i> </font></h2>
+<hr>
+<i>Ovaj dokument je namjenjen svima koji ¾ele saznati kako se pode¹ava PPP <br>
+- program za konekciju (iz shella) na va¹ ISP (Internet Service Provider).</i><br>
+<hr>
+<br>
+
+<b>FreeBSD je operativni sistem</b> koji ima dosta jednostavan dial-up networking.<br>
+Za sam dial-up kod FreeBSD - a zadu¾en je <b>ppp daemon</b>
+odnosno <b>Point to Point Protocol daemon</b>. <br>
+Konekcija kroz shell ima svoje prednosti jer sve imamo u standardnoj instalaciji
+i ne trebaju nam dodatni alati i programi.  <br><br>
+Da bi se konektovali preko shella potrebno je da uraditi sljedeæe:  <br><br>
+- da uðete u direktorij u kojem se nalazi konfiguraciski file (<b>ppp.conf</b>) za ppp program<br><br>
+<b># cd /etc/ppp  <br>
+# ls  </b>        <br>
+ppp.conf &nbsp; ppp.linkup &nbsp; ppp.conf.sample <br><br>
+- sad editujete file ppp.conf sa vi ili nekim drugim editorom:  <br><br>
+<b># vi ppp.conf</b> <br><br>
+- Konfiguraciski file za ppp.conf  <br>
+#################################################################  <br>
+# PPP Sample Configuration File <br>
+# Originally written by Toshiharu OHNO  <br>
+# Simplified 5/14/1999 by wself@cdrom.com  <br>
+#       <br>
+# See /usr/share/examples/ppp/ for some examples <br>
+#      <br>
+# $FreeBSD: src/etc/ppp/ppp.conf,v 1.2.2.5 2001/07/13 10:55:23 brian Exp $ <br>
+################################################################# <br><br>
+default:  <br>
+&nbsp;set log Phase Chat LCP IPCP CCP tun command   <br>
+&nbsp;ident user-ppp VERSION (built COMPILATIONDATE)   <br><br>
+&nbsp;# Ensure that "device" references the correct serial port <br>
+&nbsp;# for your modem. (cuaa0 = COM1, cuaa1 = COM2)  <br>
+&nbsp;#    <br>
+&nbsp;set device /dev/cuaa1 <br> <br>
+&nbsp;set speed 115200 <br>
+&nbsp;set dial "ABORT BUSY ABORT NO\\sCARRIER TIMEOUT 5 \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;\"\" AT OK-AT-OK ATE1Q0 OK \\dATDT\\T TIMEOUT 40 CONNECT" <br>
+&nbsp;set timeout 180 &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+# 3 minute idle timer (the default)  <br>
+&nbsp;enable dns &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+# request DNS info (for resolv.conf)   <br><br>
+
+papchap:                                       <br>
+&nbsp;#                                            <br>
+&nbsp;# edit the next three lines and replace the items in caps with <br>
+&nbsp;# the values which have been assigned by your ISP.    <br>
+&nbsp;#                                             <br><br>
+
+&nbsp;set phone 12345                           <br>
+&nbsp;set authname username                         <br>
+&nbsp;set authkey password                      <br>
+&nbsp;set timeout 120                      <br>
+&nbsp;set ifaddr 10.0.0.1/0 10.0.0.2/0 255.255.255.0 0.0.0.0 <br>
+&nbsp;add default HISADDR &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+# Add a (sticky) default route   <br><br>
+
+- u njemu je potrebno uraditi neke <b>promjene</b> koje mo¾ete vidjeti u
+sljedeæem prikazu conf filea                     <br>
+- potrebno je <b>unijeti podatke (va¹ username, password i broj ISP</b> - a)
+i izbaciti ono ¹to je nepotrebno:    <br><br>
+
+# poèetak conf filea                <br>
+#################################################################  <br>
+# PPP konfiguracijski file                                 <br>
+# Pogledajte /usr/share/examples/ppp/ za neke primjere    <br>
+#                                                          <br>
+# $FreeBSD: src/etc/ppp/ppp.conf,v 1.2.2.5 2001/07/13 10:55:23 brian Exp $ <br>
+#################################################################  <br><br>
+
+default:                                           <br>
+&nbsp;set log Phase Chat LCP IPCP CCP tun command     <br>
+&nbsp;ident user-ppp VERSION (built COMPILATIONDATE)   <br><br>
+
+&nbsp;# Ovdje trebate podesiti port za va¹ modem      <br>
+&nbsp;# cuaa0 = COM1                                <br>
+&nbsp;# cuaa1 = COM2                               <br><br>
+
+&nbsp;set device /dev/cuaa1                         <br><br>
+
+&nbsp;set speed 115200                                <br>
+&nbsp;set dial "ABORT BUSY ABORT NO\\sCARRIER TIMEOUT 5 \ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+\"\" AT OK-AT-OK ATE1Q0 OK \\dATDT<b>0992800</b>\\T TIMEOUT 40 CONNECT" <br>
+&nbsp;set timeout 180                                <br>
+&nbsp;enable dns
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+# zahtijeva DNS info (za resolv.conf)  <br>
+&nbsp;set authname <b>username</b>                             <br>
+&nbsp;set authkey <b>password</b>                              <br>
+&nbsp;set ifaddr 10.0.0.1/0 10.0.0.2/0 255.255.255.0 0.0.0.0 <br>
+&nbsp;add default HISADDR                      <br> <br>
+
+&nbsp;# kraj conf filea                         <br>
+&nbsp;# <b>0992800</b> - broj va¹eg ISP-a &nbsp; (kod mene je to BiHNET) <br>
+&nbsp;# <b>username</b> - va¹ login                            <br>
+&nbsp;# <b>password</b> - va¹a ¹ifra                           <br><br>
+
+- Sad nam je ostalo jo¹ da napravimo izmjene u resolv.conf - u. <br>
+U njemu je potrebno unijeti nameserver - e va¹eg ISP    <br><br>
+
+# <b>vi /etc/resolv.conf</b>                                 <br> <br>
+
+domain bih.net.ba                                    <br><br>
+
+nameserver 195.222.32.10                            <br>
+nameserver 195.222.32.20                               <br><br>
+
+- Sa komandom <b>ppp</b> pokreæemo ppp program a zatim komandom dial - biramo broj ISP - a <br><br>
+<b># ppp </b>                                                         <br>
+Working in interactive mode                                    <br>
+Using interface: tun0                                        <br>
+ppp ON localhost&gt; <b>dial</b>                                   <br>
+ppp ON localhost&gt;                                          <br>
+ppp ON localhost&gt;                                           <br>
+ppp ON localhost&gt;                                            <br>
+ppp ON localhost&gt;                                            <br> <br>
+
+- Izlistav¹i èetiri linije (<b>ppp ON localhost&gt;</b>) iza naredbe <b>dial</b> znaèi da je konekcija uspjela
+i mo¾ete krenuti sa surfanjem...                     <br>
+- Takoðe, to mo¾ete provjeriti naredbom <b>show link</b>:   <br><br>
+
+ppp ON localhost&gt; <b>show link</b>                       <br>
+Name: &nbsp; deflink                                     <br>
+State: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;open   <br>
+Peer name: &nbsp; &nbsp; &nbsp; &nbsp; None requested  <br>
+Discriminator: &nbsp; &nbsp; &nbsp;Null Class  <br>
+                                             <br>
+Defaults:                                    <br>
+Phone List:                                <br>
+Dial tries: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1, delay 3s/30s                <br>
+Reconnect tries: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0, delay 3s               <br>
+Callback requested: &nbsp; &nbsp; none                    <br>
+Dial Script: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+ABORT BUSY ABORT NO\sCARRIER TIMEOUT 5
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "" AT OK- <br>
+Login Script:                          <br>
+Logout Script:                          <br>
+Hangup Script:                           <br><br>
+
+- Ako se ¾elite bolje upoznati sa ppp - om, kucate <br><br>
+
+<b># man ppp</b>                                       <br> <br>
+
+- Takoðe imate i odlièno upustvo <a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/index.html" target="_blank">(Handbook)</A>
+za FreeBSD koji mo¾ete pronaæi na stranici
+<a href="http://www.freebsd.org/" target="_blank">http://www.freebsd.org/</A>, gdje mo¾ete naæi jo¹ mnogo zanimljivih stvari o samom FreeBSD - u.
+ <hr>
+<div align="center"><i><small>dokumenti/konfiguracija/dial-up_kroz_shell.html 
+  v 0.1 02/03/25 mehmed Exp$</small></i> </div>
+</body>
+</html>
+
+<!--  Ovu stranicu ste skinuli sa http://bsd.linux.org.ba/
+ili  http://bsd.lugbih.org/dokumenti/konfiguracija/dial-up_kroz_shell.html -->

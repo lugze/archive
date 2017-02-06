@@ -1,0 +1,1071 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+  	   
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1">
+  <title>Linux FAQ - Linux Cesto Postavljana Pitanja Uz Odgovore</title>
+     	 	   
+  <meta name="GENERATOR" content="OpenOffice.org 641  (Linux)">
+  	   
+  <meta name="CREATED" content="20020705;18024400">
+  	   
+  <meta name="CHANGED" content="20020705;18124200">
+  	   
+  <style>
+	<!--
+		A:visited { color: #3333ff }
+	-->
+	</style>
+</head>
+  <body lang="de-DE" vlink="#3333ff" bgcolor="#ffffff">
+   
+<table width="97%" border="0" cellpadding="6" cellspacing="6" style="page-break-before: always;">
+  	<tbody>
+     <tr>
+  		<td height="523"> 			       
+      <hr> 			       
+      <p align="left"><b><font size="5">Linux FAQ - Linux cesto postavljana
+ 			pitanja uz odgovore </font><i><font color="#000000">v 0.5</font></i></b>
+  			(Linux Trikovi i Upute,Vodic Kroz Linux OS)  			</p>
+  			       
+      <p align="left"><b><font size="4"><font face="Arial">Nedim 			Hadzimahmutovic 
+      </font>-<font color="#3333ff"> <a href="mailto:grungy@linux.org.ba">
+ grungy@linux.org.ba</a></font></font></b></p>
+  			       
+      <p align="left"><b><font size="4"><font face="Arial">Kemal Sanjta </font>
+ -<font color="#3333ff"> 			<a href="mailto:gomez@ze.lugbih.org">
+ gomez@ze.lugbih.org</a></font></font></b></p>
+  			       
+      <hr> 			       
+      <p align="left" style="margin-bottom: 0cm;"><i><font face="Arial">Ovaj
+ 			tekst predstavlja popis cesto postavljanih pitanja o Linuxu i 			njihovih 
+odgovora. Karakteristika za ovaj dokumenat je da cete 			naci veliki broj 
+linux trikova i uputa. Svi koji su pomogli 			prilikom stvaranja ovog teksta 
+su svrstani medju autore.Sve 			sugestije i komentari su dobrodosli. Ako zelite
+sta dodati tekstu, 			molim da se obratite na mail <a href="mailto:grungy@linux.org.ba">
+ grungy@linux.org.ba                         </a>. Neke od uputa nisu testirane 
+i ne garantujemo da ce sasvim raditi! 			</font></i> 			</p>
+  			       
+      <hr> 			       
+      <p align="left"><b><font size="5"><font face="Arial">1. </font></font></b><u><font size="6"><font color="#3333ff">
+ Kako, 			Gdje, Sta, Zasto...</font></font></u></p>
+  			       
+      <ul>
+  				<li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.1 <a href="#lilo_vrati">
+ Kako 				ponovo vratiti izgubljeni lilo izbornik?</a></font> 				</p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial"><font face="Arial">
+ 1.2 				</font><a href="#prikazi_win"><u>Kako da vidim sadrzaj moje 				Windows 
+particije?</u></a></font>  				</p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.3 <a href="#$home">
+ Gdje 				se nalazi moj home direktorij?</a></font>  				</p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;">1.4 <a href="#sjeti_komande"><u><font face="Arial">
+ Kako 				se sjetiti neke odredjene komande?</font></u></a>  				</p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.5 <a href="#lilo_vrati">
+ Kako 				podesiti novu graficku karticu (novi hardver)?</a></font>  				</p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.6 <a href="#l_moj_disk">
+ Kako 				natjerati Linux da radi s mojim diskom?</a><a href="#lilo_vrati"></a></font></p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.7 <a href="#vrati_br_datoteke">
+ Kako 				vratiti obrisane datoteke?</a></font></p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.8 <a href="#promjeni_vel_particije">
+ Kako 				promeniti velicinu particije (bez brisanja)?</a></font></p>
+       </li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.9 <a href="#disketa_format">
+ Kako formatirati i napraviti fajl sistem na disketi?</a></font> 				</p>
+      </li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.9.1 <a href="#swap_ne_radi">
+ Zasto moj swap ne radi</a></font> 				</p>
+                                   </li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.9.2 <a href="#skini_lilo1">
+ Kako skinuti LILO da se opet startuje DOS?</a></font> 				</p>
+  </li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.9.3 <a href="#fdformat1">
+ Zasto ne mogu da koristim fdformat osim kao root?</a></font> 				</p>
+       </li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.9.4 <a href="#root_sistem1">
+ Zasto ne mogu pisati na svoj root fajl sistem!</a></font> 				</p>
+       </li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.9.5 <a href="#kcore1">
+ Imam ogroman /proc/kcore! Mogu li ga obrisati?</a></font> 				</p>
+    </li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><font face="Arial">1.9.6 <a href="#lilo_vrati">
+ Kako 				ponovo vratiti izgubljeni lilo izbornik?</a></font> 				</p>
+    				</li>
+         <li>           
+          <p><font face="Arial">1.9.7 <a href="#graficka_setup"><u>Kako 				formatirati 
+i napraviti fajl sistem na disketi?</u></a></font></p>
+        </li>
+        <li>
+          <p><font face="Arial">1.9.7 </font><a href="file:///home/grungy/LugZe_Web/textware/Linux%20FAQ%20-%20Cesto%20Postavljana%20Pitanja.htm#graficka_setup">
+Kako se programi kompajliraju?</a></p>
+        </li>
+        <li>
+          <p><font face="Arial">1.9.7 <a href="file:///home/grungy/LugZe_Web/textware/Linux%20FAQ%20-%20Cesto%20Postavljana%20Pitanja.htm#graficka_setup"><u>
+K</u></a></font></p>
+        </li>
+        <li>
+          <p><font face="Arial">1.9.7 <a href="file:///home/grungy/LugZe_Web/textware/Linux%20FAQ%20-%20Cesto%20Postavljana%20Pitanja.htm#graficka_setup"><u>
+K</u></a></font></p>
+        </li>
+        <li>
+          <p><br>
+          <br>
+           <br>
+  				</p>
+  			</li>
+       
+      </ul>
+  			       
+      <p align="left"><br>
+       <br>
+  			</p>
+  			       
+      <p align="left"><b><font size="5"><font face="Arial"><font color="#000000">
+ 2. 			</font></font></font></b><u><font size="6"><font color="#3333ff">Cesto
+ 			susretane poruke o greci.</font></font></u><font size="2"> (za 			uraditi)</font></p>
+  			       
+      <ul>
+  				<li>           
+          <p align="left"><font face="Arial">2.1 <a href="#poruka2_1">Dobivam
+ 				poruke o inodeovima, blokovima i slicnim stvarima.</a></font>  				</p>
+  			</li>
+       
+      </ul>
+  			       
+      <p align="left"><font size="5"><font face="Arial"><b>3.</b> <font color="#3333ff"><u>
+ Mjesta 			na kojima mozete naci jos dokumentacije o linuxu na nasem jeziku</u>
+ :</font></font></font></p>
+  			       
+      <ul>
+  				<li>           
+          <p align="left" style="margin-bottom: 0cm;"><b>3.1 				<a href="http://www.linux.org.ba/">
+ www.linux.org.ba</a></b> - 				Udruzenje Linux Korisnika Bosne i Hercegovine 
+(ULK BiH)</p>
+  				           
+          <ul>
+  					<li>               
+              <p style="margin-bottom: 0cm;">3.1.1 <a href="http://howto.linux.org.ba/">
+ howto.linux.org.ba</a><br>
+ 3.1.2 					<a href="http://start.linux.org.ba/">start.linux.org.ba</a> 					<br>
+ 3.1.3 <a href="http://code.linux.org.ba/">code.linux.org.ba</a><br>
+ 3.1.4 					<a href="http://bsd.linux.org.ba/">bsd.linux.org.ba</a><br>
+ 3.1.5 					<a href="http://sigurnost.linux.org.ba/">sigurnost.linux.org.ba</a><br>
+ 3.1.6 					<a href="http://gnu.linux.org.ba/">gnu.linux.org.ba</a><br>
+ 3.1.7 					<a href="http://forum.linux.org.ba/">forum.linux.org.ba</a><br>
+ 3.1.8 					<a href="http://projekti.linux.org.ba/">projekti.linux.org.ba</a></p>
+  				</li>
+           
+          </ul>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><b>3.2 <a href="http://www.linux.hr/">
+ www.linux.hr</a></b> 				- Udruzenje Linux Korisnika Hrvatske (HULK)  				</p>
+  				           
+          <ul>
+  					<li>               
+              <p style="margin-bottom: 0cm;">3.2.1 					<a href="http://dokumentacija.linux.hr/">
+ dokumentacija.linux.hr<br>
+               </a>3.2.2 					<a href="http://faq.linux.hr/">faq.linux.hr</a>
+   					</p>
+  				</li>
+           
+          </ul>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><b>3.3</b> <a href="http://www.tux.co.yu/">
+ www.tux.co.yu</a> 				- Kraljevacki Site Posvecen Linuxu  				</p>
+  				</li>
+         <li>           
+          <p style="margin-bottom: 0cm;"><b>3.4</b> <a href="http://www.linux.org.yu/">
+ www.linux.org.yu</a> 				- Linux Yugoslavia Online  				</p>
+  				</li>
+         <li>           
+          <p><b>3.5</b> <a href="http://www.linuxserbia.com/">www.linuxserbia.com</a>
+  				- Linux Serbia</p>
+  			</li>
+       
+      </ul>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <hr> 			       
+      <p align="left"><b><font size="5"><font face="Arial">1. </font></font></b><u><font size="6"><font color="#3333ff">
+ Kako, 			Gdje, Sta, Zasto...</font></font></u></p>
+  			       
+      <hr> 			       
+      <p align="left"><a name="lilo_vrati"></a><font color="#3366ff"><font face="Arial"><font size="4"><b>
+ 1.1 			Kako ponovo vratiti izgubljeni lilo izbornik?</b></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><b>OPIS PROBLEMA:</b></font></p>
+  			       
+      <p align="left"><font face="Arial">Desio vam se problem da lilo vise
+ 			nije funkcionalan, npr. prilikom bootanja racunara pokaze vam se 			samo 
+"LI" (umjesto lilo izbornika) ili ste instalirali 			drugi operativni sistem 
+(windows) pored linuxa ,naknadno, i 			izgubili ste lilo tako da se on uopste 
+ne pojavljuje, vec direktno 			se podize taj sekundarni operativni sistem. 
+      </font> 			</p>
+  			       
+      <p align="left"><font face="Arial"><b>RJESENJE:</b></font></p>
+  			       
+      <p align="left"><font face="Arial">Podignite (bootajte) sistem sa 			vase 
+linux boot diskete i kada se podigne linux i izvrsite prijavu 			korisnika, 
+u konzoli kucate "<b>lilo</b>" (bez 			navodnika) i problem je rijesen. Racunar 
+ce procitati lilo 			konfiguracijski fajl <i>/etc/lilo.conf</i> i vas stari 
+lilo ce 			biti ponovo vracen i funkcionalan - ponovo zapisan u boot sektor.
+ 			Ako posjedujete prvi SuSe instalacijski cd jedne od novijih 			distibucija 
+a nemate linux boot diskete, sistem mozete podici i 			putem tog prvog, boot 
+cd-a, kao da zelite instalirati SuSe samo 			sto na jednom od pocetnih koraka 
+izaberete "<i>Boot Instaled 			System</i>" umjesto "<i>New Instalation</i>
+ ", 			kasnije izaberete particiju na kojoj vam je instaliran vas linux 			(naitive 
+particiju). Naravno ovaj korak nije potreban ako 			posjedujete linux boot 
+disketu. </font> 			</p>
+  			       
+      <p align="left"><font face="Arial"><b>NAPOMENA:</b><br>
+ da bi ste 			izvrsili ove radnje morate imati <i>root</i> (administracijske)
+ 			privilegije! </font> 			</p>
+  			       
+      <p align="left"><font face="Arial"><b>TRIK:</b> ako imate root 			(administrativne) 
+privilegije, mozete mijenjati izgled vaseg lilo 			izbornika. Otvorite <b>
+ /etc/lilo.conf</b> datoteku u nekom tekst 			editoru i zatim pod dijelom 
+gdje pise "<b>label = windows</b>" 			promijenite windows u nesto drugo kao 
+XWindows ili slicno, 			takomijenjate imena particija koje se pojave na lilo 
+izborniku. 			Poslije izvrsenih prepravki na /etc/lilo.conf datoteci morate
+ 			ukucati komandu "<b>lilo</b>" u terminalu da bi nove 			vrijednosti bile 
+zapisane u <i>boot sektor</i> - <i>MBR (Master 			Boot Record). </i></font>
+  			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="prikazi_win"></a><font face="Arial"><b><u><font size="4"><font color="#3366ff">
+ 1.2 			Kako da vidim sadrzaj moje Windows particije?</font></font></u></b><font size="2">
+  			(Neprikazuje se sadrzaj moje Windows swap particije) </font></font>
+			</p>
+  			       
+      <p align="left"><font face="Arial">Najvjerovatnije da jednostavno 			niste 
+izvrsili mount (mountirali) vase windows particije (pomocu 			komande "<b>
+ mount</b>"). To ce te uraditi ako u svom 			terminalu ili konzoli ukucate 
+"<b>mount /dev/hda1</b>" 			ili<b> </b>"<b>mount /dev/windows/c</b>"<b> </b>
+ (zavisno 			kako ste odredili, odnosno, na koju particiju instalirali windows)
+ 			Da bi provjerili na kojoj vam je particiji instaliran windows 			ukucajte 
+sljedecu komandu <b>"cat /etc/fstab"</b> i 			zatim pogledajte u koja particija 
+je vfat tipa (<i>type vfat</i>), 			nacjesce je ta particija nazvana <i>/windows/c</i>
+ . Iz ovoga 			mozete zakljuciti da fajl <i>/etc/fstab</i> sadrzi popis svih
+ 			particija. </font> 			</p>
+  			       
+      <p align="left"><font face="Arial"><b>TRIK</b>: Komanadom "<b>mount
+ 			-u</b>" (bez navodnika) ce te mountovati sve particije ili 			harddiskove 
+koji su zapisani u <i>/etc/fstab</i> fajlu. </font> 			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="$home"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.3 			Gdje se nalazi moj home direktorij?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial">Home direktorij nekog korisnika
+			se nalazi na lokaciji<i> /home/ImeKorisnika</i> , recimo da se 			korisnika 
+zove <i>pinguz</i> njegov home direktorij bi bio 			<b>/home/pinguz</b>. Jednostavniji
+nacin je da se ukuca "<b>cd 			$home</b>" (<i>terminalu</i> ) ili samo "<b>
+$home</b>" 			u <i>browseru</i> (web pregledniku) kao sto su <i>konqueror</i>
+, 			<i>nautilus</i> i automatski ste u vasem <i>home</i>  <i>direktoriju</i>
+ 			(citava putanja vam se pokaze u adress baru). </font>  			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="sjeti_komande"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.4 			Kako se sjetiti neke odredjene komande? </b></u></font></font></font>
+  			</p>
+  			       
+      <p align="left"><font face="Arial">Ako ste se nasli u slucaju da ste
+ 			zaboravili neku komandu, korisna funkcija je tipka . U terminalu 			ako 
+pritisnete tipku <b>&lt;TAB&gt;</b> izlistat ce vam se sve 			moguce komande, 
+a ako ukucate neko slovo pa zatim tipku <i>&lt;TAB&gt;</i> 			izlistat ce 
+vam se sve komande koje pocinju sa tim slovom (mozete 			ukucati neki slog 
+ili rijec pa zatim tipku <i>&lt;TAB&gt;</i> i 			pokazat ce vam se sve komande 
+koje pocinju sa tim slogom/rjecju). </font> 			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="graficka_setup"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.5 			Kako podesiti novu graficku karticu (novi hardver)?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial">Ako npr. promijenite <i>graficku
+ 			karticu</i> i prilikom dizanja <i>linux</i> sistema ne pojavi se 			<i>
+ graficko okruzenje</i> vec samo terminal, treba se prijaviti ta 			nova
+graficka kartica. Stvar malo postaje komplikovanija jer ste 			automatski
+baceni u terminal,ali naravno ima rjesenje i za to. 			Prijavite se kao root,
+i kucajte nardebu "" (bez 			navodnika). (za uraditi)</font></p>
+  			       
+      <p align="left"><a name="l_moj_disk"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.6 			Kako natjerati Linux da radi s mojim diskom?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Ako imate IDE ili EIDE disk, 			procitajte fajl <b>/usr/src/linux/drivers/block/README.ide</b>
+  			(dio izvornog koda Linux kernela). Taj README sadrzi dosta 			informacija 
+o IDE diskovima. Mnogi savremeni IDE kontroleri 			obavljaju prijevod izmedju 
+"fizickih" i "logickih" 			cilindara/glava/sektora. <br>
+       <br>
+ SCSI diskovima pristupa se preko 			linearnih brojeva blokova. BIOS izmislja 
+nekakve "logicke" 			cilindre/glave/sektore kako bi podrzao DOS. <br>
+       <br>
+ IBM 			PC-kompatibilan BIOS obicno nece moci da pristupi particijama koje
+ 			se sire na vise od 1024 logickih cilindara, sto ce dizanje Linux 			kernela 
+s takvih particija preko LILO-a uciniti u najboljem 			slucaju problematicnim. 
+      <br>
+       <br>
+ Takve particije jos uvek mozete da 			koristite za Linux ili druge operativne 
+sisteme koji kontroleru 			pristupaju izravno. <br>
+       <br>
+ Preporucuje se da napravite barem 			jednu Linux particiju potpuno ispod 
+granice od 1024 logicka 			cilindra i dizati ga sa nje. Tada ce druge particije 
+biti u redu.</font></p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="vrati_br_datoteke"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.7 			Kako vratiti obrisane datoteke?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Uopsteno, to je na Unixima 			vrlo tesko izvesti zbog njihovog multiaskinga. 
+Radi se na 			mogucnosti vracanja obrisanoga pod ext2fsom, ali ne ocekujte
+ 			previse. <br>
+       <br>
+ Postoji vise paketa koji umesto toga pruzaju nove 			naredbe za brisanje 
+i kopiranje koji obrisane fajlove stavljaju u 			direktoriju &laquo;kanta 
+smece&raquo; (kao RecycleBin u 			Windowsima).Fajlovi se mogu spasiti dok 
+se automatski ne obrisu u 			pozadini. <br>
+       <br>
+ A mozete i pretraziti uredjaj diska koji sadrzi 			fajl sistem u pitanju. 
+Postupak je slozen i morate biti logovani 			kao root. Ali je moguce. Na uredjaju
+diska izvrsite grep; tj.: 			<br>
+       <br>
+       <b>grep -b 'beleske' /dev/hda</b> <br>
+       <br>
+ Ako podaci nisu 			prebrisani, trebalo bi da uspijeteda ih vratite tekstualnim
+ 			editorom. </font> 			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="promjeni_vel_particije"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.8 			Kako promeniti velicinu particije (bez brisanja)?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Koristite program FIPS.EXE za 			MS-DOS, ukljucen u vecini distribucija
+Linuxa.       <br>
+       <br>
+ Postoji li 			program za defragmentiranje ext2fs-a itd.? <br>
+       <br>
+ Da. Postoji 			defrag, program za defragmentiranje ext2fs, Minix i starih 
+ext 			fajl sistema pod Linuxom. Mozete ga naci na . <br>
+       <br>
+ Korisnici 			ext2 fajl sistema verovatno mogu i bez defraga jer ext2fs ima
+ 			dodatni kod kako bi se fragmentacija u vrlo zauzetim fajl 			sistemima 
+smanjila.</font></p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="disketa_format"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.9 			Kako formatirati i napraviti fajl sistem na disketi?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Za formatiranje 3.5 inzne, 			high density diskete: <br>
+       <br>
+       <b>fdformat /dev/fd0H1440</b> <br>
+       <br>
+       <b>mkfs 			-t ext2 -m 0 /dev/fd0H1440 1440</b> <br>
+       <br>
+ Za 5.25 incnu disketu 			koristite fd0h1200 i 1200 na odgovarajucim mjestima. 
+Za <br>
+ "B" 			drajv koristite fd1 umesto fd0. <br>
+       <br>
+ Opcija<b> -m 0 mkfs.ext2</b> kaze 			da ne cuva prostor na disku za nadkorisnika 
+-- obicno se zadnjih 			10% rezervise za roota. <br>
+       <br>
+ Prva naredba obavlja formatiranje 			na niskom nivou. Druga stvara prazan 
+fajl sistem. Disketu mozete 			mountovati kao i particiju na hard disku i 
+jednostavno cp-ovati i 			mv-ovati datoteke, itd.</font></p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="swap_ne_radi"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.4 			Zasto moj swap ne radi</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Pri dizanju sistema (odnosno 			kad rucno ukljucite swap) trebalo bi da
+vidite       <br>
+       <br>
+ Adding 			Swap: NNNNk swap-space <br>
+       <br>
+ Ako uopste ne dobijete poruku, 			verovatno vam nedostaje swapon -av (naredba 
+koja ukljucuje swap) u 			<b>/etc/rc.local</b> odnosno /etc/rc.d/* (skripte 
+za dizanje 			sistema), ili ste zaboravili da dodate linuju u /etc/fstab, 
+na 			primjer: <br>
+       <br>
+       <b>/dev/hda2 none swap sw</b> <br>
+       <br>
+ Ako vidite 			<br>
+       <br>
+       <i>Unable to find swap-space signature</i> <br>
+       <br>
+ zaboravili 			ste da pokrenete mkswap. Za detalje pogledajte man stranicu; 
+radi 			dosta slicno mkfs-u. <br>
+       <br>
+ free bi, uz slobodnu memoriju, trebao 			prikazati: <br>
+       <br>
+       <b>total used free</b> <br>
+       <br>
+       <b>Swap: 10188 			2960 7228</b> </font> 			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="skini_lilo1"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.4 			Kako skinuti LILO da se opet startuje DOS?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Koristeci DOS (MS-DOS 5.0 ili 			noviji, ili OS/2), napisite FDISK /MBR
+(sto nije dokumentirano). 			To ce vratiti standardni MS-DOS MBR. Ako imate
+DR-DOS 6.0, 			normalno udjite u FDISK i zatim odaberite opciju Re-write
+Master 			Boot Record. <br>
+       <br>
+ Ako nemate MS-DOS ili DR-DOS treba vam boot 			sektor kojeg je LILO snimio 
+kad ste ga instalirali. Sacuvali ste 			ga, zar ne? Verovatno se zove boot.0301 
+ili nesto slicno. Napisite 			<br>
+       <br>
+       <b>dd if=boot.0301 of=/dev/hda bs=445 count=1</b> 			<br>
+       <br>
+ (odnosno <b>/dev/sda</b> ako koristite SCSI disk). Budite 			pazljivi jer 
+to vam moze obrisati i particijsku tabelu! Ako ste 			ocajni, mozete koristiti 
+      <br>
+       <br>
+       <b>dd if=/dev/zero of=/dev/hda 			bs=512 count=1</b> <br>
+       <br>
+ To ce potpuno obrisati particijsku 			tabelu i boot sektor: zatim mozete 
+svojim omiljenim programom 			ponovo formatirati disk. Ali to ce sadrzaj vaseg
+diska ostaviti 			nedostupnim -- izgubicete sve ako niste strucnjak.    
+  <br>
+       <br>
+ Primetite 			da DOS MBR dize (jednu!) particiju koja je oznacena kao aktivna.
+ 			Mozda ce vam trebati fdisk za postavljanje i skidanje oznaka 			aktivnosti 
+na odgovarajucim particijama.</font></p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="fdformat1"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.4 			Zasto ne mogu da koristim fdformat osim kao root?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Poziv sistema za formatiranje 			diskete smije da koristi samo root, bez 
+obzira na dozvole 			<b>/dev/fd0*</b>. Ako zelite da bilo koji program moze 
+da formatira 			disketu, nabavite program <i>fdformat2</i>. On zaobilazi problem
+posto je 			set-uid na roota.</font></p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="root_sistem1"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.4 			Zasto ne mogu pisati na svoj root fajl sistem!</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Ponovo ga mountujte. Ako je 			<b>/etc/fstab</b> tacan, jednostavno napisite 
+      <b>mount -n -o remount 			/</b>. Ako je <b>/etc/fstab</b> pogresan, 
+morate zadati ime uredjaja a 			mozda i vrstu: dakle, <b>mount -n -o remount 
+-t ext2 /dev/hda2 /</b>. 			</font> 			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <p align="left"><a name="kcore1"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 1.41 			Imam ogroman /proc/kcore! Mogu li ga obrisati?</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><br>
+ Nijedan od fajlova u <b>/proc</b> 			zapravo ne postoji -- sve ih je ``izmislio'' 
+kernel kako bi vam 			pruzio informacije o sistemu ne zauzimajuci pritom prostor
+na hard 			disku. <br>
+       <br>
+       <b>/proc/kcore</b> je drugo ime za memoriju u vasem 			racunaru; velicina 
+mu je jednaka velicini vaseg RAM-a, a ako 			pocnete da ga citate kao fajl, 
+kernel ce citati memoriju.</font></p>
+      <p align="left"><br>
+Kako se programi kompajliraju?<br>
+Vecina programa za Linux napisana je u C-u i kompajlirana kompajlerom GNU
+C. GCC je dio svake distribucije Linuxa. Najnovija verzija kompajlera, dokumentacije
+i zakrpa nalaze se na ftp://ftp.gnu.org/pub/gnu/. <br>
+      <br>
+Programi napisani u C++ moraju se kompajlirati kompajlerom GNU G++, koji
+je takodjer ukljucen u distribucije Linuxa i dostupan na istom mjestu kao
+i GCC. <br>
+      <br>
+Za kompajliranje kernela verzije 2.0.x potreban vam je GCC verzije 2.7.2.x.
+Pokusavanje kompajliranja Linux kernela drugim kompajlerom, kao sto je GCC
+2.8.x, EGCS ili PGCC, moze uzrokovati probleme dok se ne srede zavisnosti
+koda o 2.7.2.x kompajlerima. <br>
+      <br>
+Informacije o kompajleru EGCS nalaze se na http://egcs.cygnus.com. <br>
+      <br>
+Primjetite da ljudi koji razvijaju kernel za sada ne odgovaraju na zahtjeve
+za ispravkama gresaka u kernelima verzije 2.0.x, nego se fokusiraju na razvoj
+verzija 2.1.x. <br>
+      <br>
+Kako instalirati GNU programe?<br>
+Na ispravno instaliranom sistemu instalacija GNU softverskog paketa se sastoji
+od cetiri koraka. <br>
+      <br>
+&nbsp;&nbsp; Stavite izvornu .tar.gz arhivu u direktorijum /usr/src/ ili
+gdje vec odrzavate svoje source fajlove i dekompresujte paket naredbom <br>
+      <br>
+tar zxvf ime-paketa.tar.gz<br>
+      <br>
+&nbsp;&nbsp; Pokrenite skriptu ./configure u najvisem direktorijumu dekompresovane
+izvorne arhive uz bilo koje vama potrebne argumente. Opcije koje configure
+prepoznaje obizno su opisane u fajlu INSTALL ili README. <br>
+&nbsp;&nbsp; Pokrenite make. To ce iz izvornog koda izgraditi izvrsni program
+(ili programe) i moze potrajati nekoliko minuta ili sati, zavisno od brzine
+racunara i velicini paketa. <br>
+&nbsp;&nbsp; Pokrenite make install. To ce u odgovarajuce direktorije instalirati
+dobijene izvrsne i konfiguracione fajlove i library-e. <br>
+Kako portovati XXX na Linux?<br>
+Unix programima obicno ne treba puno portovanja. Jednostavno sljedite uputstvo
+za instalaciju. Ako ne znate -- i ne znate kako da saznate -- odgovore na
+neka od pitanja tokom postupka instalacije, mozete pogadjati, ali to obicno
+urodi programom sa greskama. U tom slucaju cete vjerovatno bolje proci ako
+nekog drugog zamolite da napravi port. <br>
+      <br>
+Ako imate BSD-olik program, pokusajte da koristite -I/usr/include/bsd i -lbsd
+na odgovarajucim mjestima naredbi za kompajliranje. <br>
+Sta je ld.so i gde ga nabaviti?<br>
+ld.so dinamicki ucitava library-e. Svaki izvrsni fajl koji koristi djeljene
+biblioteke nekad je imalo oko 3 KB koda za pokretanje koji bi saznao i ucitao
+djeljene biblioteke. Sada je taj kod stavljen u posebnu djeljenu biblioteku,
+/lib/ld.so, gde ga mogu naci svi izvrsni fajlovi, pa on trosi manje prostora
+na disku i lakse ga je nadograditi. <br>
+      <br>
+ld.so se moze nabaviti sa ftp://tsx-11.mit.edu/pub/linux/packages/GCC/ i
+njegovih mirrora. <br>
+      <br>
+/lib/ld-linux.so.1 je ista stvar za ELF i dolazi u istom paketu kao i a.out
+loader. <br>
+Kako nadograditi library-e bez raspadanja sistema?<br>
+Napomena: Pri ovom postupku uvijek imajte pri ruci rescue disketu zbog velike
+verovatnoce da nesto podje pogresno! <br>
+      <br>
+Ovaj postupak je mukotrpan, pogotovo ako nadogradjujete vrlo stare biblioteke
+kao sto je libc4. Ipak trebalo bi da mozete da zadrzite libc4 na istom sistemu
+s libc5 bibliotekama koje su jos potrebne. Isto vrijedi i za nadogradjivanje
+sa libc5 na jos novijui glibc2 biblioteku. <br>
+      <br>
+Problem kod nadogradnje dinamickih biblioteka je to sto, cim izbrisete stare
+biblioteke, alati koji vam trebaju za nadogradjivanje na novu verziju ne
+rade. To se moze zaobici na nekoliko nacina. Jedan je privremeno staviti
+dodatni primjerak dinamickih biblioteka, koji su u /lib/, u /usr/lib/ ili
+/usr/local/lib/, ili neki drugi direktorij koji je upisan u fajl /etc/ld.so.conf.
+      <br>
+      <br>
+Na primer, kod nadogradnje libc5 biblioteke, fajlovi u /lib/ bi izgledali
+otprilike ovako: <br>
+      <br>
+libc.so.5<br>
+      <br>
+libc.so.5.4.33<br>
+      <br>
+libm.so.5<br>
+      <br>
+libm.so.5.0.9<br>
+      <br>
+Ovo su C i matematicke biblioteke. Kopirajte ih u neki direktorij koji je
+u /etc/ld.so.conf, kao sto je /usr/lib/. <br>
+      <br>
+cp -df /lib/libc.so.5* /usr/lib/<br>
+      <br>
+cp -df /lib/libm.so.5* /usr/lib/<br>
+      <br>
+ldconfig<br>
+      <br>
+Nemojte zaboraviti pokrenuti ldconfig kako bi se konfiguracija librarya osvjezila.
+      <br>
+      <br>
+fajlovi libc.so.5 i libm.so.5 su simbolicke veze na prave biblioteke. Kod
+nadogradnje nove veze se nece stvoriti ako stare jos uvek postoje, osim ako
+uz cp koristite opciju -f. Zbog opcije -d kopiraju se same veze, a ne fajlovi
+na koje one pokazuju. <br>
+      <br>
+Ako morate prebrisati vezu na biblioteci, koristite -f opciju za ln. <br>
+      <br>
+Na primer, za kopiranje novih biblioteka preko starih, probajte ovo. Prvo
+napravite simbolicku vezu na nove biblioteke, a zatim kopirajte i biblioteke
+i veze u /lib/ sledecim naredbama. <br>
+      <br>
+ln -sf ./libm.so.5.0.48 libm.so.5<br>
+      <br>
+ln -sf ./libc.so.5.0.48 libc.so.5<br>
+      <br>
+cp -df libm.so.5* /lib<br>
+      <br>
+cp -df libc.so.5* /lib<br>
+      <br>
+Opet, nakon kopiranja biblioteka sjetite se da pokrenete ldconfig. <br>
+      <br>
+Ako ste zadovoljni i sve ispravno radi, mozete obrisati privremene primjerke
+starih biblioteka iz /usr/lib/ ili gde ste ih vec kopirali. <br>
+Je li neko portiovao/kompajlirao/napisao XXX za Linux?<br>
+Najprije potrazite u Linux Software Mapu -- nalazi se na ftp://sunsite.unc.edu/pub/Linux/docs/linux-software-map
+i drugim FTP arhivama. Pretraga preko WWW-a moze se obaviti na http://www.boutell.com/lsm/.
+      <br>
+      <br>
+Proverite FTP arhive -- odgovarajucim nizovima pretrazite fajlove ls-lR ili
+INDEX. <br>
+      <br>
+Takodje pogledajte Linux Projects Map, ftp://ftp.ix.de/pub/ix/Linux/docs/Projects-Map.gz.
+      <br>
+      <br>
+Za Linux FTP arhive postoji pretrazivac, na http://lfw.linuxhq.com/. <br>
+      <br>
+Takodjer provjerite na Freshmeat WWW stranicama, http://www.freshmeat.net/,
+koje su stvarno cool. <br>
+      <br>
+Ako nista ne nadjete, mozete sami skinuti izvorni kod programa i kompajlirati
+ga. <br>
+      <br>
+&nbsp;<br>
+Mogu li koristiti kod ili kompajler kompajliran za 486 na svojoj 386?<br>
+Da, ako to nije kernel. <br>
+      <br>
+GCC-ova opcija -m486 koja se koristi pri kompajliranju izvrsnih fajlova za
+x486 masine mjenja samo odredjene optimizacije. To rezultuje malcice vecim
+fajlovima koji rade nesto brze na 486. Ipak, jos uvek dobro rade na 386,
+uz manje pogorsanje performansi. <br>
+      <br>
+Medjutim, od verzije 1.3.35 kernel koristi instrukcije specificne za 486
+ili Pentium ako je konfigurisan za 486 ili Pentium, pa se ne moze koristiti
+na 386. <br>
+      <br>
+GCC se moze konfigurisati za 386 ili 486; jedina je razlika sto konfigurisanje
+za 386 -m386 cini predodredjenim, a konfigurisanje za 486 predodredjenim
+cini -m486. <br>
+      <br>
+Postoji alfa verzija GCC-a koja zna dobro da optimizuje za 586, ali je prilicno
+nepouzdana, narocito kod visokih optimizacija. Pentium GCC se moze naci na
+tsx-11.mit.edu u /pub/linux/ALPHA/pentium-gcc/. Preporucio bih koriscenje
+obicnog 486 GCC-a; cuo sam da koriscenje -m386 daje kod koji bolje odgovara
+Pentiumu ili je barem malcice manji. <br>
+Sta znaci gcc -O6?<br>
+Za sada isto sto i -O2 (GCC 2.5) ili -O3 (GCC 2.6, 2.7). Bilo koji broj veci
+od toga za sada radi istu stvar. Makefileovi novijih kernela koriste -O2,
+pa bi vjerovatno trebali i vi. <br>
+Gde su linux/*.h i asm/*.h?<br>
+Fajlovi /usr/include/linux i /usr/include/asm su cesto simbolicke veze na
+direktorijima u kojima su kernel headeri. Oni se obicno nalaze u /usr/src/kernel*/.
+      <br>
+      <br>
+Zatim pomocu rm izbrisite bilo kakvo smece i preko ln napravite veze: <br>
+      <br>
+rm -rf /usr/include/linux /usr/include/asm<br>
+      <br>
+ln -sf /usr/src/linux/include/linux /usr/include/linux<br>
+      <br>
+ln -sf /usr/src/linux/include/asm /usr/include/asm<br>
+      <br>
+/usr/src/linux/include/asm je simbolicka veza na asm-&lt;arh&gt; direktorij
+specifican za odredjenu arhitekturu -- ako imate svjeze otpakovan izvorni
+kod kernela, morate napraviti simbolicke veze. Takodje, kod svjeze otpakovanog
+kernela morate pokrenuti make config kako bi se stvorio linux/autoconf.h.
+      <br>
+Dobijam greske kod kompajliranja kernela.<br>
+Pogledajte pitanje o header fajlovima. <br>
+      <br>
+Nemojte da zaboravite da kod primjenjivanja zakrpe na kernel koristite opciju
+-p0 ili -p1: inace bi zakrpa mogla biti pogresno primjenjena. Za detalje
+pogledajte man stranicu patcha. <br>
+      <br>
+ld: unrecognised option `-qmagic' znaci da vam treba noviji linker iz ftp://tsx-11.mit.edu/pub/linux/packages/GCC/,
+u fajlu binutils-2.8.1.0.1.bin.tar.gz. <br>
+Kako napraviti djeljenu biblioteku?<br>
+Na ELF-u, <br>
+      <br>
+gcc -fPIC -c *.c<br>
+      <br>
+gcc -shared -Wl,-soime,libfoo.so.1 -o libfoo.so.1.0 *.o<br>
+      <br>
+Ako imate a.out, nabavite tools-n.nn.tar.gz s tsx-11.mit.edu u /pub/linux/packages/GCC/src/.
+Dolazi s dokumentacijom koja ce vam objasniti sta treba napraviti. Primjetite
+da su a.out djeljene biblioteke vrlo slozena stvar. Razmislite o nadogradnji
+na ELF. Pogledajte ELF HOWTO na ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/.
+      <br>
+Moji izvrsni fajlovi su (vrlo) veliki.<br>
+Na ELF kompajleru najcesci uzrok velikih izvrsnih fajlova je nedostatak odgovarajuce
+.so veze na koriscenoj biblioteci. Na svaku biblioteku kao sto je libc.so.5.2.18
+trebala bi da postoji odgovarajuca veza, odnosno libc.so. <br>
+      <br>
+Uz a.out kompajler najcesci uzrok velikih izvrsnih fajlova je -g, opcija
+linkera (kompajlera). To daje (uz informacije za pronalazenje gresaka) program
+koji je staticki vezan, tj. takav koji u sebi sadrzi C biblioteku umjesto
+koriscenja dinamickih veza. <br>
+      <br>
+Druge stvari koje bi trebalo istraziti su -O i -O2, koje ukljucuju optimiziranje
+(pogledajte dokumentaciju GCC-a) i -s (odnosno naredba strip) koji u izvrsnoj
+datoteci brise informacije o simbolima (tako cini trazenje gresaka potpuno
+nemogu&aelig;im). <br>
+      <br>
+Mozda cete na vrlo malim izvrsnim fajlovima koristiti -N (manje od 8 KB uz
+-N), ali ne radite to ako ne razumjete njegov uticaj na brzinu, a pogotovo
+ne na demonima. <br>
+Podrzava li linux thread-ove ili lakse procese<br>
+Uz Unixov model thread-ova koji ukljucuje teze procese, sto je naravno dio
+standardnog kernela Linuxa, ima nekoliko implementacija laksih procesa ili
+thread-a. Noviji kerneli koriste model kthreads. Takodjer, za Linux postoje
+ovi paketi: <br>
+      <br>
+&nbsp;&nbsp; GNU glibc2 za Linux ima opcionalnu podrsku za niti. Arhiva se
+nalazi na istom mestu gde i glibc2, ftp://ftp.gnu.org/pub/gnu/. <br>
+&nbsp;&nbsp; Na ftp://sipb.mit.edu/pub/pthread/ ili ftp://ftp.ibp.fr/pub/unix/threads/pthreads/.
+Dokumentacija nije u paketu, ali se moze naci na WWW-u, na http://www.mit.edu:8001/people/proven/home_page.html.
+Noviji Linux libc-ovi sadrze izvorni kod pthreadsa; GNU Ada kompajler iz
+ftp://sunsite.unc.edu/pub/Linux/devel/lang/ada/gnat-3.01-linux+elf.tar.gz
+sadrzi izvrsne fajlove koji su dobijeni iz tog izvornog koda. <br>
+&nbsp;&nbsp; Na ftp://ftp.cs.washington.edu/pub/qt-001.tar.Z nalazi se QuickThreads.
+Vise informacija je u tehnickom izvestaju, na istom mestu u /tr/1993/05/UW-CSE-93-05-06.PS.Z.
+      <br>
+&nbsp;&nbsp; Na ftp://gummo.doc.ic.ac.uk/rex/ nalazi se lwp, vrlo minimalna
+implementacija. <br>
+&nbsp;&nbsp; Na ftp://ftp.cs.fsu.edu/pub/PART/ nalazi se implementacija Ade.
+Korisna je zbog velike kolicine PostScript dokumentacije koja ce vam pomoci
+u dubljem shvatanju thread-ova. Ovo ne moze da se koristi direktno pod Linuxom.
+      <br>
+      <br>
+Za detalje kontaktirajte autore paketa. <br>
+Gde se nalazi lint za Linux?<br>
+Otprilike jednaka funkcionalost ugradjena je u GCC. Za vecinu korisnih dodatnih
+upozorenja koristite opciju -Wall. Za vise detalja pogledajte prirucnik GCC-a
+(u Emacsu pritisnite ctrl-h, zatim i, pa odaberite GCC). <br>
+      <br>
+Postoji besplatan program, lclint, koji radi otprilike isto sto i tradicionalni
+lint. Najava i izvorni kod mogu se naci na ftp://larch.lcs.mit.edu/pub/Larch/lclint/;
+na WWW-u pogledajte http://larch-www.lcs.mit.edu:8001/larch/lclint.html.
+      <br>
+Gde se nalazi kermit za Linux?<br>
+Kermit se distribuira pod ne-GPL licencom koja uslove njegove distribucije
+cini pomalo razlicitim. Izvorni kod i neki izvrsni fajlovi se mogu naci na
+kermit.columbia.edu. <br>
+      <br>
+WWW stranica Columbia University Kermit projekta je http://www.columbia.edu/kermit.
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+ 			</p>
+  			       
+      <p align="left">&nbsp;</p>
+  			       
+      <hr> 			       
+      <p align="left" style="margin-bottom: 0cm;"><b><font size="5"><font face="Arial"><font color="#000000">
+ 2. 			</font></font></font><u><font size="6"><font color="#3333ff">Cesto
+			susretane poruke o greci.</font></font></u></b><font size="2"> </font>
+ 			</p>
+  			       
+      <hr> 			       
+      <p align="left"><a name="poruka2_1"></a><font color="#3366ff"><font face="Arial"><font size="4"><u><b>
+ 2.1 			Dobivam poruke o inodeovima, blokovima i slicnim stvarima.</b></u></font></font></font></p>
+  			       
+      <p align="left"><font face="Arial"><font size="2"><br>
+ Mozda imate 			greske na fajl sistemu, vjerovatno uzrokovane nepravilnim
+			spustanjem Linuxa prije gasenja racunara ili resetovanja. Za to 			vam
+je potreban noviji shutdown program -- na primer onaj ukljucen 			u paket
+util-linux, dostupan na sunsite-u i tsx-11. <br>
+       <br>
+ Ako 			imate srece, program fsck (ili <i>e2fsck</i> ili <i>xfsck</i> kao
+			prikladan, ako vec <br>
+ nemate automatsko fsck front-end) ce 			popraviti vas fajl sistem. Ako bas 
+nemate <br>
+ srece, fajl sistem 			je "pokojan" i moracete ponovo da ga pripremite pomocu
+ 			<br>
+ mkfsa (ili <i>mke2fsa</i>, <i>mkxfsa</i>, itd.) i fajlove 			vratiti s backup 
+kopija. <br>
+       <br>
+       <b>NAPOMENA</b>: ne pokusavajte 			da proverite fajl sistem koji je 
+mountovan za citanje <br>
+ i 			pisanje -- to vazi i za root particiju ako niste videli pri 			boot-ovanju 
+      <br>
+       <br>
+       <b>VFS: mounted root ... read-only</b></font></font></p>
+      <p align="left"><font face="Arial"><font size="2"><b><br>
+      </b></font></font></p>
+  			       
+      <p align="left"><b>Modprobe ne moze da nadje modul "XXX" i slicne poruke.</b></p>
+      <p align="left"><br>
+Ovakve se poruke uglavnom pojavljuju pri dizanju ili gasenju sistema. Ako
+se modprobe, insmod ili rmmod zale o nemogucnosti pronalazenja modula, fajlu
+/etc/modules.conf ili /etc/modutils/aliases, koji vec imate, dodajte sljedece.
+      <br>
+      <br>
+alias &lt;ime-modula&gt; off<br>
+      <br>
+I koristite ime modula koje se pojavljuje u poruci o gresci. <br>
+      <br>
+&nbsp;<br>
+      <b>Unknown terminal type linux i slicno.</b></p>
+      <p align="left"><br>
+U ranim 1.3.x kernelima predodredjeni tip terminala za konzolu se promjenio
+iz console u linux. Morate editovati /etc/termcap i promjeniti red <br>
+      <br>
+console|con80x25:\<br>
+      <br>
+u <br>
+      <br>
+linux|console|con80x25:\<br>
+      <br>
+(Tu ce mozda biti i dodatni dumb -- ako je tako, izbrisite ga.) <br>
+      <br>
+Kako bi editor proradio mozda cete morati da napisete <br>
+      <br>
+TERM=console<br>
+      <br>
+(u bashu ili kshu) odnosno <br>
+      <br>
+setenv TERM console<br>
+      <br>
+(csh, tcsh). <br>
+      <br>
+Neki programi umjesto /etc/termcap koriste /usr/lib/terminfo. Za takve programe
+nadogradite terminfo, koji je dio ncursesa. <br>
+lp1 on fire<br>
+To je sala/tradicionalna poruka koja pokazuje kako je vas printer prijavio
+nekakvu gresku, ali ta greska nije valjana. To je mozda zbog nekakvog I/O
+ili IRQ konflikta -- provjerite kako je vasa kartica namjestena. Neki ljudi
+kazu da ovu poruku dobiju kad im je printer ugasen. Valjda nije stvarno zapaljen...
+      <br>
+      <br>
+U novijim kernelima ta poruka izgleda kao lp1 reported invalid error status
+(on fire, eh?). <br>
+INET: Warning: old style ioctl... called!<br>
+Pokusavate da koristite stare alate za namjestanje mreze. Novi se mogu naci
+na ftp://ftp.linux.org.uk/pub/linux/Networking/PROGRAMS/NetTools/ <br>
+      <br>
+&nbsp;<br>
+ld: unrecognized option '-m486'<br>
+Imate staru verziju lda. Instalirajte noviji binutils -- on sadrzi svjeziji
+ld. Na ftp://tsx-11.mit.edu/pub/linux/packages/GCC/ potrazite binutils-2.6.0.2.bin.tar.gz.&nbsp;</p>
+      <p align="left"><br>
+      <b>GCC kaze Internal compiler error</b></p>
+      <p align="left"><br>
+Ako se greska ponavlja (tj. uvijek dogadja na istom mjestu u istom fajlu
+-- cak i nakon sto ste ponovno digli sistem, na stabilnom kernelu) otkrili
+ste gresku u GCC-u. Za detalje o prijavljivanju greske pogledajte Info dokumentaciju
+GCC-a (u Emacsu napisite C-i i, pa u meniju izaberite GCC) -- prije toga
+provjerite da li imate najnoviju verziju. <br>
+      <br>
+To vjerovatno nije problem specifican za Linux. Ako niste kompajlirali program
+koji kompajliraju i mnogi drugi korisnici Linuxa, poruke o gresci nemojte
+slati u comp.os.linux grupe. <br>
+      <br>
+Ako se problem ne moze ponoviti, mozda imate greske u memoriji .<br>
+make kaze Error 139<br>
+Vas kompajler (gcc) je izbacio core. Vjerovatno imate pokvarenu, pogresnu
+ili staru verziju GCC-a -- nabavite najnovije izdanje. Moguce je i da vam
+je ponestalo swapa. <br>
+      <br>
+Ako to ne sredi problem, vjerovatno se pojavljuju greske u memoriji ili na
+disku. Provjerite da li su takt, wait stanja i vrijeme osvjezavanja za vase
+SIMM-ove i kes tacni (i hardverski prirucnici ponekad nisu u pravu). Ako
+je tako, imate neke cudne SIMM-ove ili nepouzdanu maticnu plocu ili hard
+disk ili kontroler. <br>
+      <br>
+Linux je, kao i svaki drugi Unix, odlican za testiranje memorije -- mnogo
+bolji od programa iste svrhe pod MS-DOS-om. <br>
+shell-init: permission denied kad se logujem.<br>
+Vas root direktorij i svi direktoriji pored vaseg home direktorija moraju
+imati dozvole za citanje i izvrsavanje svih. O rjesavanju tog problema pogledajte
+man stranicu chmoda ili neku knjigu o Unixu. <br>
+No utmp entry. You must exec... kad se logujem.<br>
+Zeznut vam je /var/run/utmp. U svom /etc/rc.local odnosno /etc/rc.d/* morate
+imati <br>
+      <br>
+&gt; /var/run/utmp<br>
+      <br>
+Na nekim starijim sistemima utmp takodje moze biti u /var/adm/ ili /etc/.
+      <br>
+Warning -- bdflush not running.<br>
+Moderni kerneli koriste bolju strategiju pisanja kesiranih blokova na disk.
+Uz promjene u kernelu, to ukljucuje zamjenu starog programa update koji je
+sve pisao otprilike svakih 30 sekundi s osjetljivijim demonom (zapravo parom
+demona), poznatim kao bdflush. <br>
+      <br>
+Nabavite bdflush-n.n.tar.gz sa istog mjesta kao i izvorni kod kernela, kompajlirajte
+ga i instalirajte. Trebao bi da se pokretce prije uobicajenih provjera fajl
+sistema. Dobro ce raditi i uz starije kernele, pa nema potrebe zadrzavati
+stari update. <br>
+Warning: obsolete routing request made.<br>
+O ovom se ne morate brinuti. Poruka znaci da je vasa verzija routea malo
+zastarjela u odnosu na kernel. Poruka ce nestati ako nabavite novu verziju
+routea s mjesta odakle ste nabavili izvorni kod kernela. <br>
+EXT2-fs warning: mounting unchecked filesystem.<br>
+Pokrenite e2fsck (odnosno fsck -t ext2 ako imate fsck program) uz opciju
+-a kako bi skinuo dirty oznaku, a zatim cisto demountovati particiju tokom
+svakog gasenja sistema. <br>
+      <br>
+Najlaksi nacin da to napravite je nabaviti najnoviji fsck, umount i shutdown
+iz paketa util-linux Rika Faitha. Provjerite da li ih vase /etc/rc*/ skripte
+tacno koriste. <br>
+      <br>
+Napomena: ne pokusavajte da provjerite fajl sistem koji je mountovan za pisanje
+-- to vazi i za root particiju ako niste vidjeli <br>
+      <br>
+VFS: mounted root ... read-only<br>
+      <br>
+pri dizanju sistema. Stvari trebaju biti postavljene tako da se root fajl
+sistem prvo mountuje samo za citanje, provjerava ako je potrebnno, a zatim
+ponovno montira za citanje i pisanje. Vise o tome procitajte u dokumentaciji
+util-linuxa. <br>
+      <br>
+Primjetite da mountu trebate da date opciju -n da ne bi pokusao da osvjezi
+/etc/mtab jer se root fajl sistem jos uvek moze samo citati -- inace mount
+ne bi radio. <br>
+&nbsp;EXT2-fs warning: maximal count reached.<br>
+To je poruka kernela kod mountovanja fajl sistema koji je oznacen kao cist,
+ali je ``broj mountovanja od zadnje provjere'' dosegao odredjenu vrednost.
+Rjesenje je nabavljanje najnovije verzije ext2fs alata.<br>
+      <br>
+&nbsp; <br>
+      <br>
+Maksimalni broj mountovanja se moze pregledati i promjeniti pomocu programa
+tune2fs iz tog paketa. <br>
+&nbsp;EXT2-fs warning: checktime reached.<br>
+Kernel od verzije 1.0 podrzava provjeravanje fajl sistema na osnovu proteklog
+vremena od zadnje provjere kao i broja mountovanja. Nabavite najnoviju verziju
+ext2fs alata.<br>
+df kaze Cannot read table of mounted filesystems.<br>
+Vjerovatno je nesto pogresno u vasem /etc/mtab ili /etc/fstab fajlu. Ako
+imate noviju verziju mounta, /etc/mtab bi se pri dizanju trebao isprazniti
+ili izbrisati (u /etc/rc.local odnosno /etc/rc.d/*) s necim poput <br>
+      <br>
+rm -f /etc/mtab*<br>
+      <br>
+Kod nekih verzije SLS-a u /etc/rc* se pomocu rdeva o root particiji stvara
+zapis u /etc/mtab. To je nepravilno -- novije verzije mounta rade to automatski.
+      <br>
+      <br>
+Neke druge verzije SLS-a imaju red u /etc/fstab koji izgleda ovako: <br>
+      <br>
+/dev/sdb1&nbsp;&nbsp; /root&nbsp;&nbsp; ext2&nbsp;&nbsp; defaults<br>
+      <br>
+To je pogresno. /root bi trebao biti jednostavno /. <br>
+fdisk kaze Partition X has different physical/logical...<br>
+Ako je broj particije (X) 1, radi se o istom problemu kao u fdisk: Partition
+1 does not start on cylinder boundary <br>
+      <br>
+. <br>
+      <br>
+Ako particija pocinje ili se zavrsava na cilindru s brojem vecim od 1024,
+ovo se dogadja jer se standardni DOS format informacija o geometriji na particionoj
+tabeli ne moze suociti s vise od 10 bitova. <br>
+&nbsp;fdisk: Partition 1 does not start on cylinder boundary<br>
+Verzija fdiska koja dolazi s mnogim Linux sistemima stvara particije koje
+ne mogu proci na vlastitim testovima. Nazalost, ako ste ve instalirali svoj
+sistem ne mozete puno preduzeti, osim kopiranja podataka s particije, njenog
+brisanja i ponovnog stvaranja i kopiranja podataka natrag. <br>
+      <br>
+Problem mozete izbjeci nabavljanjem najnovije verzije fdiska iz paketa util-linux
+Rika Faitha (na svim glavnim FTP arhivama). Takodjer, ako vam treba particija
+1 koja pocinje na prvom cilindru, ovako mozete dobiti particiju koja se svidja
+fdisku: <br>
+      <br>
+&nbsp;&nbsp; Normalno stvorite particiju 1. Ispis pomocu p datce poruku o
+gresci. <br>
+&nbsp;&nbsp; Napisite u za pretvaranje jedinica u sektore, a zatim ponovo
+p. Zapisite broj iz stupca End. <br>
+&nbsp;&nbsp; Izbrisite particiju 1. <br>
+&nbsp;&nbsp; Dok ste jos u sektorima, ponovno stvorite particiju 1. Prvi
+sektor treba odgovarati broju sektora na traci. To je broj sektora u prvom
+redu ispisa preko p. Neka zadnji sektor odgovara vrednosti iz 2. koraka.
+      <br>
+&nbsp;&nbsp; Napisite u za prelazak u cilindre i nastavite s drugim particijama.
+      <br>
+      <br>
+Poruku o nezauzetim sektorima zanemarite -- odnose se na sektore prve trake,
+izuzevsi MBR, koji se ne koriste ako prvu particiju zapocnete u 2. traci.
+      <br>
+fdisk kaze: partition b has an odd number of sectors.<br>
+U particionisanju PC diskova koriste se sektori od 512 bajtova, no Linux
+koristi blokove od 1 KB. Ako imate particiju s neparnim brojem sektora zadnji
+se sektor ne koristi. Poruku zanemarite. <br>
+mtools kazu cannot initialise drive XYZ<br>
+To znaci da mtools ne moze da pristupi disku. To moze biti iz nekoliko razloga.
+      <br>
+      <br>
+Cesto se radi o netacnim dozvolama uredjaja disketnog pogona (/dev/fd0* i
+/dev/fd1*) -- korisnik koji pokrece mtools mora imati odgovarajuci pristup.
+Za detalje pogledajte man stranicu chmoda. <br>
+      <br>
+Vecina verzija mtoolsa koji se distribuiraju s Linux sistemima (ne standardna
+GNU verzija) za pronalazenje uredjaja i gustoca koriste sadrzaj fajla /etc/mtools,
+a ne informacije ukljucene u izvrsni fajl. Greske u tom fajlu cesto uzrokuju
+probleme. O tome cesto nema dokumentacije. <br>
+      <br>
+Napomena -- nikad nemojte koristiti mtools za pristupanje fajlovima na vec
+mountovanoj particiji ili disketi! <br>
+Na pocetku dizanja: Memory tight<br>
+To znaci da imate vrlo velik kernel, pa Linux mora izvoditi neke posebne
+carolije u radu s memorijom kako bi se dignuo preko BIOS-a. Nema veze s kolicinom
+vase fizicke memorije. Poruku zanemarite ili napravite kernel koji sadrzi
+samo podrsku i mogucnosti koje vam trebaju. <br>
+syslog mi kaze ``end_request: I/O error, ...''.<br>
+Ova i slicne poruke skoro uvijek znace hardversku gresku u radu s hard diskom.
+      <br>
+      <br>
+To je cesto simptom defektnog hard diska. Jedini nacin izbjegavanja daljnjeg
+gubitka podataka je potpuno gasenje sistema. Zatim morate provjeriti da li
+podaci na disku imaju rezervne kopije i vratiti ih na ispravan tvrdi disk.
+      <br>
+      <br>
+Ova poruka moze znaciti i losu vezu sa diskom, pogotovo na sistemu koji ste
+sami sastavili. Ako instalirate IDE disk, UVIJEK koristite nove kablove.
+To je vjerovatno dobro raditi i kod SCSI diskova. <br>
+      <br>
+U jednom slucaju ova je greska koincidirala s losom vezom izmedju maticne
+ploce i kucista. Pre svaljivanja krivice na sam hard disk provjerite da li
+su sve elektricne veze ciste i cvrste. <br>
+      <br>
+&nbsp;<br>
+You don't exist. Go away.<br>
+Ovo nije virusna infekcija :-). Dolazi od programa kao sto su write, talk
+i wall ako UID uz koji ih pokrecete ne odgovara valjanom korisniku (vjerovatno
+zbog greske u /etc/passwd) ili zbog toga sto sesija (tacnije pseudoterminal)
+koju koristite nije pravilno zapisana u fajlu utmp (vjerovatno zbog toga
+sto ste je cudno pokrenuli). <br>
+      <br>
+      <br>
+      <br>
+      <font size="2">&nbsp;</font></p>
+  			       
+      <hr> 		</td>
+  	</tr>
+     
+  </tbody> 
+</table>
+   
+<p align="center" style="margin-bottom: 0cm;">copyleft <a href="http://www.linux.org.ba/">
+ ULK BiH</a> , <a href="http://ze.lugbih.org/">LugZe</a>  </p>
+   
+</body>
+</html>

@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE abiword PUBLIC "-//ABISOURCE//DTD AWML 1.0 Strict//EN" "http://www.abisource.com/awml.dtd">
+<abiword xmlns:awml="http://www.abisource.com/awml.dtd" version="unnumbered" fileformat="1.0" styles="unlocked">
+<!-- =====================================================================  -->
+<!-- This file is an AbiWord document.                                      -->
+<!-- AbiWord is a free, Open Source word processor.                         -->
+<!-- You may obtain more information about AbiWord at www.abisource.com     -->
+<!-- You should not edit this file by hand.                                 -->
+<!-- =====================================================================  -->
+
+<styles>
+<s basedon="" name="Normal" followedby="Current Settings" type="P" props="text-indent:0in; field-font:NULL; margin-top:0pt; margin-left:0pt; font-stretch:normal; line-height:1.000000; text-align:left; bgcolor:transparent; dom-dir:ltr; margin-bottom:0pt; font-weight:normal; text-decoration:none; font-variant:normal; color:000000; text-position:normal; font-size:12pt; margin-right:0pt; font-style:normal; widows:2; font-family:Times New Roman"/>
+</styles>
+<pagesize pagetype="A4" orientation="portrait" width="210.000000" height="297.000000" units="mm" page-scale="1.000000"/>
+<section>
+<p style="Normal"><c props="font-weight:bold; font-size:16pt">Vodic Pri Radu Sa Linux Operativnom Sistemu</c></p>
+<p style="Normal">by <c props="font-weight:bold; font-style:italic">Nedim Hadzimahmutovic</c> <c props="font-style:italic">grungy@linux.org.ba</c></p>
+<p style="Normal"></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB">Ovaj teksti je namjenjen iskljucino pocetnicima koji se po prvi put susrecu sa Linux </c></p>
+<p style="Normal"><c props="lang:en-GB"></c><c props="lang:en-GB">Operativnim Sistemom. U ovome clanku sam pokusao na sto jednostavniji nacin da vam prikazem na koji nacin funkcionise linux, kako raditi s njim, na koji nacin, glavne metode rada s linuxom, opisao programe  </c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">koji su neophodni prilikom rada sa ovim operativnim sistemom, njegove glavne karakteristike. Jedan od ciljeva mi je bio da takodjer ucinim laksi prelazak svim zainteresovanim sa drugih operativnih sistema na linux, tako da clanak sadrzi mnoga poredjenjas drugim OSovima.  Jedan od razloga sto je ovaj tekst od koristi za pocetnike je sto sadrzi mnoga obasnjenja za probleme s kojima se susrecu pocetnici.</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-size:16pt">Uvod u Linux</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"> </c><c props="lang:en-GB; font-weight:bold; font-style:italic"> </c><c props="lang:en-GB; font-weight:bold; font-size:14pt; font-style:italic">Kratki opis Linux Filesistema (pregled direktorijskog stabla)</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic"></c></p>
+<p style="Normal"><c props="font-style:italic">U ovom poglavlju mozete procitati o tome kako je linux direktorijsko stablo organizovano. Citavo stablo je tako napravljeno da ga je moguco podijeliti u manje dijolve, tako da je svaki zasebno sposoban biti na odvojenoj particiji ili cak harddisku. Ovo prije svega omogucuje laksu administraciju masine. Na ovaj nacin, ti dijelovi mogu biti ograniceni na odredje</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">/bin</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:italic; lang:en-GB">-    U ovom direktoriju se nalaze komande koje su potrebne prilikom podizanja sistema, i kmande koje koriste normalno korisni prilikom rada, odnosno poslije dizanja sistema.</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">/sbin</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:italic; lang:en-GB">-     Slican /bin direktoriju, samo sto sadrzi komande koje nisu namijenjene normalnim korisnicima, znaci komande koje uglavnom koristi root.</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:italic; lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/etc</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:normal; font-style:italic">-     Konfiguracijske datoteke specificne za masinu, kako ih mi podesimo.</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic"></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/root</c></p>
+<p style="Normal">-     Kucni, home, direktorij za root korisnika. Ovaj direktorij inace nije pristupan normalnim korisnicima na sistemu.</p>
+<p style="Normal"><c></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/lib</c></p>
+<p style="Normal">-     Biblioteke koje su potrebne za pokretanje programa.</p>
+<p style="Normal"><c></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/lib/modules</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">-     Loadable kernel moduli, pogotovo oni koji su potrebni za oporavak sistema poslije pada sistema.</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/dev</c></p>
+<p style="Normal">-     Device datoteke.</p>
+<p style="Normal"><c></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/tmp</c></p>
+<p style="Normal">- Trenutne datoteke. Medjutim danas se trenutne datoteke uglavnom smjestaju i <c props="font-weight:bold">/var/tmp </c>direktorij i programi koji se pokrecu nakon dozanja sistema bi trebali da koriste ovaj direktorij. Direktorij /tmp je cesto simbolicna veza (link) na /var/tmp dir.</p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/boot</c></p>
+<p style="Normal">-     Datoteke koje su koristene od LILO izbornika.</p>
+<p style="Normal"><c></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/mnt</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:normal; font-style:italic">- </c><c props="lang:en-GB; font-weight:bold; font-style:italic">    </c><c props="lang:en-GB; font-weight:normal; font-style:italic">Tacka u kojoj su smjesteni trenutno mountirani uredjaji itd.</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">/home</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:normal; font-style:italic">-</c><c props="lang:en-GB; font-weight:bold; font-style:italic">      </c><c props="lang:en-GB; font-weight:normal; font-style:italic">Direktorij u kome se nalaze pojedinacni direktoriji korisnika na odredjenoj masini.</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-size:14pt; font-style:italic">Neophodni  Linux Programi</c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-size:14pt; font-style:italic">  </c></p>
+<p style="Normal"><c props="lang:en-GB; font-size:12pt; font-weight:normal; font-style:normal">  </c><c props="lang:en-GB; font-size:12pt; font-weight:normal; font-style:italic">U ovom poglavlju cu nabrojati i ukratko opisati programe koji su potrebni za normalan rad sa Linuxom. Pored imena programa, kratkog opisa navedena je komanda pomocu kojeg pokrecemo dati program, jer nisu sve komande istog imena kao i programi.</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB; text-decoration:none; font-weight:bold; font-style:italic">kppp </c></p>
+<p style="Normal"><c props="font-weight:bold; lang:en-GB">      </c><c props="lang:en-GB">- dial-up program, program za uspostavljanje internet konekcije. pokrece se komandom "</c><c props="font-weight:bold; lang:en-GB">kppp</c><c props="lang:en-GB">".</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">kmail </c></p>
+<p style="Normal"><c props="lang:en-GB">     - napredan e-mail klijenat, pokrece se istoimenom komandom.</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">Control Centar</c></p>
+<p style="Normal"><c props="lang:en-GB">     - predstavlja kontrolni centar, ili </c><c props="font-style:italic; lang:en-GB">control panel</c><c props="lang:en-GB"> za KDE. Pokrece se komandom "</c><c props="font-weight:bold; lang:en-GB">kcentar</c><c props="lang:en-GB">" ,</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">KDiskFree </c></p>
+<p style="Normal"><c props="lang:en-GB">     - program za pregled slobodnog prostora na tvrdom diksu, odnosno particije. Program se pokrece komandom "</c><c props="font-weight:bold; lang:en-GB">kdf</c><c props="lang:en-GB">" ,</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">Konqueror</c></p>
+<p style="Normal"><c props="lang:en-GB">    - dobar preglednik stranica, browser. Pokrece se komandom "</c><c props="font-weight:bold; lang:en-GB">konqueror</c><c props="lang:en-GB">",</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">Konsole - Konzola</c></p>
+<p style="Normal"><c props="lang:en-GB">     - predstavlja emulator shella, pokrece se komandom "</c><c props="font-weight:bold; lang:en-GB">konsole</c><c props="lang:en-GB">",</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-style:italic">KPackage</c></p>
+<p style="Normal"><c props="lang:en-GB">     -</c><c props="font-style:italic; lang:en-GB"> </c><c props="font-style:normal; lang:en-GB">program pomocu kojega upravljate svim instaliranim programima na masini. Prikazuje listu svih programa, putanju na kojoj su istalirani, njihov opis i sl. Pomocu ovog programa mozete instalirati nove pakete (programe), vec instalirane deinstalirati, vrsiti pretragu za vec postojecim i iste pokretati itd. P</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">okrece se komandom "</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:normal; lang:en-GB">kpackage</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">" </c><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:italic; lang:en-GB">,</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:italic; lang:en-GB"></c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">K Personalizer</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">Pokrece se komandom "</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:normal; lang:en-GB">kpersonalizer</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">" ,</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; lang:en-GB; text-position:normal; font-weight:bold; font-style:italic; text-decoration:none">KDE System Guard</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">     - p</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">okrece se komandom "</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:normal; lang:en-GB">ksysguard</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">" ,</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">SysV Init Editor</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">     -  </c><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:italic; lang:en-GB">Potrebne su root privilegije da bi se ovaj program pokrenuo, p</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">okrece se komandom "</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:normal; lang:en-GB">ksysv</c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:normal; font-style:normal; lang:en-GB">" ,</c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">Gimp</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">Gnumeric</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">Evolution</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">Mozilla</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB">Galeon</c></p>
+<p style="Normal"><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:italic; lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB; font-weight:bold; font-size:14pt; font-style:italic">KDE vodic</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">KDe ili K Desktop Enviroment je Desktop okruzenje za Linux, odnosno graficko okruzenje</c></p>
+<p style="Normal"><c props="lang:en-GB">za linux radne okoline. Programi koji su namijenje ni za KDE uglavnom pocinju s prefiksom K, i to je oznaka da su ti programi radjeni za KDE, medjutim ti isti programi se bez poteskoca pokrecu na drugim desktop okruzenjima kao sto je Gnome, i obrnuto. Jedna od snaznih strana Linuxa je medjusobna kompatabilnost. Takonpr. ovaj tekst je kucan u AbiWordu pod KDE-om, znaci tekst procesoru za Gnome kojeg koristim pod KDE-om.</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="font-weight:bold; lang:en-GB">Kako aktivirati bosanski jezik u KDEu? </c><c props="lang:en-GB; font-weight:normal; font-style:italic">(preuzeto sa http://kde.linux.org.ba)</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">Ako u vas(oj Linux distribuciji niste dobili paket sa prijevodom KDEa na bosanski, bic'e potrebno da ruc(no downloadujete i instalirate potreban paket. Slijedite uputstva ovisno o KDE verziji koju koristite.</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="font-weight:bold; lang:en-GB">Ako koristite KDE 3.0.x :</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">Downloadujte ovaj paket: kde-i18n-bs-3.0.2.tar.bz2</c></p>
+<p style="Normal"><c props="lang:en-GB">Raspakujte ga na mjestu po z(elji i pokrenite instalaciju, na nac(in koji vam je vec' vjerovatno dobro poznat:</c></p>
+<p style="Normal"><c props="lang:en-GB">       ./configure</c></p>
+<p style="Normal"><c props="lang:en-GB">       ./make</c></p>
+<p style="Normal"><c props="lang:en-GB">       ./make install</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">NAPOMENA: Da biste mogli izvrs(iti ovo, potrebno je da imate instalirane pakete kdelibs-devel, qt-devel, pcre-devel i arts-devel.</c></p>
+<p style="Normal"><c props="lang:en-GB">NAPOMENA 2: Vrlo je moguc'e da instalacija nec'e raditi sa defaultnim direktorijem, pa je potrebno da u configure zadate prefix. Prefix treba biti direktorij ispod kojeg se nalazi share/locale. Npr. u RedHat Linuxu, prefix je /usr, znac(i kucate:</c></p>
+<p style="Normal"><c props="lang:en-GB">       ./configure --prefix=/usr</c></p>
+<p style="Normal"><c props="lang:en-GB">Sada moz(ete u vas(em KDE Control Centru, u rubrici Country&amp;Language, izabrati drz(avu Bosnu i Hercegovinu, a jezik Bosanski. :)</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="font-weight:bold; lang:en-GB">Ako koristite KDE 2.x :</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">LUG BiH je preveo znac(ajniju kolic(inu KDE datoteka tek od verzije 3.0, tako da stariji prijevodi nisu dostupni. Moz(ete pokus(ati sa gornjom procedurom, ali rezultati nec'e biti nes(to posebno.</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="font-weight:bold; lang:en-GB">Ako koristite KDE 3.1.x (beta verzija ili CVS):</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">Skinite najnoviju verziju prijevoda sa nas(eg CVS servera. U direktoriju po z(elji kucajte:</c></p>
+<p style="Normal"><c props="lang:en-GB">       cvs -d</c></p>
+<p style="Normal"><c props="lang:en-GB">:pserver:anonymous@cvs.lugbih.org:/home/cvs co l10n/kde</c></p>
+<p style="Normal"><c props="lang:en-GB">Pod tim direktorijem pojavic'e se direktorij l10n, a u njemu kde. Promjenite ime direktorija kde u "messages". Zatim u direktorij l10n raspakujte ovaj mali fajl: malifajl.tar.gz.</c></p>
+<p style="Normal"><c props="lang:en-GB">Sada moz(ete pokrenuti instalaciju kao s(to je objas(njeno gore.</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="font-weight:bold; lang:en-GB">Imate li BiH na spisku drz(ava?</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">Ako imate KDE 3.0 ili noviji, trebali biste imati u "Drz(ava i jezik" podatke za Bosnu i Hercegovinu. Ako iz nekog razloga to nije sluc(aj, sve s(to vam treba je ova datoteka: entry.desktop</c></p>
+<p style="Normal"><c props="lang:en-GB">Ona bi trebala raditi sasvim fino i sa starijim verzijama KDE. Smjestite je u direktorij koji se zove nes(to kao /usr/share/locale/l10n/. U ovom direktoriju trebate napraviti poddirektorij "ba" i u njega upisati datoteku. Kako se tac(no zove navedeni direktorij na vas(em sistemu, moz(ete prepoznati po tome s(to se u njemu nalazi niz poddirektorija sa ISO oznakama drz(ava. Ili, jednostavno potraz(ite datoteku l10n/us/entry.desktop :) U istom direktoriju biste trebali postaviti i zastavu.</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB"></c><c props="lang:en-GB">Instalacija Bosanskog Prevoda za KDE</c></p>
+<p style="Normal"><c props="lang:en-GB">kontrol centar - komanda koja je</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB; font-size:14pt; font-weight:bold; font-style:italic">GNOME vodic </c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"></p>
+<p style="Normal"><c props="lang:en-GB; font-size:14pt; font-weight:bold; font-style:italic">Shell vodic</c></p>
+<p style="Normal"><c props="lang:en-GB"></c></p>
+<p style="Normal"><c props="lang:en-GB">  Shell u sustini predstavlja</c></p>
+</section>
+</abiword>

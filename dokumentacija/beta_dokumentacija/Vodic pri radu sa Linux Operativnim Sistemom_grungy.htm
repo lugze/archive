@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!-- ================================================================================  -->
+<!-- This HTML file was created by AbiWord.                                            -->
+<!-- AbiWord is a free, Open Source word processor.                                    -->
+<!-- You may obtain more information about AbiWord at www.abisource.com                -->
+<!-- ================================================================================  -->
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" >
+<title>/home/grungy/work/Vodic pri radu sa Linux Operativnim Sistemom/vodic_linux_grungy.htm</title>
+<style type="text/css">
+body
+{
+	text-indent: 0in;
+	font-stretch: normal;
+	text-align: left;
+	font-weight: normal;
+	text-decoration: none;
+	font-variant: normal;
+	color: #000000;
+	font-size: 12pt;
+	font-style: normal;
+	widows: 2;
+	font-family: "Times New Roman";
+	background-color: #ffffff;
+}
+
+@media print
+{
+	body
+	{
+		padding-top: 1in; padding-bottom: 1in;
+		padding-left: 1in; padding-right: 1in;
+	}
+}
+
+p, .Normal
+{
+	text-indent: 0in;
+	margin-top: 0pt;
+	margin-left: 0pt;
+	font-stretch: normal;
+	text-align: left;
+	margin-bottom: 0pt;
+	font-weight: normal;
+	text-decoration: none;
+	font-variant: normal;
+	color: #000000;
+	font-size: 12pt;
+	margin-right: 0pt;
+	font-style: normal;
+	widows: 2;
+	font-family: "Times New Roman";
+}
+
+</style>
+</head>
+<body><div>
+<p><span style="font-weight: bold; color:#2c0eff; font-size: 16.000000pt">Vodic Pri Radu Sa Linux Operativnom Sistemu</span><span style="font-weight: bold; color:#2c0eff; font-size: 16.000000pt"> </span><span style="font-weight: bold; font-style: italic; color:#000001; font-size: 16.000000pt">v 0.1</span></p>
+<p>by <span style="font-weight: bold; font-style: italic">Nedim Hadzimahmutovic</span> <span style="font-style: italic">grungy@linux.org.ba</span></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p>Ovaj teksti je namjenjen iskljucino pocetnicima koji se po prvi put susrecu sa Linux </p>
+<p>Operativnim Sistemom. U ovome clanku sam pokusao na sto jednostavniji nacin da vam prikazem na koji nacin funkcionise linux, kako raditi s njim, na koji nacin, glavne metode rada s linuxom, opisao programe  <span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">koji su neophodni prilikom rada sa ovim operativnim sistemom</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">, njegove glavne karakteristike. Jedan </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">od ciljeva mi je bio da takodjer ucinim laksi prelazak svim zainteresovanim sa drugih operativnih sistema na linux, tako da </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">clanak sadrzi mnoga poredjenjas drugim </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">OSovima. </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt"> Jedan od razloga sto je ovaj tekst od koristi za pocetnike </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">je sto sadrzi </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">mnoga obasnje</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">nja za probleme </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">s kojima se susrecu pocetnici.</span></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-size: 16.000000pt">SADRZAJ</span></p>
+<p><br>
+</p>
+<p>- <span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Kratki opis Linux Filesistema (pregled direktorijskog stabla)</span></p>
+<p>-&nbsp;<span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Neophodni&nbsp; Linux Programi</span></p>
+<p>- KDE Vodic</p>
+<p>- Gnome Vodic</p>
+<p>- Shell Vodic</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p>&nbsp;<span style="font-weight: bold; font-style: italic"> </span><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">K</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">ratki opis Linux Filesistema (</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">pregled</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt"> </span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">direktorij</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">skog sta</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">bla</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">)</span></p>
+<p><br>
+</p>
+<p><span style="font-style: italic">U ovom poglavlju mozete procita</span><span style="font-style: italic">ti o tome kako je linux direktorijsko stablo organizovano. Citavo stablo je tako napravljeno da ga je moguco p</span><span style="font-style: italic">o</span><span style="font-style: italic">dijeliti u manje dijolve, tako da je svaki zasebno sposoban biti na odvojen</span><span style="font-style: italic">oj particiji ili cak harddisku. Ovo prije svega omogucuje laksu administraciju masine</span><span style="font-style: italic">. Na ovaj nacin</span><span style="font-style: italic">, ti dijelovi mogu biti ograniceni na odredje</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">/bin</span></p>
+<p><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">-&nbsp;&nbsp;&nbsp; U ovom d</span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">irektoriju se nalaze komande koje su potrebne prilikom podizanja sistema, i kmande koje </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">koriste normalno korisni prilikom rada, odnosno poslije dizanja sistema.</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">/sbin</span></p>
+<p><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">-&nbsp;&nbsp;&nbsp;&nbsp; Slican /bin direktoriju, samo sto sadrzi </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">komande koje nisu namijenjene normalnim korisnicima, znaci komande koje uglavnom korist</span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">i </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">root.</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/etc</span></p>
+<p><span style="font-style: italic">-&nbsp;&nbsp;&nbsp;&nbsp; Konfiguracijsk</span><span style="font-style: italic">e datoteke specificne za masinu, kako ih m</span><span style="font-style: italic">i podesimo.</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/root</span></p>
+<p>-&nbsp;&nbsp;&nbsp;&nbsp; Kucni, home, direktorij za root korisnika. Ovaj direktorij inace nije pristupan normalnim korisnicima na sistemu.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/lib</span></p>
+<p>-&nbsp;&nbsp;&nbsp;&nbsp; Biblioteke koje su potrebne za pokretanje programa.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/lib/modules</span></p>
+<p><span style="font-weight: bold; font-style: italic">-&nbsp;&nbsp;&nbsp;&nbsp; Loadable kernel modul</span><span style="font-weight: bold; font-style: italic">i</span><span style="font-weight: bold; font-style: italic">,</span><span style="font-weight: bold; font-style: italic"> pogotovo oni koji su potrebni za oporavak sistema poslije pada sistema.</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/dev</span></p>
+<p>-&nbsp;&nbsp;&nbsp;&nbsp; Device datoteke.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/tmp</span></p>
+<p>- Trenutne datoteke. Medjutim danas se trenutne datoteke uglavnom smjestaju i <span style="font-weight: bold">/var</span><span style="font-weight: bold">/tmp</span><span style="font-weight: bold"> </span>direktorij i programi koji se pokrecu nakon dozanja sistema bi trebali da koriste ovaj direktorij. Direktorij /tmp je cesto simbolicna veza (link) na /var/tmp dir.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/boot</span></p>
+<p>-&nbsp;&nbsp;&nbsp;&nbsp; Datoteke koje su koristene od LILO izbornika.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/mnt</span></p>
+<p><span style="font-style: italic">-&nbsp;</span><span style="font-weight: bold; font-style: italic">&nbsp;&nbsp;&nbsp; </span><span style="font-style: italic">Tacka u kojoj su smjesteni trenutno mountirani uredjaji itd.</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">/home</span></p>
+<p><span style="font-style: italic">-</span><span style="font-weight: bold; font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-style: italic">Direktorij u kome se nalaze </span><span style="font-style: italic">pojedinacni </span><span style="font-style: italic">direktoriji </span><span style="font-style: italic">korisnika na odre</span><span style="font-style: italic">djenoj masini.</span></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">N</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">eophodni </span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt"> </span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">L</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">inux</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt"> Programi</span></p>
+<p><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">&nbsp;&nbsp;</span><br>
+</p>
+<p><span style="font-size: 12.000000pt">&nbsp; </span><span style="font-style: italic; font-size: 12.000000pt">U </span><span style="font-style: italic; font-size: 12.000000pt">ovom poglavlju cu nabrojati i ukratko opisati programe koji su potrebni za normalan rad </span><span style="font-style: italic; font-size: 12.000000pt">s</span><span style="font-style: italic; font-size: 12.000000pt">a Linuxom.</span><span style="font-style: italic; font-size: 12.000000pt"> Pored imena programa, kratkog opisa navedena je komanda pomocu kojeg pokrecemo dati program</span><span style="font-style: italic; font-size: 12.000000pt">, </span><span style="font-style: italic; font-size: 12.000000pt">jer </span><span style="font-style: italic; font-size: 12.000000pt">nisu sve komande istog imena kao i programi.</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">kppp </span></p>
+<p><span style="font-weight: bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>- dial-up program, program za uspostavljanje internet konekcije. pokrece se komandom "<span style="font-weight: bold">kppp</span>".</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">kmail</span><span style="font-weight: bold; font-style: italic"> </span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - napredan e-mail klijenat, pokrece se istoimenom komandom.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">Control Centar</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - predstavlja kontrolni centar, ili <span style="font-style: italic">control </span><span style="font-style: italic">panel</span> za KDE. Pokrece se komandom "<span style="font-weight: bold">kcentar</span>" ,</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">KDiskFree&nbsp;</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - program za pregled slobodnog prostora na tvrdom diksu, odnosno particije. Program se pokrece komandom "<span style="font-weight: bold">kdf</span>" ,</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">K</span><span style="font-weight: bold; font-style: italic">onqueror</span></p>
+<p>&nbsp;&nbsp;&nbsp; - dobar preglednik stranica, browser. Pokrece se komandom "<span style="font-weight: bold">konqueror</span>",</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">Kon</span><span style="font-weight: bold; font-style: italic">sole - Konzola</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; - predstavlja emulator shella, pokrece se komandom "<span style="font-weight: bold">konsole</span>",</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">KPackage</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; -<span style="font-style: italic"> </span>program pomocu kojega upravljate svim instaliranim programima na masini. Prikazuje listu svih programa, putanju na kojoj su istalirani, njihov opis i sl. Pomocu ovog programa mozete instalirati nove pakete (programe), vec instalirane deinstalirati, vrsiti pretragu za vec postojecim i iste pokretati itd. P<span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom "</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">k</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">package</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">"</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt"> </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">,</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">K Personalizer</span></p>
+<p><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Pokrece se komandom "</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">kp</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">ersonalizer</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">" ,</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">KDE System</span><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt"> </span><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Gu</span><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">a</span><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">rd</span></p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">&nbsp;&nbsp;&nbsp;&nbsp; - </span><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">p</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom "</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">k</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">sysguard</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">" ,</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">SysV Init Editor</span></p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">&nbsp;&nbsp;&nbsp;&nbsp; - </span><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt"> </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Potrebne su root privilegije da bi se ovaj program </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">pokrenuo, </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">p</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom "</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">ksys</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">v</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">" ,</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">Ark</span></p>
+<p><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">-</span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt"> </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">p</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom </span>"<span style="font-weight: bold">ark</span>" ,</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic">KCalc</span></p>
+<p><span style="font-weight: bold; font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp; - </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">p</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">"</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">kcalc</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">" ,</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">KPasswd</span></p>
+<p><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">&nbsp;&nbsp;&nbsp;&nbsp; - </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">p</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">"</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">kdepasswd</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">" ,</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">KWrite</span></p>
+<p><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">&nbsp;&nbsp;&nbsp;&nbsp; - </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">p</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">"</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">kwrite</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">" ,</span></p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">K Find</span></p>
+<p><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">&nbsp;&nbsp;&nbsp;&nbsp; - </span><span style="font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">p</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">okrece se komandom </span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">"</span><span style="font-weight: bold; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">kfind</span><span style="text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">" ,</span></p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Gimp</span></p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Gnumeric</span></p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Evolution</span></p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Mozilla</span></p>
+<p><span style="font-weight: bold; font-style: italic; text-position: ; color:#000000; font-family: 'Times New Roman'; font-size: 12.000000pt">Galeon</span></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">KDE vodic</span></p>
+<p><br>
+</p>
+<p>KDe ili K Desktop Enviroment je Desktop okruzenje za Linux, odnosno graficko okruzenje</p>
+<p>za linux radne okoline. Programi koji su namijenje ni za KDE uglavnom pocinju s prefiksom K, i to je oznaka da su ti programi radjeni za KDE, medjutim ti isti programi se bez poteskoca pokrecu na drugim desktop okruzenjima kao sto je Gnome, i obrnuto. Jedna od snaznih strana Linuxa je medjusobna kompatabilnost. Takonpr. ovaj tekst je kucan u AbiWordu pod KDE-om, znaci tekst procesoru za Gnome kojeg koristim pod KDE-om.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold">Kako aktivirati bosanski jezik u KDEu?</span><span style="font-weight: bold"> </span><span style="font-style: italic">(</span><span style="font-style: italic">preuzeto sa </span><span style="font-style: italic">http://</span><span style="font-style: italic">kde.linux.org.ba</span><span style="font-style: italic">)</span></p>
+<p><br>
+</p>
+<p>Ako u vas(oj Linux distribuciji niste dobili paket sa prijevodom KDEa na bosanski, bic'e potrebno da ruc(no downloadujete i instalirate potreban paket. Slijedite uputstva ovisno o KDE verziji koju koristite.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold">Ako koristite KDE 3.0.x :</span></p>
+<p><br>
+</p>
+<p>Downloadujte ovaj paket: kde-i18n-bs-3.0.2.tar.bz2</p>
+<p>Raspakujte ga na mjestu po z(elji i pokrenite instalaciju, na nac(in koji vam je vec' vjerovatno dobro poznat:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ./configure</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ./make</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ./make install</p>
+<p><br>
+</p>
+<p>NAPOMENA: Da biste mogli izvrs(iti ovo, potrebno je da imate instalirane pakete kdelibs-devel, qt-devel, pcre-devel i arts-devel.</p>
+<p>NAPOMENA 2: Vrlo je moguc'e da instalacija nec'e raditi sa defaultnim direktorijem, pa je potrebno da u configure zadate prefix. Prefix treba biti direktorij ispod kojeg se nalazi share/locale. Npr. u RedHat Linuxu, prefix je /usr, znac(i kucate:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ./configure --prefix=/usr</p>
+<p>Sada moz(ete u vas(em KDE Control Centru, u rubrici Country&amp;Language, izabrati drz(avu Bosnu i Hercegovinu, a jezik Bosanski. :)</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold">Ako koristite KDE 2.x :</span></p>
+<p><br>
+</p>
+<p>LUG BiH je preveo znac(ajniju kolic(inu KDE datoteka tek od verzije 3.0, tako da stariji prijevodi nisu dostupni. Moz(ete pokus(ati sa gornjom procedurom, ali rezultati nec'e biti nes(to posebno.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold">Ako koristite KDE 3.1.x (beta verzija ili CVS):</span></p>
+<p><br>
+</p>
+<p>Skinite najnoviju verziju prijevoda sa nas(eg CVS servera. U direktoriju po z(elji kucajte:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cvs -d</p>
+<p>:pserver:anonymous@cvs.lugbih.org:/home/cvs co l10n/kde</p>
+<p>Pod tim direktorijem pojavic'e se direktorij l10n, a u njemu kde. Promjenite ime direktorija kde u "messages". Zatim u direktorij l10n raspakujte ovaj mali fajl: malifajl.tar.gz.</p>
+<p>Sada moz(ete pokrenuti instalaciju kao s(to je objas(njeno gore.</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold">Imate li BiH na spisku drz(ava?</span></p>
+<p><br>
+</p>
+<p>Ako imate KDE 3.0 ili noviji, trebali biste imati u "Drz(ava i jezik" podatke za Bosnu i Hercegovinu. Ako iz nekog razloga to nije sluc(aj, sve s(to vam treba je ova datoteka: entry.desktop</p>
+<p>Ona bi trebala raditi sasvim fino i sa starijim verzijama KDE. Smjestite je u direktorij koji se zove nes(to kao /usr/share/locale/l10n/. U ovom direktoriju trebate napraviti poddirektorij "ba" i u njega upisati datoteku. Kako se tac(no zove navedeni direktorij na vas(em sistemu, moz(ete prepoznati po tome s(to se u njemu nalazi niz poddirektorija sa ISO oznakama drz(ava. Ili, jednostavno potraz(ite datoteku l10n/us/entry.desktop :) U istom direktoriju biste trebali postaviti i zastavu.</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p>Instalacija Bosanskog Prevoda za KDE</p>
+<p>kontrol centar - komanda koja je</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">GNOME vodic</span><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt"> </span></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-weight: bold; font-style: italic; font-size: 14.000000pt">Shell vodic</span></p>
+<p><br>
+</p>
+<p>&nbsp; Shell u sustini predstavlja</p>
+</div>
+</body>
+</html>

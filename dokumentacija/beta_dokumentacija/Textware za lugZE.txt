@@ -1,0 +1,202 @@
+
+
+Rad sa fajl sistemama, diskovima i drajvovima pod Linuxom
+
+Kako natjerati Linux da radi s mojim diskom?
+
+Ako imate IDE ili EIDE disk, procitajte fajl /usr/src/linux/drivers/block/README.ide (dio izvornog koda Linux kernela). Taj README sadrzi dosta informacija o IDE diskovima. Mnogi savremeni IDE kontroleri obavljaju prijevod izmedju "fizickih" i "logickih" cilindara/glava/sektora. 
+
+SCSI diskovima pristupa se preko linearnih brojeva blokova. BIOS izmislja nekakve "logicke" cilindre/glave/sektore kako bi podrzao DOS. 
+
+IBM PC-kompatibilan BIOS obicno nece moci da pristupi particijama koje se sire na vise od 1024 logickih cilindara, sto ce dizanje Linux kernela s takvih particija preko LILO-a uciniti u najboljem slucaju problematicnim. 
+
+Takve particije jos uvek mozete da koristite za Linux ili druge operativne sisteme koji kontroleru pristupaju izravno. 
+
+Preporucuje se da napravite barem jednu Linux particiju potpuno ispod granice od 1024 logicka cilindra i dizati ga sa nje. Tada ce druge particije biti u redu. 
+
+Kako vratiti obrisane datoteke?
+
+Uopsteno, to je na Unixima vrlo tesko izvesti zbog njihovog multiaskinga. Radi se na mogucnosti vracanja obrisanoga pod ext2fsom, ali ne ocekujte previse. 
+
+Postoji vise paketa koji umesto toga pruzaju nove naredbe za brisanje i kopiranje koji obrisane fajlove stavljaju u direktoriju «kanta smece» (kao RecycleBin u Windowsima).Fajlovi se mogu spasiti dok se automatski ne obrisu u pozadini. 
+
+A mozete i pretraziti uredjaj diska koji sadrzi fajl sistem u pitanju. Postupak je slozen i morate biti logovani kao root. Ali je moguce. Na uredjaju diska izvrsite grep; tj.: 
+
+grep -b 'beleske' /dev/hda
+
+Ako podaci nisu prebrisani, trebalo bi da uspijeteda ih vratite tekstualnim editorom. 
+
+ 
+
+Kako promeniti velicinu particije (bez brisanja)?
+
+Koristite program FIPS.EXE za MS-DOS, ukljucen u vecini distribucija Linuxa. 
+
+Postoji li program za defragmentiranje ext2fs-a itd.?
+
+Da. Postoji defrag, program za defragmentiranje ext2fs, Minix i starih ext fajl sistema pod Linuxom. Mozete ga naci na <ftp://sunsite.unc.edu/pub/Linux/system/filesystems/defrag-0.70.tar.gz>. 
+
+Korisnici ext2 fajl sistema verovatno mogu i bez defraga jer ext2fs ima dodatni kod kako bi se fragmentacija u vrlo zauzetim fajl sistemima smanjila. 
+
+Kako formatirati i napraviti fajl sistem na disketi?
+
+Za formatiranje 3.5 inzne, high density diskete: 
+
+fdformat /dev/fd0H1440
+
+mkfs -t ext2 -m 0 /dev/fd0H1440 1440
+
+Za 5.25 incnu disketu koristite fd0h1200 i 1200 na odgovarajucim mjestima. Za "B" drajv koristite fd1 umesto fd0. 
+
+Opcija -m 0 mkfs.ext2 kaze da ne cuva prostor na disku za nadkorisnika -- obicno se zadnjih 10% rezervise za roota. 
+
+Prva naredba obavlja formatiranje na niskom nivou. Druga stvara prazan fajl sistem. Disketu mozete mountovati kao i particiju na hard disku i jednostavno cp-ovati i mv-ovati datoteke, itd. 
+
+Dobivam poruke o inodeovima, blokovima i slicnim stvarima.
+
+Mozda imate greske na fajl sistemu, vjerovatno uzrokovane nepravilnim spustanjem Linuxa prije gasenja racunara ili resetovanja. Za to vam je potreban noviji shutdown program -- na primer onaj ukljucen u paket util-linux, dostupan na sunsite-u i tsx-11. 
+
+Ako imate srece, program fsck (ili e2fsck ili xfsck kao prikladan, ako vec nemate automatsko fsck front-end) ce popraviti vas fajl sistem. Ako bas nemate srece, fajl sistem je "pokojan" i moracete ponovo da ga pripremite pomocu mkfsa (ili mke2fsa, mkxfsa, itd.) i fajlove vratiti s backup kopija. 
+
+NAPOMENA: ne pokusavajte da proverite fajl sistem koji je mountovan za citanje i pisanje -- to vazi i za root particiju ako niste videli pri boot-ovanju 
+
+   VFS: mounted root ... read-only
+
+Moj swap ne radi.
+
+Pri dizanju sistema (odnosno kad rucno ukljucite swap) trebalo bi da vidite 
+
+        Adding Swap: NNNNk swap-space
+
+Ako uopste ne dobijete poruku, verovatno vam nedostaje swapon -av (naredba koja ukljucuje swap) u /etc/rc.local odnosno /etc/rc.d/* (skripte za dizanje sistema), ili ste zaboravili da dodate linuju u /etc/fstab, na primjer: 
+
+        /dev/hda2       none       swap       sw
+
+Ako vidite 
+
+        Unable to find swap-space signature
+
+zaboravili ste da pokrenete mkswap. Za detalje pogledajte man stranicu; radi dosta slicno mkfs-u. 
+
+free bi, uz slobodnu memoriju, trebao prikazati: 
+
+             total       used       free
+
+Swap:        10188       2960       7228
+
+ 
+
+ 
+
+ 
+
+Kako skinuti LILO da se opet startuje DOS?
+
+Koristeci DOS (MS-DOS 5.0 ili noviji, ili OS/2), napisite FDISK /MBR (sto nije dokumentirano). To ce vratiti standardni MS-DOS MBR. Ako imate DR-DOS 6.0, normalno udjite u FDISK i zatim odaberite opciju Re-write Master Boot Record. 
+
+Ako nemate MS-DOS ili DR-DOS treba vam boot sektor kojeg je LILO snimio kad ste ga instalirali. Sacuvali ste ga, zar ne? Verovatno se zove boot.0301 ili nesto slicno. Napisite 
+
+dd if=boot.0301 of=/dev/hda bs=445 count=1
+
+(odnosno /dev/sda ako koristite SCSI disk). Budite pazljivi jer to vam moze obrisati i particijsku tabelu! Ako ste ocajni, mozete koristiti 
+
+dd if=/dev/zero of=/dev/hda bs=512 count=1
+
+To ce potpuno obrisati particijsku tabelu i boot sektor: zatim mozete svojim omiljenim programom ponovo formatirati disk. Ali to ce sadrzaj vaseg diska ostaviti nedostupnim -- izgubicete sve ako niste strucnjak. 
+
+Primetite da DOS MBR dize (jednu!) particiju koja je oznacena kao aktivna. Mozda ce vam trebati fdisk za postavljanje i skidanje oznaka aktivnosti na odgovarajucim particijama. 
+
+Zasto ne mogu da koristim fdformat osim kao root?
+
+Poziv sistema za formatiranje diskete smije da koristi samo root, bez obzira na dozvole /dev/fd0*. Ako zelite da bilo koji program moze da formatira disketu, nabavite program fdformat2. On zaobilazi problem posto je set-uid na roota. 
+
+ 
+
+Ne mogu pisati na svoj root fajl sistem!
+
+Ponovo ga mountujte. Ako je /etc/fstab tacan, jednostavno napisite mount -n -o remount /. Ako je /etc/fstab pogresan, morate zadati ime uredjaja a mozda i vrstu: dakle, mount -n -o remount -t ext2 /dev/hda2 /. 
+
+Imam ogroman /proc/kcore! Mogu li ga obrisati?
+
+Nijedan od fajlova u /proc zapravo ne postoji -- sve ih je ``izmislio'' kernel kako bi vam pruzio informacije o sistemu ne zauzimajuci pritom prostor na hard disku. 
+
+/proc/kcore je drugo ime za memoriju u vasem racunaru; velicina mu je jednaka velicini vaseg RAM-a, a ako pocnete da ga citate kao fajl, kernel ce citati memoriju. 
+
+ 
+
+
+
+---------------------------------
+Do You Yahoo!?
+Sign-up for Video Highlights of 2002 FIFA World Cup
+--0-598681167-1024504965=:40979
+Content-Type: text/html; charset=us-ascii
+
+<P>Pozdrav,</P>
+<P>Nedime evo saljem ti onaj textware o kojem sam ti govorio.Ispravio sam ine greške koje su bile, ali bilo bi poželjno ali možda i bezpotrebno da ti još jednom pregledaš ovaj tekst.Spremam još ali to slijedi kasnije.</P>
+<P>KEMO</P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Rad sa fajl sistemama, diskovima i drajvovima pod Linuxom</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 24pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Kako natjerati Linux da radi s mojim diskom?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ako imate IDE ili EIDE disk, procitajte fajl /usr/src/linux/drivers/block/README.ide (dio izvornog koda Linux kernela). Taj </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">README</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> sadrzi dosta informacija o IDE diskovima. Mnogi savremeni IDE kontroleri obavljaju prijevod izmedju "fizickih" i "logickih" cilindara/glava/sektora. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">SCSI diskovima pristupa se preko linearnih brojeva blokova. BIOS izmislja nekakve "logicke" cilindre/glave/sektore kako bi podrzao DOS. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">IBM PC-kompatibilan BIOS obicno nece moci da pristupi particijama koje se sire na vise od 1024 logickih cilindara, sto ce dizanje Linux kernela s takvih particija preko LILO-a uciniti u najboljem slucaju problematicnim. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Takve particije jos uvek mozete da koristite za Linux ili druge operativne sisteme koji kontroleru pristupaju izravno. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Preporucuje se da napravite barem jednu Linux particiju potpuno ispod granice od 1024 logicka cilindra i dizati ga sa nje. Tada ce druge particije biti u redu. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Kako vratiti obrisane datoteke?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Uopsteno, to je na Unixima vrlo tesko izvesti zbog njihovog multiaskinga. Radi se na mogucnosti vracanja obrisanoga pod ext2fsom, ali ne ocekujte previse. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Postoji vise paketa koji umesto toga pruzaju nove naredbe za brisanje i kopiranje koji obrisane fajlove stavljaju u direktoriju «kanta smece» (kao RecycleBin u Windowsima).Fajlovi se mogu spasiti dok se automatski ne obrisu u pozadini. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">A mozete i pretraziti uredjaj diska koji sadrzi fajl sistem u pitanju. Postupak je slozen i morate biti logovani kao root. Ali je moguce. Na uredjaju diska izvrsite grep; tj.: </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">grep -b 'beleske' /dev/hda</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ako podaci nisu prebrisani, trebalo bi da uspijeteda ih vratite tekstualnim editorom. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><FONT face="Times New Roman">&nbsp;<o:p></o:p></FONT></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Kako promeniti velicinu particije (bez brisanja)?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Koristite program </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">FIPS.EXE</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> za MS-DOS, ukljucen u vecini distribucija Linuxa. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Postoji li program za defragmentiranje ext2fs-a itd.?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Da. Postoji defrag, program za defragmentiranje ext2fs, Minix i starih ext fajl sistema pod Linuxom. Mozete ga naci na <U><SPAN style="COLOR: blue">&lt;ftp://sunsite.unc.edu/pub/Linux/system/filesystems/defrag-0.70.tar.gz&gt;</SPAN></U>. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Korisnici ext2 fajl sistema verovatno mogu i bez defraga jer ext2fs ima dodatni kod kako bi se fragmentacija u vrlo zauzetim fajl sistemima smanjila. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Kako formatirati i napraviti fajl sistem na disketi?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Za formatiranje 3.5 inzne, high density diskete: </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">fdformat /dev/fd0H1440<o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">mkfs -t ext2 -m 0 /dev/fd0H1440 1440</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Za 5.25 incnu disketu koristite </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">fd0h1200</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> i </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">1200</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> na odgovarajucim mjestima. Za "B" drajv koristite </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">fd1</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> umesto </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">fd0</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Opcija </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">-m 0</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> mkfs.ext2 kaze da ne cuva prostor na disku za nadkorisnika -- obicno se zadnjih 10% rezervise za roota. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Prva naredba obavlja formatiranje na niskom nivou. Druga stvara prazan fajl sistem. Disketu mozete mountovati kao i particiju na hard disku i jednostavno cp-ovati i </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">mv</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">-ovati datoteke, itd. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Dobivam poruke o inodeovima, blokovima i slicnim stvarima.</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Mozda imate greske na fajl sistemu, vjerovatno uzrokovane nepravilnim spustanjem Linuxa prije gasenja racunara ili resetovanja. Za to vam je potreban noviji shutdown program -- na primer onaj ukljucen u paket util-linux, dostupan na </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">sunsite</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">-u i </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">tsx-11</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ako imate srece, program fsck (ili e2fsck ili xfsck kao prikladan, ako vec nemate automatsko fsck front-end) ce popraviti vas fajl sistem. Ako bas nemate srece, fajl sistem je "pokojan" i moracete ponovo da ga pripremite pomocu mkfsa (ili mke2fsa, mkxfsa, itd.) i fajlove vratiti s backup kopija. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">NAPOMENA: ne pokusavajte da proverite fajl sistem koji je mountovan za citanje i pisanje -- to vazi i za root particiju ako niste videli pri boot-ovanju </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"><SPAN style="mso-spacerun: yes">&nbsp;&nbsp; </SPAN>VFS: mounted root ... read-only</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Moj swap ne radi.</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Pri dizanju sistema (odnosno kad rucno ukljucite swap) trebalo bi da vidite </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"><SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>Adding Swap: NNNNk swap-space</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ako uopste ne dobijete poruku, verovatno vam nedostaje </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">swapon -av</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> (naredba koja ukljucuje swap) u /etc/rc.local odnosno </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">/etc/rc.d/*</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> (skripte za dizanje sistema), ili ste zaboravili da dodate linuju u /etc/fstab, na primjer: </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"><SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>/dev/hda2<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>none<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>swap<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>sw</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ako vidite </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"><SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>Unable to find swap-space signature</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">zaboravili ste da pokrenete mkswap. Za detalje pogledajte man stranicu; radi dosta slicno mkfs-u. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">free bi, uz slobodnu memoriju, trebao prikazati: </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"><SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>total<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>used<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>free<o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Swap:<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>10188<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>2960<SPAN style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>7228</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"><SPAN style="mso-spacerun: yes">&nbsp;</SPAN></SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><FONT face="Times New Roman">&nbsp;<o:p></o:p></FONT></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">&nbsp;<o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Kako skinuti LILO da se opet startuje DOS?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Koristeci DOS (MS-DOS 5.0 ili noviji, ili OS/2), napisite </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">FDISK /MBR</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> (sto nije dokumentirano). To ce vratiti standardni MS-DOS MBR. Ako imate DR-DOS 6.0, normalno udjite u FDISK i zatim odaberite opciju </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">Re-write Master Boot Record</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ako nemate MS-DOS ili DR-DOS treba vam boot sektor kojeg je LILO snimio kad ste ga instalirali. Sacuvali ste ga, zar ne? Verovatno se zove </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">boot.0301</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> ili nesto slicno. Napisite </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">dd if=boot.0301 of=/dev/hda bs=445 count=1</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">(odnosno </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">/dev/sda</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"> ako koristite SCSI disk). Budite pazljivi jer to vam moze obrisati i particijsku tabelu! Ako ste ocajni, mozete koristiti </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; tab-stops: 0cm 47.95pt 95.9pt 143.85pt 191.8pt 239.75pt 287.7pt 335.65pt 383.6pt 431.55pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">dd if=/dev/zero of=/dev/hda bs=512 count=1</SPAN><SPAN lang=HR style="mso-ansi-language: HR"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">To ce potpuno obrisati particijsku tabelu i boot sektor: zatim mozete svojim omiljenim programom ponovo formatirati disk. Ali to ce sadrzaj vaseg diska ostaviti nedostupnim -- izgubicete sve ako niste strucnjak. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Primetite da DOS MBR dize (jednu!) particiju koja je oznacena kao aktivna. Mozda ce vam trebati fdisk za postavljanje i skidanje oznaka aktivnosti na odgovarajucim particijama. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Zasto ne mogu da koristim fdformat osim kao root?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Poziv sistema za formatiranje diskete smije da koristi samo root, bez obzira na dozvole </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">/dev/fd0*</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">. Ako zelite da bilo koji program moze da formatira disketu, nabavite program </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">fdformat2</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">. On zaobilazi problem posto je set-uid na roota. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR"><SPAN style="mso-spacerun: yes">&nbsp;</SPAN></SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ne mogu pisati na svoj root fajl sistem!</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Ponovo ga mountujte. Ako je /etc/fstab tacan, jednostavno napisite </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">mount -n -o remount /</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">. Ako je /etc/fstab pogresan, morate zadati ime uredjaja a mozda i vrstu: dakle, </SPAN><SPAN lang=HR style="FONT-FAMILY: 'Courier New'; mso-ansi-language: HR; mso-bidi-font-family: 'Times New Roman'">mount -n -o remount -t ext2 /dev/hda2 /</SPAN><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Imam ogroman /proc/kcore! Mogu li ga obrisati?</SPAN></B><B style="mso-bidi-font-weight: normal"><SPAN lang=HR style="FONT-SIZE: 18pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">Nijedan od fajlova u /proc zapravo ne postoji -- sve ih je ``izmislio'' kernel kako bi vam pruzio informacije o sistemu ne zauzimajuci pritom prostor na hard disku. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=HR style="FONT-FAMILY: Verdana; mso-ansi-language: HR">/proc/kcore je drugo ime za memoriju u vasem racunaru; velicina mu je jednaka velicini vaseg RAM-a, a ako pocnete da ga citate kao fajl, kernel ce citati memoriju. </SPAN><SPAN lang=HR style="FONT-SIZE: 12pt; mso-ansi-language: HR; mso-bidi-font-size: 10.0pt"><o:p></o:p></SPAN></P>
+<P>&nbsp;</P><p><br><hr size=1><b>Do You Yahoo!?</b><br>
+<a href="http://rd.yahoo.com/welcome/*http://fifaworldcup.yahoo.com/fc/en/spl">Sign-up for Video Highlights</a> of 2002 FIFA World Cup
+--0-598681167-1024504965=:40979--
+

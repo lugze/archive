@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>L.O.A.F.-Linux On A Floppy --Linux na disketi</TITLE>
+<META http-equiv=Content-Type content="L.O.A.F.-Linux On A Floppy --Linux na disketi - Linux Dokumenatcija">
+<META content="MSHTML 5.50.4134.100" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff leftmargin="2" topmargin="0" marginwidth="0" marginheight="0">
+<P align=left><FONT color=#000000><FONT size=+3><i><font size="5"><b>L.O.A.F. 
+  - Linux On A Floppy </b></font></i></FONT></FONT><b><font size="5"><i><FONT color=#000000>- 
+  Linux na disketi</FONT></i></font></b></P>
+<P align=left><i><font size="3" color="#000000"><b>Kemal Sanjta <a href="mailto:gomez@ze.lugbih.org">gomez@ze.lugbih.org</a></b><br>
+  02.11.2002 <b>v1.0</b><br>
+  </font></i></P>
+<hr>
+<font color=#000000><i>U proteklo vrijeme Udruzenje se pozabavilo temom linuxa 
+na disketi. Poslije dokazane funkcionalnosti napisan je tekst ciji je </i></font><font color=#000000><i>cilj 
+da vam objasni kako napraviti linux na distekti, odnosno mini linux distrubiciju 
+koja stane samo ja jednu disketu.</i></font><br>
+<hr>
+<P><FONT color=#000000> Poznato nam je da je boot/root disketa na kojoj se nalazi 
+  kernel i glavna particija (root filesystem) zajedno sa jos nekim najvaznijim 
+  datotekama zapravo jedna mala distribucija Linux-a. Poznato nam je da prosjecna 
+  disketa ima 1.44 MB pa prilikom pravljenja svega ovoga trebamo imati na umu 
+  da sve sto smjestamo na disketu treba biti kompresirano. U takvom stanju na 
+  disketu mozemo staviti oko , vjerovali ili ne cak oko 6 MB. Za nas rad bit ce 
+  nam potrebna prazna particija na koju cemo smjestiti glavnu particiju. Ta slobodna 
+  particija moze biti virtualna ili prava particija na tvrdom disku. Virtualne 
+  particije mogu biti RamDisk ili loopback. Loopback je jedna obicna datoteka 
+  na tvrdom disku koju racunar posmatra kao posebnu particiju. Potrebno je spomenuti 
+  da je potrebna odgovarajuca podrska kernela za rad sa loopback-om. Pa da vidimo 
+  kako se zapravo Linux pravi na disketi. Dakle , prvo ce mo krenuti sa pravljenjem 
+  glavne particije. Prvo sto trebamo uciniti jeste da napravimo fsfile u /tmp 
+  direktorijumu koji ce se ponasati kao nas loopback uredjaj:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># dd if=/dev/zero of=/tmp/fsfile bs=1k count=3000</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Kada smo kreirali loopback uredjaj trebamo napraviti filesystem 
+  na sljedeci nacin:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># mke2fs -m 0 -i 2000 /tmp/fsfile</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Nakon sto smo napravili filesystem potrebno je da montiramo 
+  napravljeni loopback uredjaj u /mnt direktorij:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># mount -o loop -t ext2 /tmp/fsfile /mnt</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Nakon sto smo napravili lopback uredjaj, filesystem, te 
+  zatim montirali loopback potrebno je da u /tmp direkroriju napravimo direktorije: 
+  dev, proc, etc, lib, sbin, bin, , usr, i mnt. Dakle to bi trebalo da izgleda 
+  na ovaj nacin:</FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td height="256"><font color=#000000># mkdir /dev<br>
+      </font>
+      <p><font color=#000000># mkdir /proc</font></p>
+      <p><font color=#000000># mkdir /etc</font></p>
+      <p><font color=#000000># mkdir /lib</font></p>
+      <p><font color=#000000># mkdir /sbin</font></p>
+      <p><font color=#000000># mkdir /bin</font></p>
+      <p><font color=#000000># mkdir /usr</font></p>
+      <p><font color=#000000># mkdir /mnt</font><font color=#000000> </font></p>
+      </td>
+  </tr>
+</table>
+<P><FONT color=#000000>Nakon sto smo napravili gore navedene direktorije, direktorije 
+  proc, mnt, i usr ostavit cemo prazne, a ostale direktorije cemo popuniti samo 
+  najpotrebnijim datotekama. Pa pocnimo sa tim. Direktorij /dev je izuzetno bitan 
+  direktorij ( o njemu kao i ostalim vaznijim direktorijima mozete procitati u 
+  tekstu " <a href="http://ze.lugbih.org/textware">Pregled vaznijih Linux direktorija</a> 
+  " koji je napisao Nedim Hadzimahmutovic). Dakle, direktorij <i>/dev</i> cemo 
+  prekopirati u direktorij /mnt pod istim imenom:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># cp -dpR /dev /mnt/dev</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>U tom direktoriju svakako postoje datoteke koje necete 
+  koristiti i njih bi trebali obrisati. Ali svakako imajte na umu da ne smijete 
+  obrisati console, kmem, mem, null, ram i tty1.</FONT></P>
+<P><FONT color=#000000>Isto trebate postupiti i sa /etc direktorijem. Dakle:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># cp -dpR /etc /mnt/etc</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Nakon sto ste prekopirali /etc direktorij u direktorij 
+  /mnt sa istim imenom, potrebno je obrisati datoteke koje vam nece trebati. To 
+  je najbolje uciniti tako sto ce te u direktoriju /erc upisati komandu:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># ls -ltru</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>koja ce vam izlistati spisak njegovog sadrzaja prema datumu 
+  posljednjeg pristupa datotekama. U svakom slucaju vas napravljeni direktorij 
+  /mnt/etc trebao bi da posjeduje sljedece datoteke: inittab, group, shadow, rc.d/*, 
+  fstab, passwd i fstab. U jos nedirnute direktorije /mnt/bin i /mnt/sbin potrebno 
+  je prekopirati neke osnovne komande kao sto su: ls, mv, rm, dd, cat i druge, 
+  a zatim potrebno je prekopirati init, login, getty, mount i jos neke prema vasim 
+  potrebama. Po pitanju /lib direktorija potrebno je da ga napunite najpotrebnijim 
+  library datotekama i njihovim punjacima odnosno loadreima. Ovdje treba naznaciti 
+  da za sve binarne datoteke koje smo prekopirali treba da posjeduju svoje library 
+  datoteke. To mozemo saznati komandom ldd. Na primjer:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># ldd /sbin/mke2fs</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Ukoliko ne postoje /var/run/utmp i /var/log datoteka i 
+  direktorij moze doci do nekih gresaka. Zato bi trebalo da izdate naredbe:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td>
+      <p><font color=#000000># mkdir -p /mnt/var/log</font></p>
+      <p><font color=#000000># mkdir -p /mnt/var/run</font></p>
+      <p><font color=#000000># touch /mnt/var/run/utmp</font></p>
+</td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>I konacno posljednji korak je stvaranje datoteke /etc/ld.so.cache 
+  koja pronalazi odnosno omogucuje racunaru pronalazak library datoteka:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># chdir /mnt; chroot /mnt/sbin/ldconfig</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Nakon sto smo sve ovo uradili potrebno je odmontirati /mnt 
+  i stvorenu root particiju kompresirajte u rootfs.gz datoteku:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># dd if=/tmp/fsfile bs=1k | gzip -v9 &gt; rootfs.gz</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Dakle sve ovo gore navedeno bilo je zapravo stvaranje glavne 
+  particije. Sljedeci korak u pravljenju Linux-a na disketi jese kompajliranje 
+  kernela. O kompajliranj kernela se u zadnje vrijeme dosta govori i pise pa cemo 
+  taj dio jednostavno preskociti. Na www.lugbih.org mozete pronaci tekst o kompajliranju 
+  kernela koji je napisala Amila Akagic. Samo je neophodno da zapamtite da morate 
+  izvrsiti kompresiranje kernela sa "make zImage". Sljedeci korak u stvaranju 
+  Linux-a na disketi jeste smjestanje na disketu. Prvo cemo smjestiti kernel. 
+  Otidjite u direktorij u kojem je kernel pohranjen i unesite sljedecu naredbu:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td>
+      <p><font color=#000000># dd if=zImage of=/dev/fd0 bs=1k</font></p>
+      <p><font color=#000000># rdev /dev/fd0 /dev/fd0</font></p>
+      <p><font color=#000000># rdev -R /dev/fd0 0</font></p>
+</td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Sada slijedi onaj malo tezi dio. Naime potrebno je pogledati 
+  kolko vas kernel zauzima na disketi. Tu velicinu ce te pretvoriti u velicinu 
+  kilobyta tako sto ce te je podjeliti sa 1024, a zatim tu velicinu zaokruzite 
+  na prvi veci cijeli broj.Tako recimo ako imamo broj 264,3 to ce biti 265. Dobivenu 
+  zaokruzenu vrijednost sabiramo sa 16384 ( u nasem primjeru ce to biti 265+16384=16649). 
+  Nakon toga unosimo komandu (koja se u ovom slucaju odnosi na nasu vrijednost 
+  16649 , a vi ce te naravno unijeti svoju vrijednost):</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># rdev -r /dev/fd0 16649</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>Sada nam jos samo ostaje da prekopiramo glavnu particiju 
+  na disketu (vrijednost koja je kod nas 265 a kod vas neka druga potrebno je 
+  da pretvorite u vrijednost izrazenu u kB), a to ce te uciniti na sljedeci nacin:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># dd if=rootfs.gz of=/dev/fd0 bs=1k seek=196</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>I to bi bilo to. Na kraju svega ovoga imate svoju boot/root 
+  disketu :).Ukoliko ne moze da stane na disketu, dakle ako je glavna particija 
+  ili kernel prevelik smanjte ih, ili izbacite simbole iz objektnih datoteka. 
+  Dakle radi se o stripanju. Nestripane binarne datoteke kopirajte komandom:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000>objcopy --strip-all &gt;FROM&gt; &gt;TO&gt;</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P><FONT color=#000000>A nestripane library datoteke sa komandom:</FONT></P>
+<P><FONT color=#000000><br>
+  </FONT></P>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td><font color=#000000># objcopy --strip-debug FROM TO</font></td>
+  </tr>
+</table>
+<P><FONT color=#000000> </FONT></P>
+<P align="left"><FONT color=#000000><i><b>Puno srece!</b></i></FONT></P>
+<P align="center"><FONT color=#000000><i>Copyleft <a href="http://ze.lugbih.org/">LugZe</a></i></FONT><i><FONT color=#000000></FONT></i></P>
+</BODY></HTML>

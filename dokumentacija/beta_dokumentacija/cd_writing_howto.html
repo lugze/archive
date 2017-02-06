@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="Linux Cd writing howto - Pisanje CDova pod linuxom" />
+<meta name="Generator" content="KWord HTML Export Filter Version = 2.35.2.1.2.1 " />
+<title>Pisanje CD-ova Pod Linuxom - LugZe</title>
+</head>
+<body bgcolor="#FFFFFF">
+<p><b><font color="#0080FF">CD Writing HOWTO</font> - <font color="#004080">Kemal 
+  Sanjta <a href="mailto:gomez_xiii@yahoo.com">gomez_xiii@yahoo.com </a></font> 
+  </b></p>
+<p align="left"><b><u><a href="http://ze.lugbih.org">http://ze.lugbih.org</a></u> 
+  - </b><u>All Rights Deserved</u></p>
+<hr>
+<p><font face="Nimbus Sans l" color="#000000">Kada jednom konacno podesite hardwaerske 
+  uredjaje na svom racunaru i ostalo vaseg Linux operativnog sistema, komanda</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><b>cdrecord -scanbus </b></font></p>
+<p><font face="Nimbus Sans l" color="#000000">pokazat</font> <font face="Nimbus Sans l" color="#000000">ce 
+  vam listu uredjaja na vasem SCSI busima.Cilj ovog teksta je taj da vam pomogne 
+  da prestane da gledate nesto slicno ovome:</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> </font></p>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td> 
+      <p><font face="Nimbus Sans l" color="#000000">shell&gt; cdrecord -scanbus</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">Cdrecord release 1.7a1 Copyright 
+        (C) 1995-1998 Jörg Schilling</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">scsibus0:</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,0,0) 'Quantum ' 'XP34300 
+        ' 'F76D' Disk</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,1,0) 'SEAGATE ' 'ST11200N 
+        ' '8334' Disk</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,2,0) *</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,3,0) 'TOSHIBA ' 'MK537FB/ 
+        ' '6258' Disk</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,4,0) 'WANGTEK ' '5150ES 
+        SCSI 36 ' 'ESB6' Removable Tape</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,5,0) 'EXABYTE ' 'EXB-8500-85QUE 
+        ' '0428' Removable Tape</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,6,0) 'TOSHIBA ' 'XM-3401TASUNSLCD' 
+        '3593' Removable CD-ROM</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 0,7,0) *</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">scsibus1:</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,0,0) 'Quantum ' 'XP31070W 
+        ' 'L912' Disk</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,1,0) *</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,2,0) *</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,3,0) 'TEAC ' 'CD-R55S ' 
+        '1.0H' Removable CD-ROM</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,4,0) 'MATSHITA' 'CD-R CW-7502 
+        ' '4.02' Removable CD-ROM</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,5,0) *</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,6,0) 'YAMAHA ' 'CDR400t 
+        ' '1.0d' Removable CD-ROM</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> 1,7,0) *</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">Listing: Detecting devices 
+        on your SCSI bus</font></p>
+</td>
+  </tr>
+</table>
+<p><font face="Nimbus Sans l" color="#000000">Ovaj primjer napravio je Jörg Schilling 
+  i on pokazuje sva cetri cd snimaca.Primjetite da parametar -scanbus prikazuje</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> i ostale uredjaje na racunaru, 
+  kao naprimjer CD-ROM-ove ili Hard Diskove...</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Kao sto mozete da primjetite sami 
+  zadnja kolona daje opis uredjaja, ali nazalost iz te kolone ne mozete razaznati 
+  koji od uredjaja ima</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> &quot;pisacke&quot; sposobnosti 
+  tj. mogucnosti. Ali na svu srecu postoji produkt identifikacija (srednja kolona) 
+  koja o tome govori sa parametrima</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> <i><b>R, -R, ili -RW.</b></i></font></p>
+<p><b><i><font face="Nimbus Sans l" color="#000000"> BRYI START</font></i></b></p>
+<p><font face="Nimbus Sans l" color="#000000"> Ovaj text uzima sebi za cilj da 
+  vam na jedan lagan i brz nacin predstavi konfiguraciju vaseg uredjaja za snimanje.Ali, 
+  takodjer imajte na</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> umu da ovaj text ne otkriva sve 
+  konfiguracije, ali u svakom slucaju probajte sa njim, jer nemate sta izgubiti...</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Prije svega provjerite svoju verziju 
+  kernela komandom &quot;uname -r&quot; Kada izvrsite tu naredbu ono sto ce vam 
+  se izlistati dakle je verzija vaseg </font></p>
+<p><font face="Nimbus Sans l" color="#000000"> kernela i tu bi bogli naci nesto 
+  kao sto je 2.4.18-4GB ili nesto slicno ili kod starijih vrsta kernela na koje 
+  se ovaj text i odnosi 2.0.X ili</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> 2.2.Y ali u tom slucaju trebalo 
+  bi da bude da je X vece od 36 , a Y vece od 11. Ako koristite neke starije verzija 
+  kernela onda puno srece jer</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> &quot;sami ste&quot; :). Instalacija 
+  novog kernela kao i modificiranje vec postojeceg kernela je veliki posao, pa 
+  se ovaj text ne tice tog posla ,pa su</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> prema tome sve postavke koje se 
+  ticu toga izbacene nazalost.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Ova lista komandi koja slijedi 
+  predstavlja spisak korisnih komandi sa kojim bi mogli poceti.Te komande stvaraju 
+  uredjajne fajlove</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> (device files) pod -dev ako oni vec ne postoje...</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> </font></p>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td> 
+      <p><font face="Nimbus Sans l" color="#000000">test `whoami` = 'root' || 
+        echo &quot;You must be root to execute the commands.&quot;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> cd /dev/</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> umask -S u=rwx,g=rwx,o-rwx</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> [ -f loop0 ] \</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> || ./MAKEDEV loop \</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> || for i in 0 1 2 3 4 5 6 
+        7; do mknod loop$i b 7 $i; done</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> [ -f sg0 -o -f sga ] \</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> || ./MAKEDEV sg \</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> || for i in 0 1 2 3 4 5 6 
+        7; do mknod sg$i c 21 $i; done</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> Listing: creating of devicefiles</font></p>
+</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><font face="Nimbus Sans l" color="#000000"> Prisup hardveru je u uzajamnoj 
+  vezi sa uredjanim fajlovima pod Linuxom.Pa u vezi toga, prije svega uvjerite 
+  se da se ti fajlovi nalaze u</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> direktorijumu /dev. Dosad jos niko 
+  nije dao razuman razlog zbog kojeg ovo nije automatizirano kao sto je na primjer 
+  uredjal filesystem</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> (devfs).On je dostupan vec godinama, 
+  i daje dosta sigurnije i jasnije imenovanja uredjajima. Neki ljudi kazu da devfs 
+  nije najbolje rjesenje,</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> ali do sada nema bolje solucije ...</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> <a href="http://www.atnf.CSIRO.AU/%7Ergooch/linux/kernel-patches.html">http://www.atnf.CSIRO.AU/~rgooch/linux/kernel-patches.html</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Sljedeca stvar koju trebamo uciniti 
+  je ta da se uvjerimo da kernel raspolaze odgovarajucim driverima. Komande koje 
+  slijede sluze za provjeru</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> fajlova za prisutnost drivera koji 
+  se koriste prilikom pokretanja LinuX kernela.Obicno sama komanda &quot;cdrecord 
+  -scanbus&quot; upucuje na samo</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> punjenje svih drivera. U slucaju 
+  da driver nije prisutan, dodat ce mo ga pomocu <i>insmod-a</i></font></p>
+<p><font face="Nimbus Sans l" color="#000000"> </font></p>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td> 
+      <p><font face="Nimbus Sans l" color="#000000">test `whoami` = 'root' || 
+        echo &quot;You must be root to execute the commands.&quot;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> cdrecord -scanbus &gt; /dev/null</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> if ! (pidof kerneld || test 
+        -f &quot;/proc/sys/kernel/modprobe&quot;); then</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> echo &quot;Neither kerneld 
+        nor kmod are running to automatically load modules&quot;.</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> fi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> report_no_autoload() {</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> echo &quot;Ensure the module 
+        $1 is loaded automatically next time.&quot;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> }</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> if test ! -f &quot;/proc/scsi/scsi&quot;; 
+        then</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> report_no_autoload scsi_mod 
+        &amp;&amp; insmod scsi_mod</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> fi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> if ! grep &quot;^........ 
+        sg_&quot; /proc/ksyms &gt; /dev/null; then</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> report_no_autoload sg &amp;&amp; 
+        insmod sg</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> fi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> if ! grep &quot;^........ 
+        sr_&quot; /proc/ksyms &gt; /dev/null; then</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> report_no_autoload sr_mod 
+        &amp;&amp; insmod sr_mod</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> fi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> if ! grep &quot;^........ 
+        loop_&quot; /proc/ksyms &gt; /dev/null; then</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> report_no_autoload loop &amp;&amp; 
+        insmod loop</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> fi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> if ! grep iso9660 /proc/filesystems 
+        &gt; /dev/null; then</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> report_no_autoload iso9660 
+        &amp;&amp; insmod iso9660</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> fi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> echo &quot;The following 
+        is only needed for IDE/ATAPI CD-writers.&quot;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> if ! grep ide-scsi /proc/ide/drivers 
+        &gt; /dev/null; then</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> report_no_autoload ide-scsi 
+        &amp;&amp; insmod ide-scsi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> fi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> cdrecord -scanbus</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> Listing: Testing for drivers</font></p>
+</td>
+  </tr>
+</table>
+<p><font face="Nimbus Sans l" color="#000000"> Molimo vas da procitate sljedeci 
+  dio ako insmode se zali na nedostajanje nekih modul fajlova. Ako ste u tekstualnom 
+  modu, mogu vam, se</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> pokazati neke poruke prilikom punjenja 
+  modula. Ako ste u grafickom opkruzenju mozete repozvati ove poruke komandom 
+  dmesg.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Postoji nekoliko nacina punjenja modula kada sljedeci put pokrecete svoj Linux operativni sistem:</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> -Umetnite relevantunu insmod komandu 
+  u startup sekvencu (dakle to podrazumjeva rad sa datotekom ili bolje reci skriptom 
+  rc.local ili necim</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> slicnim), zatim pokrenite kerneld 
+  ili kmod, a potom ih konfigurisite u etc/modules.conf .</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Ljudi sa SCSI pisacima mogu preskociti 
+  ostalo jer cdrecord u vecini slucajeva sam prepoznaje hardware.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> A sada okrenimo se ljudima sa IDE/ATAPI 
+  pisacima.Kao sto je napisano u predhodnom dijelu , morate da tako kazem napunite 
+  ide-scsi driver.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Jedino taj driver ima tako da kazem 
+  pristup vasem cd snimacu,ako neki driver vec to ne radi. Drugim rijecima vi 
+  svom regularnom IDE driveru</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> trebate reci da ostavi vas CD snimac 
+  ne prepoznan, tako da ga ide-scsi driver moze grabovati.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> </font></p>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td> 
+      <p><font face="Nimbus Sans l" color="#000000">hda = IDE bus/connector 0 
+        master device</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> hdb = IDE bus/connector 0 
+        slave device</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> hdc = IDE bus/connector 1 
+        master device</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> hdd = IDE bus/connector 1 
+        slave device</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> Table: device file names 
+        of IDE/ATAPI devices</font></p>
+</td>
+  </tr>
+</table>
+<p><font face="Nimbus Sans l" color="#000000"> Tabela iznad pokazuje vezu izmedju 
+  uredjajnih fajl imene (device file names) i uredja koji se nalaze na IDE buss-ovima.Uredjajna 
+  file imena</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> predstavlja vas CD snimac. Primjer: 
+  hdb=ide-scsi.Takve osobine trebale bi biti dodane u lilo.conf ili chos.conf 
+  ako je driver kompajliran </font></p>
+<p><font face="Nimbus Sans l" color="#000000"> za vas kernel, sto se cini se danas 
+  najcesce i radi.Sljedeci tekst pokazuje primjer konfiguracije vise linija osim 
+  one append-linije.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> Budite sigurni da je vasa append-linije i cmdlinija postavke da su image-specific (nemojte ih dodavati na pocetku)</font></p>
+<p><font face="Nimbus Sans l" color="#000000"> </font></p>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td> 
+      <p><font face="Nimbus Sans l" color="#000000">image=/boot/zImage-2.2.14</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> label=Linux</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> read-only</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> append=&quot;hdb=ide-scsi&quot;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">Listing: Example configuration 
+        for lilo (/etc/lilo.conf)</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">linux &quot;Linux 2.1.14&quot; 
+        {</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> image=/boot/zImage-2.0.37</font></p>
+      <p><font face="Nimbus Sans l" color="#000000"> cmdline= root=/dev/hda5 readonly 
+        hdb=ide-scsi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">}</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">Listing: Example configuration 
+        for chos (/etc/chos.conf)</font></p>
+</td>
+  </tr>
+</table>
+<p><font face="Nimbus Sans l" color="#000000">Ako je driver za IDE/ATAPI CD romove 
+  dodan kao modul, onda ovo iznad ne cini nikakvu razliku za vas, ali budite sigurni 
+  da ste ukljucili</font></p>
+<p><font face="Nimbus Sans l" color="#000000">liniju opcija iz sljedeceg dijela. 
+  Zadnje tri linije su generalno predlozene za automatsko punjenje odgovarajucih 
+  modula.</font></p>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td> 
+      <p><font face="Nimbus Sans l" color="#000000">options ide-cd ignore=hdb 
+        # tell the ide-cd module to ignore hdb</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">alias scd0 sr_mod # load sr_mod 
+        upon access of scd0</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">#pre-install ide-scsi modprobe 
+        imm # uncomment for some ZIP drives only</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">pre-install sg modprobe ide-scsi 
+        # load ide-scsi before sg</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">pre-install sr_mod modprobe 
+        ide-scsi # load ide-scsi before sr_mod</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">pre-install ide-scsi modprobe 
+        ide-cd # load ide-cd before ide-scsi</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">Listing: Example configuration 
+        for /etc/modules.conf</font></p>
+</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><font face="Nimbus Sans l" color="#000000">ako je vas CD snimac jedini CD rom 
+  koji je prikljucen za vasu masinu ,onda trebate da znate da imate pristup vasem 
+  CD romu u CD pisacu</font></p>
+<p><font face="Nimbus Sans l" color="#000000">kroz uredjajni fajl <i>/dev/scd× 
+  where ×=0,..,8</i>. Ako zelite da promjenite simbolicno imevaseg CD roma u 
+  neko drugo ime,sljedeci tekst</font></p>
+<p><font face="Nimbus Sans l" color="#000000">uzima sebi za zadatak da objasni 
+  komande koje se pritom koriste.Pogledajmo primjer promjene imenma Cd roma u 
+  neko ime scd0.</font></p>
+<p><font face="Nimbus Sans l" color="#000000">cd /dev &amp;&amp; rm cdrom &amp;&amp; ln -s scd0 cdrom</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Listing: Making cdrom a symbolic name for scd0</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Ako su vas Cd snimac i CD rom dva 
+  razlicita uredjaja onda nemojte mjenjati ime CD romu.</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Posebno ya SCSI Cd snimace</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Prije svega uvjerite se da je vas 
+  Cd snimac prepoznan od strane BIOSA i vase SCSI hostadaptor kartice.Svaki SCSI 
+  hostadaptor skenira SCSI</font></p>
+<p><font face="Nimbus Sans l" color="#000000">bus-ove nakon sto se masina pali, 
+  a zatim daje izvjestaj o svim uredjajima koji su prikljuce na bus-ove. Izvjestaj 
+  ukljucuje SCSI ID i jos </font></p>
+<p><font face="Nimbus Sans l" color="#000000">neke informacije o uredjajima koji 
+  su prikljuceni. Ako planirate da prikljucite vas SCSI uredjaj na paralelni port 
+  ,trebate imati odgovarajuci</font></p>
+<p><font face="Nimbus Sans l" color="#000000">kabal i odgovarajuci kernel driver.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.torque.net/parport/parscsi.html">http://www.torque.net/parport/parscsi.html</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">Specijalno za CD snimace koji su 
+  na paralelnom portu</font></p>
+<p><font face="Nimbus Sans l" color="#000000">O tome mozete naci daleko opsirnije 
+  i detaljnije na sljedecim adresama:</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.torque.net/parport/paride.html">http://www.torque.net/parport/paride.html</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">Kompajliranje kernel modula koji nedeostaju</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Ne morate citati ovaj tekst ako 
+  je vas hardware uspjesno prepoznat i konfigurisan od strane predhodno opisanih 
+  konfiguracijskih koraka.</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Linux kernel moe da koristi razlicite 
+  drivere ili slicno koji recimo nisu automatski prepoznati, ali u tom slucaju 
+  moramo prekompajlirati</font></p>
+<p><font face="Nimbus Sans l" color="#000000">kernel. Mozete kompajlirati drivere 
+  u kernel image statically ili ih moyete kompajlirati kao kao mudule za on-demand 
+  punjenje. Zadnji metod</font></p>
+<p><font face="Nimbus Sans l" color="#000000">moze da ucni rilikom kompajliranja 
+  drivera vas kernel manjim i brzim. Medjutim, postoje driveri koje ne biste smjeli 
+  kopajlirati kao module</font></p>
+<p><font face="Nimbus Sans l" color="#000000">jer to moze biti rizicno za vas 
+  sistem.Primjer: ako vas sistem radi na IDE hard disku vi morate imati drivere 
+  ya IDE hard diskove,</font></p>
+<p><font face="Nimbus Sans l" color="#000000">ne za module.Postoje tri tipa CD 
+  snimaca: IDE/ATAPI, SCSI DC snimaci i externi odnosno vanjski snimaci koji rade 
+  preko paralelnog porta.</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Sljedeca tabela pokazuje kako da 
+  konfigurisete Linux kernel za ove vrste kernela. Prva kolona tabele odnosi se 
+  na kernel konfiguracijski</font></p>
+<p><font face="Nimbus Sans l" color="#000000">menu, gdje moyete naci osobinu.Sledeca 
+  kolona tabele odnosi se na opis postavki.Treca kolona daje ime reyultujucek 
+  modula.Kolone nazvane</font></p>
+<p><font face="Nimbus Sans l" color="#000000">SCSI, IDE i PP sadrye neophodne 
+  opcije za hardware (PP=paralelni port).</font></p>
+<table width="75%" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <td> 
+      <p><font face="Nimbus Sans l" color="#000000">Sect. Description Module SCSI 
+        IDE PP</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">------------------------------------------------------------</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">BLOCK Enhanced IDE/MFM/RLL... 
+        Y</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">BLOCK IDE/ATAPI CDROM ide-cd 
+        M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">BLOCK SCSI emulation support 
+        ide-scsi M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">BLOCK Loopback device loop 
+        M M M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">&nbsp;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">PARIDE Parallel port IDE device 
+        paride Y/M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">PARIDE Parallel port ATAPI 
+        CD-ROMs M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">PARIDE Parallel port generic 
+        ATAPI M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">PARIDE (select a low-level 
+        driver) Y</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">&nbsp;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">SCSI SCSI support scsi_mod 
+        Y/M Y/M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">SCSI SCSI CD-ROM support sr_mod 
+        Y/M Y/M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">SCSI Enable vendor-specific 
+        Y Y</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">SCSI SCSI generic support 
+        sg Y/M Y/M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">SCSI (select a low-level driver) 
+        Y</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">&nbsp;</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">FS ISO 9660 CDROM filesystem 
+        iso9660 Y/M Y/M Y/M</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">FS Microsoft Joliet cdrom... 
+        joliet Y Y Y</font></p>
+      <p><font face="Nimbus Sans l" color="#000000">Table: driver selection for 
+        different writer types</font></p>
+</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><font face="Nimbus Sans l" color="#000000">Y stoji za DA, i znaci da bi trebali 
+  staviti BEAST u kernel. M stoji za modul, i znaci da bi trebali kompajlirati 
+  ovu postavku kao modul.</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Y/M pruza vam mogucnost da izaberete 
+  sta ce te da ucinite. Prazne osobine ne trebaju biti modificirane, jer ako ste 
+  nesto vec ucinili po</font></p>
+<p><font face="Nimbus Sans l" color="#000000">pitanju toga pitanje je da li ce 
+  vas kernel ispravno raditi za vas. Tamo gdje su SCSI i ATAPI izmjesani, tu bi 
+  trebalo postavljati vecinu kao</font></p>
+<p><font face="Nimbus Sans l" color="#000000">module. Kompajliranje loopback je 
+  opcenito. Ono vam omogucava testiranje prije snimanja. Ako zelite omoguciti 
+  citanje CD romova, trebate</font></p>
+<p><font face="Nimbus Sans l" color="#000000">podrsku ya ISO 9660 filesystem.Ovaj 
+  driver automatski ukljucuje RockRidge Extensions.Microsoft Joliet CD-ROM ekstenzije 
+  eksplicitno trebaju</font></p>
+<p><font face="Nimbus Sans l" color="#000000">biti dodane ISO 9660 filesystemu.U 
+  svakom slucaju, trebate nisko-nivojni driver za vas hardware. Za SCSI i za paralelne 
+  portove dosta je</font></p>
+<p><font face="Nimbus Sans l" color="#000000">dostupnih drivera. Medjutim, najbolje 
+  od svega je to da posjetite HOWTO koji se odnosi na kompajliranje kernela vase 
+  distribucije.</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Software za CD snimanje dostupno 
+  je na sljedecoj adresi:</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.fokus.gmd.de/research/cc/glone/employees/joerg.schilling/private/cdb.html">http://www.fokus.gmd.de/research/cc/glone/employees/joerg.schilling/private/cdb.html</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.fokus.gmd.de/research/cc/glone/employees/joerg.schilling/private/cdb.html">http://www.fokus.gmd.de/research/cc/glone/employees/joerg.schilling/private/cdb.html</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">Utilities za komandnu liniju</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Na sljedecim adresama mozete naci 
+  dosta paketa koji su pozeljni za CD snimanje&gt;</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="ftp://tsx-11.mit.edu/pub/linux/packages/mkisofs">ftp://tsx-11.mit.edu/pub/linux/packages/mkisofs/</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="ftp://ftp.ge.ucl.ac.uk/pub/mkhfs">ftp://ftp.ge.ucl.ac.uk/pub/mkhfs</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">Ya Cd snimanje pozeljan je i potreban 
+  je jedanod ovih software-skih paketa:</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="ftp://ftp.fokus.gmd.de/pub/unix/cdrecord">ftp://ftp.fokus.gmd.de/pub/unix/cdrecord/</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.ping.de/sites/daneb/cdrdao.html">http://www.ping.de/sites/daneb/cdrdao.html</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.munich-vision.de/vcd">http://www.munich-vision.de/vcd/</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">Graficki korisnicki interfejs</font></p>
+<p><font face="Nimbus Sans l" color="#000000">Front-ends su pravi fronts-ends 
+  pod Linuxom. To znaci da bi trebali instalirati utilities za komandnu liniju, 
+  ali zato pristupate ljepsem</font></p>
+<p><font face="Nimbus Sans l" color="#000000">okruzenju. X-CD-Roast je programski 
+  paket koji kombinuje alate komandne linije kao sto je cdrecord i mkisofs u lijep 
+  graficki korisnicki</font></p>
+<p><font face="Nimbus Sans l" color="#000000">interfejs.</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.fh-muenchen.de/home/ze/rz/services/projects/xcdroast/e_overview.html">http://www.fh-muenchen.de/home/ze/rz/services/projects/xcdroast/e_overview.html</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">BurnIT je slican program, koji sluzi 
+  za CD snimanje i dostupan je na sljedecoj adresi:</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://sunsite.auc.dk/BurnIT">http://sunsite.auc.dk/BurnIT/</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">Slican program je i Cd-Tux koji je dostupan na sljedecoj adresi:</font></p>
+<p><font face="Nimbus Sans l" color="#000000"><a href="http://www.datadictator.co.za/cdtux">http://www.datadictator.co.za/cdtux/</a></font></p>
+<p><font face="Nimbus Sans l" color="#000000">&nbsp;</font></p>
+<hr>
+<div align="center"><font face="Nimbus Sans l" color="#000000">&nbsp;<i>copyleft</i> 
+  <br>
+  <u><a href="http://ze.lugbih.org">Linux User Group Of Zenica - LugZe</a></u></font></div>
+<p><font face="Nimbus Sans l" color="#000000">&nbsp;</font></p>
+</body>
+</html>

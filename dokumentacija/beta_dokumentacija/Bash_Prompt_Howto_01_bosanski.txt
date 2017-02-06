@@ -1,0 +1,187 @@
+Elmana Jukic - elmana666@yahoo.com
+
+
+Bash-Prompt-HOWTO 0.1 bosanski prevod
+
+
+LugZe - ze.lugbih.org
+
+
+-----------------------------------------------------------
+Sadrzaj:
+
+1.Sta je Bash?
+
+2.Sta moze Vas Bash Prompt uraditi?
+
+3.Prvi korak
+
+4. Izuzimnje sekvence Bash Prompt-a
+
+5.Postavljanje PS stringa trajno
+
+ 
+
+ 
+
+1.Sta je Bash?
+
+Izveden Iz Bourne Shell, Bash je projekt GNU-a, "Bourne Again Shell"(valjda 
+ponovo rodjeni shell) To je standardno okruzenje komandne linije
+ na vecini Linux uredjaja.Istice se interaktivnoscu,podrzavanju komandne 
+linije,editiranju,zavrsavanju i ponovnom dizanju(startanju,pozivu?).Takodjer 
+podrzava konfigurirane promptove-vecina ljudi ovo razumije,ali ne znaju koliko 
+mnogo moze biti uradjeno.
+
+2.Sta moze Vas Bash Prompt uraditi?
+
+Vecina linux sistema imaju default prompt u jednoj boji(obicno sivoj),koja 
+govori Vas username, ime uredjaja na kojem radite,i neke informacije o 
+direktoriju u kojem se trenutno nalazite.Ovo su korisne informacije,al mozete 
+mnogo vise uraditi preko prompt-a:sve vrste informacija mogu biti prikazane(tty 
+number,vrijeme,datum,load,broj korisnika,uptime…) i prompt moze da koristi ANSI 
+boje,bilo da ucini izgled interesantnijim,ili da istakne neke 
+informacije.Takodjer mozete manipulirati naslovnom linijom Xterma da 
+reflektirate neke od ovih informacija.
+
+3.Prvi korak
+
+Pojavljivanje prompt-a je uslovljeno PS1 varijablom shell-a. Command 
+continuations are indicated by the PS2 string………Da biste promijenili izgled 
+prompta,mijenjate PS1 varijablu.U experimentalne svrhe,mozete ubaciti PS1 
+stringove direktno preko prompta, i vidjeti rezultate odmah(ovo mijenja samo 
+trenutnu sesiju,i promjene nestanu kad se out-logirate:))Ako zelite vidjeti kako 
+se prompt promijeni za stalno,pogledajte ispod tacku 5.
+
+Prije nego sto krenemo,vazno je zapamtiti da je PS1 string smjesten u okruzenje 
+koje je isto kao i bilo koje okruzenje varijable.Ako ga modificiras u komandnoj 
+liniji,prompt ce se promijenjiti.Prije nego sto bilo sta promijenite,mozete 
+sacuvati Vas trenutni prompt ze drugo okruzenje varijable 
+
+[giles@nikola giles]$ SAVE=$PS1
+
+[giles@nikola giles]$
+
+Najjednostavniji prompt bi bio jedan znak, kao naprimjer: 
+
+[giles@nikola giles]$ PS1=$
+
+$ls
+
+bin mail
+
+$
+
+Ono demonstrira najbolji nacin eksperimentiranja sa osnovnim 
+promptovima,ubacujuci ih u komandnu liniju.Mozete promijetiti da text ubacen od 
+strane korisnika se prikazuje odmah poslije prompta.I prefer to use:) :):
+
+$PS1="$ "
+
+$ ls
+
+bin mail
+
+$ 
+
+sto ostavlja prostor poslije prompta,cineci ga laksim za citanje.Da biste 
+vratili Vas originalni prompt,samo pozovite varijablu koju ste sacuvali:
+
+$ PS1=$SAVE
+
+[giles@nikola giles]$
+
+4.Izuzimnje sekvence Bash Prompt-a
+
+Mnogo nacina izuzimanja sekvence je ponudjeno od starane bash shella za 
+ubacivanje prompta.Iz Bash 2.04 manual-ne stranice:
+
+Kada se izvrsava interaktivno,bash ispisuje primarni Prompt PS1 kada je spreman 
+da cita komandu, I sekundarni prompt PS2 kada treba jos inputa da izvrsi 
+komandu.Bash dozvoljava ove prompt stringove da budu izmjenjeni ubacivanjem 
+brojnih backslashova slijedjenih specijalnim karakterima koji su dekodirani na 
+slijedeci nacin: 
+
+\a……….
+
+\d datum u "Dan Mjesec Datum" formatu …npr.Tue May 26 
+
+\e ………..
+
+\h pomjeranje hostname-a prema gore do prve '.'
+
+\H hostname
+
+\j (=jobs) broj radnji koje trenutno izvrsava shell
+
+\l osnovno ime terminalnog uredjaja shell-a
+
+\n nova linija
+
+\r ………
+
+\s ime shell-a, osnovno ime $0 (the portion following the final slash)
+
+\t trenutno vrijeme u 24-osatnom HH:MM:SS formatu
+
+\T trenutno vrijeme u 12-osatnom HH:MM:SS formatu
+
+\@ trenutno vrijeme u 12-osatnom am/pm formatu
+
+\u korisnicko ime trenutnog korisnika
+
+\v verzija basha(npr. 2.00)
+
+\V potpunije ovo gore(relase,version,patchlevel-npr.2.00.0)
+
+\w direktorij u kojem trenutno radite
+
+\W osnovno ime direktorija u kojem trenutno radite
+
+\! the history number of this command
+
+ 
+
+\# komandni broj ove komande
+
+\$ ako je efektivni UID 0, onda #, u drugom slucaju $
+
+\nnn odgovarajuci karakter oktalnom broju nnn
+
+\\ a backslash
+
+\[ pocetak sekvence neispisujucih znakova,which could be used to embed a 
+terminal control sequence into the prompt
+
+ 
+
+Nastavljamo gdje smo stali:
+
+[giles@nikola giles]$ PS1="\u@\h \W> "
+
+giles@nikola giles> ls
+
+bin mail
+
+giles@nikola giles>
+
+Ovo je isto kao I default na vecini linux distribucija.Za malo drukcije 
+prikazivanje mozete kucati slijedece:
+
+giles@nikola giles> PS1="[\t][\u@\h:\w]\$ "
+
+[21:52:01][giles@nikola:~]$ ls
+
+bin mail
+
+[21:52:15][giles@nikola:~]$ 
+
+4.Postavljanje PS stringa trajno
+
+Zavisno od osobe I distribucije PS? String se stavlja na razlicita 
+mjesta.Najuobicajnija mjesta su /etc/profile, /etc/bashrc, ~/.bash_profile, i 
+~/.bashrc .(a biliv mi,najbolje je da stavite u ovaj .bashrc. zato sto je to 
+rekao neki Johan Kullstam a obrazlozenje nisam skontala;) )
+
+
+

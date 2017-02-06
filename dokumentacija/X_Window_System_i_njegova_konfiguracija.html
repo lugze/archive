@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>X Window System i njegova konfiguracija </title>
+<meta http-equiv="Content-Type" content="X Window System i njegova konfiguracija  - Linux Dokumentacija">
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="94%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td> 
+      <p><font size="5" color="#000000" face="Georgia, Times New Roman, Times, serif">X 
+        Window System i njegova konfiguracija </font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><i><font size="3" color="#000000"><b>Kemal 
+        Sanjta <a href="mailto:gomez@ze.lugbih.org">gomez@ze.lugbih.org</a></b><br>
+        18.11.2002 <b>v1.0</b><br>
+        </font></i></font></p>
+      <hr>
+      <p><font face="Georgia, Times New Roman, Times, serif"><i>Svi oni koji koriste 
+        Linux Operativni Sistem bar jednom su bili suoceni sa tim da moraju konfigurisati 
+        X Window System. <a href="http://ze.lugbih.org/">Linux Udruzenje Korisnika 
+        Zenice</a> odlucilo je da vam priblizi malo o cemu se zapravo radi.. </i></font></p>
+      <hr>
+      <p><font face="Georgia, Times New Roman, Times, serif">X Window okruzenje 
+        u Linux-u je objezbjedjeno od XFree86 (<a href="http://www.xfree86.org">www.xfree86.org</a>). 
+        Nezavisno je od operativnog sistema, kao sto su Windows ili recimo MacOS. 
+        Zapravo radi se o tome da su tu glavne dvije komponente SERVER i WINDOW 
+        MANAGER. SERVER obezbjedjuje funkcije na nizem nivou za interakciju sa 
+        vasim video hardverom. <i>WINDOW MANAGER</i> tako da kazem nalazi se na 
+        vrhu servera i obezbjedjuje korisnicki interfejs. X server je specifican 
+        za vas video hardver. Tokom instalacije Slackware-a upitani ste koje servere 
+        zelite instalirati. Pod uobicajnom instalacijom izabrani su<i> XF86_VG16, 
+        XF86_SVGA i XF86_FBDev</i> serveri.Ovi serveri se najcesce koriste. Ako 
+        je vas server <i>XF86_FBDev</i> nece te ga morati konfigurisati. </font></p>
+      <blockquote> 
+        <p> <font face="Georgia, Times New Roman, Times, serif"><u><font size="4">Opis 
+          X servera koje mozete instalirati</font></u><font size="4">: </font></font></p>
+      </blockquote>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>x3dl X</b> server 
+        za kartice koje koriste <i>3DLabs chipovi (XF86_3DLabs) </i> </font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>x8514 X</b> server 
+        za kartice koje koriste <i>IBM8514 chipovi (XF86_8514) </i> </font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xagx X</b> server 
+        za kartice koje koriste <i>AGX chipovi (XF86_AGX) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xi128 X</b> server 
+        za <i>#9 Imagine 128 (XF86_I128) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xma8 X </b>server 
+        za kartice koje koriste <i>Mach8 chipovi (XF86_Mach8) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xma32 X</b> server 
+        za kartice koje koriste <i>Mach32 chipovi (XF86_Mach32) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xma64 X</b> server 
+        za kartice koje koriste <i>Mach64 chipovi (XF86_Mach64) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xmono A Monochrome 
+        X</b> server <i>(XF86_Mono) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xp9k X </b>server 
+        za kartice koje koriste <i>P9000 chipove (XF86_P9000) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xs3 X</b> server 
+        za kartice koje koriste <i>S3 chipove (XF86_S3) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xs3v X </b>server 
+        za <i>S3 ViRGE chipove (XF86_S3V; obsolete, use SVGA) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xsvga X</b> server 
+        za vecinu <i>SVGA kartica (XF86_SVGA) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xvg16 A 16-color 
+        generic X</b> server <i>(XF86_VGA16) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xw32 X</b> server 
+        za kartice koje koriste <i>ET4000/W32 chipset (XF86_W32) </i></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif"><b>xxfb Generic framebuffer 
+        </b>server za vecinu <i>VESA kartica (XF86_FBDev) </i></font></p>
+      <p>&nbsp;</p>
+      <p align="left"><font face="Georgia, Times New Roman, Times, serif"> Konfiguracija 
+        X server nije veliki problem. Ako ste odabrali XF86_FBDev server onda 
+        ste vi zavrsili sav posao. Samo budite sigurni da ste odabrali odgovarajuci 
+        video mod prilikom LILO konfiguracije (pokrenite liloconfig kao root korisnik).Server 
+        ce koristiti taj video mod. <br>
+        <br>
+        Ako odlucite da koristite regularni Xserver, trebat ce da napravite <b><i>etc/XF86Config</i></b> 
+        file koji odgovara vasem sistemu. Najlaksi nacin da to uradite jeste da 
+        pokrenete <i><b>/usr/X11R6/bin/XF86Setup</b></i> kao root. To je graficki 
+        setup program za X. Ako to ne radi, onda uvijek mozete koristiti <b><i>/usr/X11R6/bin/xf86config</i></b>. 
+        Setup program omogucit ce vam da odaberete svoj server, rezoluciju, i 
+        ostale osobine. Budite sigurni da unosite prave vrijednosti.<br>
+        <br>
+        Zadnji korak u konfiguraciji jeste da odaberte WINDOW MANAGER. Pokrenite 
+        <i><b>xwmconfig</b></i> da postavite standardni WINDOW MANAGER za vas 
+        sistem. Ovaj program ce vam prestaviti listu instaliranih WINDOW MANAGER-a, 
+        i omogucit ce vam da odaberte jedan (vidi sliku).</font></p>
+      <p align="center"><font face="Georgia, Times New Roman, Times, serif"><br>
+        <img src="xwmconfig.gif" width="455" height="221"></font></p>
+      <p><font face="Georgia, Times New Roman, Times, serif">Kada odaberete Window 
+        manager konfiguracija je zavrsena. Nadam se da sam ovim rezimeom bar malo 
+        olaksao konfiguraciju X-ova. </font></p>
+      <hr>
+    </td>
+  </tr>
+</table>
+<p align="center"><font color="#000000" face="Times New Roman, Times, serif"><i><a href="http://ze.lugbih.org/">LugZe</a></i></font><font face="Times New Roman, Times, serif"><i><font color=#000000></font></i></font></p>
+</body>
+</html>

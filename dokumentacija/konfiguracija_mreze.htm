@@ -1,0 +1,189 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="Konfiguracija Mrezne Konekcija - Linux Dokumentacija" >
+<title>Konfiguracija Mrezne Konekcija </title>
+</head>
+<body bgcolor="#FFFFFF">
+<div> 
+  <table width="99%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+        <div align="left"> 
+          <p><font size="5"><i><b>Konfiguracija Mreze<br>
+            </b><font size="3" color="#000000"><b>Kemal Sanjta <a href="mailto:gomez@ze.lugbih.org">gomez@ze.lugbih.org</a></b><br>
+            27.11.2002 <b>v1.1</b></font><b> </b></i></font></p>
+          <hr>
+          <i>Ovaj tekst ce vam objasniti kako konfigurisati mrezu pod Slackware 
+          linuxom</i>.<br>
+          <hr>
+          <p align="center"><span style="font-family: 'Times New Roman'; font-size: 14.000000pt">netconfig 
+            </span></p>
+          <p dir="ltr" style="text-align: left"><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">Jedan 
+            od nacina da podesite svoju mrezu pod Slackware Linux-om&nbsp; jeste 
+            pomocu programa netconfig. </span></p>
+          <p dir="ltr" style="text-align: left"><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">Potrebno 
+            je da ovaj program pokrenete kao super (root) korisnik. Kada pokrenete 
+            ovaj program on ce vam postaviti seriju pitanja na koja trebate odgovoriti 
+            sto je moguce tacnije. Kada zavrsite sa tim program ce napraviti </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">rc.inet1 
+            </span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">fajl. 
+            Potrebno je napomenuti da ce vam trebati podrska kernela za vasu mreznu 
+            karticu. Netconfig program ce za vas provjeriti mreznu karticu sa 
+            vasim sistemom i odobriti je. Ili u direktorijumu </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">/etc/rc.d/rc.modules 
+            </span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">mozete 
+            odabrati vasu mreznu karticu. Naravno mozete da dodate mrezne konfiguracijske 
+            fajlove i rucno. To su </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">/etc/rc.d/rc.inet1</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+            i </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">/etc/rc.d/rc.inet2</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">.&nbsp;</span><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"> 
+            </span></p>
+</div>
+        <p dir="ltr" style="text-align: center"><font size="2"></font></p>
+        <p dir="ltr" style="text-align: center"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 14.000000pt"><br>
+          DHCP podrska</span></font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">Bitno 
+          je spomenuti da ce vas netconfig program pitati da li zelite DHCP podrsku 
+          za vasa mrezna podesavanja. Ili vi mozete dodati rc.inet1-u da pokrece 
+          </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">/sbin/dhcpd</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          za vas. Opet napominjem da je potrebno imati kernel podrsku za vasu 
+          mreznu karticu.&nbsp;</span></font></p>
+        <p dir="ltr" style="text-align: center"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 14.000000pt"><br>
+          rc.inet1</span></font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3">Uloga 
+          <b>rc.inet1</b>-a je veoma jasna. On konfigurise vase network uredjaje. 
+          Dakle, on stavlja network uredjaje na prvo mjesto. </font></span></font></p>
+        <table width="75%" border="1" cellspacing="0" cellpadding="0">
+          <tr bgcolor="#CCCCCC"> 
+            <td><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3">HOSTNAME=`cat 
+              /etc/HOSTNAME`</font></span></font></td>
+          </tr>
+        </table>
+        <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3">Sve 
+          ove linije pokazuju koje je ime vase masine. Budite sigurni da <b>/etc/HOSTNAME</b> 
+          sadrzi ime koje vi zelite.</font></span></font></p>
+        <table width="75%" border="1" cellspacing="0" cellpadding="0">
+          <tr bgcolor="#CCCCCC"> 
+            <td> 
+              <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3"># 
+                Dodajte loopback uredjaj ( O loopback uredjajima pisao sam u tekstu 
+                Linux On A Floppy - Linux na disketi)</font></span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">/sbin/ifconfig 
+                lo 127.0.0.1</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">/sbin/route 
+                add -net 127.0.0.0 netmask 255.0.0.0 lo</span></font></p>
+            </td>
+          </tr>
+        </table>
+        <p dir="ltr" style="text-align: left"><font size="2"><br>
+          </font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3">Ove 
+          linije su dobar primjer jednostavnosti BSD-style inita. Poslije dodavanja 
+          loopback uredjaja imamo:</font></span></font></p>
+        <table width="75%" border="1" cellspacing="0" cellpadding="0">
+          <tr bgcolor="#CCCCCC"> 
+            <td> 
+              <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3"># 
+                Edit for your setup.</font></span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">IPADDR="111.112.113.114"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">NETMASK="255.255.255.0"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">NETWORK="111.112.113.0"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">BROADCAST="111.112.113.255"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">GATEWAY="111.112.113.1"</span></font></p>
+            </td>
+          </tr>
+        </table>
+        <p dir="ltr" style="text-align: left"><font size="2"><br>
+          </font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">Vasu 
+          IP adresu mozete dobiti od vaseg internet administratora. Netmask je 
+          gotovo uvijek 255.255.255.0 , jedino ako nije na vrhu subneta (u tom 
+          slucaju nije vam potrebna ova stranica). "Network" ce obicno biti vas 
+          subnet, (prva tri dijela vase IP adrese) gdje se nula nalazi na cetvrtom 
+          dijelu. "Broadcast" je najcesce prva tri dijela sa 255 na cetvrtom dijelu. 
+          "Gateway" je isti kao i "Broadcast" sa jedinicom na cetvtom dijelu.</span><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"></span></font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"><br>
+          </font></p>
+        <table width="75%" border="1" cellspacing="0" cellpadding="0">
+          <tr bgcolor="#CCCCCC"> 
+            <td> 
+              <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3">#Popunite 
+                mjesta u zagradama tadi konfiguracije vaseg uredjaja.</font></span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">/sbin/ifconfig 
+                eth0 ${IPADDR} broadcast ${BROADCAST} netmask ${NETMASK}</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><br>
+                </font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"># 
+                Popunite sljedeca radi podesavanja vase IP routing table.</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">/sbin/route 
+                add -net ${NETWORK} netmask ${NETMASK} eth0</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">if 
+                [ ! "$GATEWAY" = "" ]; tada</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">&nbsp;&nbsp;&nbsp; 
+                /sbin/route add default gw ${GATEWAY} netmask 0.0.0.0 metric 1</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">fi</span></font></p>
+            </td>
+          </tr>
+        </table>
+        <p dir="ltr" style="text-align: left">&nbsp;</p>
+        <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3">Ovim 
+          korakom zavrsavamo sve sto se tice <b>rc.inet1</b></font></span></font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"></font></p>
+        <p dir="ltr" style="text-align: left">&nbsp;</p>
+        <p dir="ltr" style="text-align: center"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 14.000000pt"><font size="4">rc.inet2</font></span></font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">rc.inet1</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          prakticno daje nam mrezu, dok vam </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">rc.inet2</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          zavrsava posao mrezne konfiguracije pokretanjem uredjaja na toj mrezi. 
+          Svi servisi i deamoni koji koriste mrezu trebali bi biti pokrenuti iz 
+          ovog fajla. Bitno je spomenuti da je jedan od tih demona koji se pokrece 
+          iz </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">rc.inet2</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          veliki </span><span style="font-style: italic; font-family: 'Times New Roman'; font-size: 12.000000pt">inetd</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          koji ima svoj vlastiti konfiguracijski fajl. </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">rc.inet2</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          izgleda na sljedeci nacin:</span><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"></span></font></p>
+        <p dir="ltr" style="text-align: left"><font size="2"></font></p>
+        <table width="75%" border="1" cellspacing="0" cellpadding="0">
+          <tr bgcolor="#CCCCCC"> 
+            <td> 
+              <p dir="ltr" style="text-align: left"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3"># 
+                Konstante.</font></span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">NET="/usr/sbin"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">IN_SERV="lpd"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">LPSPOOL="/var/spool/lpd"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><br>
+                </font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"># 
+                Pokrenite INET SuperServer</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">if 
+                [ -f ${NET}/inetd ]; then</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">&nbsp;&nbsp; 
+                echo -n " inetd"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">&nbsp;&nbsp; 
+                ${NET}/inetd</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">else</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">&nbsp;&nbsp; 
+                echo "no INETD found. INET cancelled!"</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">&nbsp;&nbsp; 
+                exit 1</span></font></p>
+              <p dir="ltr" style="text-align: left"><font size="3"><span style="font-family: 'Times New Roman'; font-size: 10.000000pt">fi</span></font></p>
+        </td>
+          </tr>
+        </table>
+        <p dir="ltr" style="text-align: left">&nbsp;</p>
+        <p dir="ltr" style="text-align: left" align="center"><font size="2"><span style="font-family: 'Times New Roman'; font-size: 12.000000pt">Kada 
+          god pokrenete deamon ili server iz </span><span style="font-weight: bold; font-style: italic; font-family: 'Times New Roman'; font-size: 12.000000pt">rc.inet2</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          izgledat ce kao ovaj gore. Dakle, ako inetd postoji, onda pokrecemo 
+          deamon. Medjutim, ako inetd ne postoji ( sto se jako rijetko desava) 
+          bit ce mo suoceni sa statusom greske. Ali vecina deamona zapravo nece 
+          izaci iz </span><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 12.000000pt">rc.inet2</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          sa statusom greske ako nisu pronadjeni. Ali jos jednom napominjem da 
+          je </span><span style="font-style: italic; font-family: 'Times New Roman'; font-size: 12.000000pt">inetd</span><span style="font-family: 'Times New Roman'; font-size: 12.000000pt"> 
+          dosta komleksan i da ima zaista dosta sadrzaja.&nbsp;&nbsp;</span><span style="font-family: 'Times New Roman'; font-size: 10.000000pt"><font size="3"><br>
+          <br>
+          Nadam se da sam vam ovim tekstom dosta pojednostavio konfiguraciju networka. 
+          Mislim da ne bi trebali imati problema u konfiguraciji.<br>
+          Sretno!</font></span></font><br>
+        </p>
+        </td>
+    </tr>
+  </table>
+  <p dir="ltr" style="text-align: center"><i><font color=#000000><br>
+    <a href="http://ze.lugbih.org">Linux User Group of Zenica</a></font></i></p>
+  </div>
+</body>
+</html>

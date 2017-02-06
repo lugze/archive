@@ -1,0 +1,257 @@
+Portovanje, kompajliranje i nabavljanje programaKako se programi kompajliraju?
+Vecina programa za Linux napisana je u C-u i kompajlirana kompajlerom GNU C. GCC je dio svake distribucije Linuxa. Najnovija verzija kompajlera, dokumentacije i zakrpa nalaze se na ftp://ftp.gnu.org/pub/gnu/. 
+
+Programi napisani u C++ moraju se kompajlirati kompajlerom GNU G++, koji je takodjer ukljucen u distribucije Linuxa i dostupan na istom mjestu kao i GCC. 
+
+Za kompajliranje kernela verzije 2.0.x potreban vam je GCC verzije 2.7.2.x. Pokusavanje kompajliranja Linux kernela drugim kompajlerom, kao sto je GCC 2.8.x, EGCS ili PGCC, moze uzrokovati probleme dok se ne srede zavisnosti koda o 2.7.2.x kompajlerima. 
+
+Informacije o kompajleru EGCS nalaze se na http://egcs.cygnus.com. 
+
+Primjetite da ljudi koji razvijaju kernel za sada ne odgovaraju na zahtjeve za ispravkama gresaka u kernelima verzije 2.0.x, nego se fokusiraju na razvoj verzija 2.1.x. 
+
+ 
+Kako instalirati GNU programe?
+Na ispravno instaliranom sistemu instalacija GNU softverskog paketa se sastoji od cetiri koraka. 
+
+   Stavite izvornu .tar.gz arhivu u direktorijum /usr/src/ ili gdje vec odrzavate svoje source fajlove i dekompresujte paket naredbom 
+
+tar zxvf ime-paketa.tar.gz
+
+   Pokrenite skriptu ./configure u najvisem direktorijumu dekompresovane izvorne arhive uz bilo koje vama potrebne argumente. Opcije koje configure prepoznaje obizno su opisane u fajlu INSTALL ili README. 
+   Pokrenite make. To ce iz izvornog koda izgraditi izvrsni program (ili programe) i moze potrajati nekoliko minuta ili sati, zavisno od brzine racunara i velicini paketa. 
+   Pokrenite make install. To ce u odgovarajuce direktorije instalirati dobijene izvrsne i konfiguracione fajlove i library-e. 
+Kako portovati XXX na Linux?
+Unix programima obicno ne treba puno portovanja. Jednostavno sljedite uputstvo za instalaciju. Ako ne znate -- i ne znate kako da saznate -- odgovore na neka od pitanja tokom postupka instalacije, mozete pogadjati, ali to obicno urodi programom sa greskama. U tom slucaju cete vjerovatno bolje proci ako nekog drugog zamolite da napravi port. 
+
+Ako imate BSD-olik program, pokusajte da koristite -I/usr/include/bsd i -lbsd na odgovarajucim mjestima naredbi za kompajliranje. 
+Sta je ld.so i gde ga nabaviti?
+ld.so dinamicki ucitava library-e. Svaki izvrsni fajl koji koristi djeljene biblioteke nekad je imalo oko 3 KB koda za pokretanje koji bi saznao i ucitao djeljene biblioteke. Sada je taj kod stavljen u posebnu djeljenu biblioteku, /lib/ld.so, gde ga mogu naci svi izvrsni fajlovi, pa on trosi manje prostora na disku i lakse ga je nadograditi. 
+
+ld.so se moze nabaviti sa ftp://tsx-11.mit.edu/pub/linux/packages/GCC/ i njegovih mirrora. 
+
+/lib/ld-linux.so.1 je ista stvar za ELF i dolazi u istom paketu kao i a.out loader. 
+Kako nadograditi library-e bez raspadanja sistema?
+Napomena: Pri ovom postupku uvijek imajte pri ruci rescue disketu zbog velike verovatnoce da nesto podje pogresno! 
+
+Ovaj postupak je mukotrpan, pogotovo ako nadogradjujete vrlo stare biblioteke kao sto je libc4. Ipak trebalo bi da mozete da zadrzite libc4 na istom sistemu s libc5 bibliotekama koje su jos potrebne. Isto vrijedi i za nadogradjivanje sa libc5 na jos novijui glibc2 biblioteku. 
+
+Problem kod nadogradnje dinamickih biblioteka je to sto, cim izbrisete stare biblioteke, alati koji vam trebaju za nadogradjivanje na novu verziju ne rade. To se moze zaobici na nekoliko nacina. Jedan je privremeno staviti dodatni primjerak dinamickih biblioteka, koji su u /lib/, u /usr/lib/ ili /usr/local/lib/, ili neki drugi direktorij koji je upisan u fajl /etc/ld.so.conf. 
+
+Na primer, kod nadogradnje libc5 biblioteke, fajlovi u /lib/ bi izgledali otprilike ovako: 
+
+libc.so.5
+
+libc.so.5.4.33
+
+libm.so.5
+
+libm.so.5.0.9
+
+Ovo su C i matematicke biblioteke. Kopirajte ih u neki direktorij koji je u /etc/ld.so.conf, kao sto je /usr/lib/. 
+
+cp -df /lib/libc.so.5* /usr/lib/
+
+cp -df /lib/libm.so.5* /usr/lib/
+
+ldconfig
+
+Nemojte zaboraviti pokrenuti ldconfig kako bi se konfiguracija librarya osvjezila. 
+
+fajlovi libc.so.5 i libm.so.5 su simbolicke veze na prave biblioteke. Kod nadogradnje nove veze se nece stvoriti ako stare jos uvek postoje, osim ako uz cp koristite opciju -f. Zbog opcije -d kopiraju se same veze, a ne fajlovi na koje one pokazuju. 
+
+Ako morate prebrisati vezu na biblioteci, koristite -f opciju za ln. 
+
+Na primer, za kopiranje novih biblioteka preko starih, probajte ovo. Prvo napravite simbolicku vezu na nove biblioteke, a zatim kopirajte i biblioteke i veze u /lib/ sledecim naredbama. 
+
+ln -sf ./libm.so.5.0.48 libm.so.5
+
+ln -sf ./libc.so.5.0.48 libc.so.5
+
+cp -df libm.so.5* /lib
+
+cp -df libc.so.5* /lib
+
+Opet, nakon kopiranja biblioteka sjetite se da pokrenete ldconfig. 
+
+Ako ste zadovoljni i sve ispravno radi, mozete obrisati privremene primjerke starih biblioteka iz /usr/lib/ ili gde ste ih vec kopirali. 
+Je li neko portiovao/kompajlirao/napisao XXX za Linux?
+Najprije potrazite u Linux Software Mapu -- nalazi se na ftp://sunsite.unc.edu/pub/Linux/docs/linux-software-map i drugim FTP arhivama. Pretraga preko WWW-a moze se obaviti na http://www.boutell.com/lsm/. 
+
+Proverite FTP arhive -- odgovarajucim nizovima pretrazite fajlove ls-lR ili INDEX. 
+
+Takodje pogledajte Linux Projects Map, ftp://ftp.ix.de/pub/ix/Linux/docs/Projects-Map.gz. 
+
+Za Linux FTP arhive postoji pretrazivac, na http://lfw.linuxhq.com/. 
+
+Takodjer provjerite na Freshmeat WWW stranicama, http://www.freshmeat.net/, koje su stvarno cool. 
+
+Ako nista ne nadjete, mozete sami skinuti izvorni kod programa i kompajlirati ga. 
+
+ 
+Mogu li koristiti kod ili kompajler kompajliran za 486 na svojoj 386?
+Da, ako to nije kernel. 
+
+GCC-ova opcija -m486 koja se koristi pri kompajliranju izvrsnih fajlova za x486 masine mjenja samo odredjene optimizacije. To rezultuje malcice vecim fajlovima koji rade nesto brze na 486. Ipak, jos uvek dobro rade na 386, uz manje pogorsanje performansi. 
+
+Medjutim, od verzije 1.3.35 kernel koristi instrukcije specificne za 486 ili Pentium ako je konfigurisan za 486 ili Pentium, pa se ne moze koristiti na 386. 
+
+GCC se moze konfigurisati za 386 ili 486; jedina je razlika sto konfigurisanje za 386 -m386 cini predodredjenim, a konfigurisanje za 486 predodredjenim cini -m486. 
+
+Postoji alfa verzija GCC-a koja zna dobro da optimizuje za 586, ali je prilicno nepouzdana, narocito kod visokih optimizacija. Pentium GCC se moze naci na tsx-11.mit.edu u /pub/linux/ALPHA/pentium-gcc/. Preporucio bih koriscenje obicnog 486 GCC-a; cuo sam da koriscenje -m386 daje kod koji bolje odgovara Pentiumu ili je barem malcice manji. 
+Sta znaci gcc -O6?
+Za sada isto sto i -O2 (GCC 2.5) ili -O3 (GCC 2.6, 2.7). Bilo koji broj veci od toga za sada radi istu stvar. Makefileovi novijih kernela koriste -O2, pa bi vjerovatno trebali i vi. 
+Gde su linux/*.h i asm/*.h?
+Fajlovi /usr/include/linux i /usr/include/asm su cesto simbolicke veze na direktorijima u kojima su kernel headeri. Oni se obicno nalaze u /usr/src/kernel*/. 
+
+Zatim pomocu rm izbrisite bilo kakvo smece i preko ln napravite veze: 
+
+rm -rf /usr/include/linux /usr/include/asm
+
+ln -sf /usr/src/linux/include/linux /usr/include/linux
+
+ln -sf /usr/src/linux/include/asm /usr/include/asm
+
+/usr/src/linux/include/asm je simbolicka veza na asm-<arh> direktorij specifican za odredjenu arhitekturu -- ako imate svjeze otpakovan izvorni kod kernela, morate napraviti simbolicke veze. Takodje, kod svjeze otpakovanog kernela morate pokrenuti make config kako bi se stvorio linux/autoconf.h. 
+Dobijam greske kod kompajliranja kernela.
+Pogledajte pitanje o header fajlovima. 
+
+Nemojte da zaboravite da kod primjenjivanja zakrpe na kernel koristite opciju -p0 ili -p1: inace bi zakrpa mogla biti pogresno primjenjena. Za detalje pogledajte man stranicu patcha. 
+
+ld: unrecognised option `-qmagic' znaci da vam treba noviji linker iz ftp://tsx-11.mit.edu/pub/linux/packages/GCC/, u fajlu binutils-2.8.1.0.1.bin.tar.gz. 
+Kako napraviti djeljenu biblioteku?
+Na ELF-u, 
+
+gcc -fPIC -c *.c
+
+gcc -shared -Wl,-soime,libfoo.so.1 -o libfoo.so.1.0 *.o
+
+Ako imate a.out, nabavite tools-n.nn.tar.gz s tsx-11.mit.edu u /pub/linux/packages/GCC/src/. Dolazi s dokumentacijom koja ce vam objasniti sta treba napraviti. Primjetite da su a.out djeljene biblioteke vrlo slozena stvar. Razmislite o nadogradnji na ELF. Pogledajte ELF HOWTO na ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/. 
+Moji izvrsni fajlovi su (vrlo) veliki.
+Na ELF kompajleru najcesci uzrok velikih izvrsnih fajlova je nedostatak odgovarajuce .so veze na koriscenoj biblioteci. Na svaku biblioteku kao sto je libc.so.5.2.18 trebala bi da postoji odgovarajuca veza, odnosno libc.so. 
+
+Uz a.out kompajler najcesci uzrok velikih izvrsnih fajlova je -g, opcija linkera (kompajlera). To daje (uz informacije za pronalazenje gresaka) program koji je staticki vezan, tj. takav koji u sebi sadrzi C biblioteku umjesto koriscenja dinamickih veza. 
+
+Druge stvari koje bi trebalo istraziti su -O i -O2, koje ukljucuju optimiziranje (pogledajte dokumentaciju GCC-a) i -s (odnosno naredba strip) koji u izvrsnoj datoteci brise informacije o simbolima (tako cini trazenje gresaka potpuno nemoguæim). 
+
+Mozda cete na vrlo malim izvrsnim fajlovima koristiti -N (manje od 8 KB uz -N), ali ne radite to ako ne razumjete njegov uticaj na brzinu, a pogotovo ne na demonima. 
+Podrzava li linux thread-ove ili lakse procese
+Uz Unixov model thread-ova koji ukljucuje teze procese, sto je naravno dio standardnog kernela Linuxa, ima nekoliko implementacija laksih procesa ili thread-a. Noviji kerneli koriste model kthreads. Takodjer, za Linux postoje ovi paketi: 
+
+   GNU glibc2 za Linux ima opcionalnu podrsku za niti. Arhiva se nalazi na istom mestu gde i glibc2, ftp://ftp.gnu.org/pub/gnu/. 
+   Na ftp://sipb.mit.edu/pub/pthread/ ili ftp://ftp.ibp.fr/pub/unix/threads/pthreads/. Dokumentacija nije u paketu, ali se moze naci na WWW-u, na http://www.mit.edu:8001/people/proven/home_page.html. Noviji Linux libc-ovi sadrze izvorni kod pthreadsa; GNU Ada kompajler iz ftp://sunsite.unc.edu/pub/Linux/devel/lang/ada/gnat-3.01-linux+elf.tar.gz sadrzi izvrsne fajlove koji su dobijeni iz tog izvornog koda. 
+   Na ftp://ftp.cs.washington.edu/pub/qt-001.tar.Z nalazi se QuickThreads. Vise informacija je u tehnickom izvestaju, na istom mestu u /tr/1993/05/UW-CSE-93-05-06.PS.Z. 
+   Na ftp://gummo.doc.ic.ac.uk/rex/ nalazi se lwp, vrlo minimalna implementacija. 
+   Na ftp://ftp.cs.fsu.edu/pub/PART/ nalazi se implementacija Ade. Korisna je zbog velike kolicine PostScript dokumentacije koja ce vam pomoci u dubljem shvatanju thread-ova. Ovo ne moze da se koristi direktno pod Linuxom. 
+
+Za detalje kontaktirajte autore paketa. 
+Gde se nalazi lint za Linux?
+Otprilike jednaka funkcionalost ugradjena je u GCC. Za vecinu korisnih dodatnih upozorenja koristite opciju -Wall. Za vise detalja pogledajte prirucnik GCC-a (u Emacsu pritisnite ctrl-h, zatim i, pa odaberite GCC). 
+
+Postoji besplatan program, lclint, koji radi otprilike isto sto i tradicionalni lint. Najava i izvorni kod mogu se naci na ftp://larch.lcs.mit.edu/pub/Larch/lclint/; na WWW-u pogledajte http://larch-www.lcs.mit.edu:8001/larch/lclint.html. 
+Gde se nalazi kermit za Linux?
+Kermit se distribuira pod ne-GPL licencom koja uslove njegove distribucije cini pomalo razlicitim. Izvorni kod i neki izvrsni fajlovi se mogu naci na kermit.columbia.edu. 
+
+WWW stranica Columbia University Kermit projekta je http://www.columbia.edu/kermit. 
+
+
+
+---------------------------------
+Do You Yahoo!?
+Sign-up for Video Highlights of 2002 FIFA World Cup
+--0-1681941949-1024693646=:60529
+Content-Type: text/html; charset=us-ascii
+
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Pozdrav,</SPAN></H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Nedime nemoj molim te da se ljutis ali to je bio samo moj prijedlog a ti i sam znas da sam ja samo pocetnik.Nije mi bilo u cilju da te naljuti, ali shvati da ja samo zelim najbolje.A sto se tice onog textware-a, nisam ni mislio da njega bas onakvog objavis nego da ga obradis i da ti posluzi da vidis sta se tu od od toga moze probrati, pa tako ti saljem i ovaj text da ti i on samo prirucno posluzi...</SPAN></H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Molba:</SPAN></H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Nedime, daj pogledaj molim te koje su cijene modema koji rade pod Linuxom jer mi je muka od Windoza i njihovog stalnog zaglavljivanja.Ako imas neki modem molim te javi mi (nesto si mi govorio)</SPAN></H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Sto se tice one brosure danas sam jos malo ucio i svidja mi se,nije mi tesko.Pa pisi! </SPAN></H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Nemoj se ljutit</SPAN></H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">KEMO</SPAN></H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"></SPAN>&nbsp;</H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"></SPAN>&nbsp;</H1>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Portovanje, kompajliranje i nabavljanje programa</SPAN></H1>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kako se programi kompajliraju?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Vecina programa za Linux napisana je u C-u i kompajlirana kompajlerom GNU C. GCC je dio svake distribucije Linuxa. Najnovija verzija kompajlera, dokumentacije i zakrpa nalaze se na <A href="ftp://ftp.gnu.org/pub/gnu/"><FONT color=#330099>ftp://ftp.gnu.org/pub/gnu/</FONT></A>. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Programi napisani u C++ moraju se kompajlirati kompajlerom GNU G++, koji je takodjer ukljucen u distribucije Linuxa i dostupan na istom mjestu kao i GCC. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Za kompajliranje kernela verzije 2.0.x potreban vam je GCC verzije 2.7.2.x. Pokusavanje kompajliranja Linux kernela drugim kompajlerom, kao sto je GCC 2.8.x, EGCS ili PGCC, moze uzrokovati probleme dok se ne srede zavisnosti koda o 2.7.2.x kompajlerima. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Informacije o kompajleru EGCS nalaze se na <A href="http://egcs.cygnus.com/"><FONT color=#330099>http://egcs.cygnus.com</FONT></A>. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Primjetite da ljudi koji razvijaju kernel za sada ne odgovaraju na zahtjeve za ispravkama gresaka u kernelima verzije 2.0.x, nego se fokusiraju na razvoj verzija 2.1.x. </SPAN></P>
+<P><FONT size=3><FONT face="Times New Roman">&nbsp;<?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p></FONT></FONT></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kako instalirati GNU programe?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na ispravno instaliranom sistemu instalacija GNU softverskog paketa se sastoji od cetiri koraka. </SPAN></P>
+<UL type=disc>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Stavite izvornu .tar.gz arhivu u direktorijum /usr/src/ ili gdje vec odrzavate svoje source fajlove i dekompresujte paket naredbom</SPAN><FONT face="Times New Roman" size=3> </FONT></LI></UL><PRE style="MARGIN-LEFT: 36pt"><SPAN style="FONT-FAMILY: Verdana">tar zxvf ime-paketa.tar.gz</SPAN></PRE>
+<UL type=disc>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Pokrenite skriptu </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">./configure</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> u najvisem direktorijumu dekompresovane izvorne arhive uz bilo koje vama potrebne argumente. Opcije koje </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">configure</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> prepoznaje obizno su opisane u fajlu </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">INSTALL</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> ili </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">README</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Pokrenite </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">make</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. To ce iz izvornog koda izgraditi izvrsni program (ili programe) i moze potrajati nekoliko minuta ili sati, zavisno od brzine racunara i velicini paketa.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Pokrenite </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">make install</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. To ce u odgovarajuce direktorije instalirati dobijene izvrsne i konfiguracione fajlove i library-e.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI></UL>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kako portovati XXX na Linux?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Unix programima obicno ne treba puno portovanja. Jednostavno sljedite uputstvo za instalaciju. Ako ne znate -- i ne znate kako da saznate -- odgovore na neka od pitanja tokom postupka instalacije, mozete pogadjati, ali to obicno urodi programom sa greskama. U tom slucaju cete vjerovatno bolje proci ako nekog drugog zamolite da napravi port. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako imate BSD-olik program, pokusajte da koristite </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-I/usr/include/bsd</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> i </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-lbsd</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> na odgovarajucim mjestima naredbi za kompajliranje. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Sta je ld.so i gde ga nabaviti?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">ld.so dinamicki ucitava library-e. Svaki izvrsni fajl koji koristi djeljene biblioteke nekad je imalo oko 3 KB koda za pokretanje koji bi saznao i ucitao djeljene biblioteke. Sada je taj kod stavljen u posebnu djeljenu biblioteku, /lib/ld.so, gde ga mogu naci svi izvrsni fajlovi, pa on trosi manje prostora na disku i lakse ga je nadograditi. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">ld.so se moze nabaviti sa <A href="ftp://tsx-11.mit.edu/pub/linux/packages/GCC/"><FONT color=#330099>ftp://tsx-11.mit.edu/pub/linux/packages/GCC/</FONT></A> i njegovih mirrora. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">/lib/ld-linux.so.1 je ista stvar za ELF i dolazi u istom paketu kao i </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">a.out</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> loader. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kako nadograditi library-e bez raspadanja sistema?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Napomena: Pri ovom postupku uvijek imajte pri ruci rescue disketu zbog velike verovatnoce da nesto podje pogresno! </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ovaj postupak je mukotrpan, pogotovo ako nadogradjujete vrlo stare biblioteke kao sto je libc4. Ipak trebalo bi da mozete da zadrzite libc4 na istom sistemu s libc5 bibliotekama koje su jos potrebne. Isto vrijedi i za nadogradjivanje sa libc5 na jos novijui glibc2 biblioteku. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Problem kod nadogradnje dinamickih biblioteka je to sto, cim izbrisete stare biblioteke, alati koji vam trebaju za nadogradjivanje na novu verziju ne rade. To se moze zaobici na nekoliko nacina. Jedan je privremeno staviti dodatni primjerak dinamickih biblioteka, koji su u /lib/, u /usr/lib/ ili /usr/local/lib/, ili neki drugi direktorij koji je upisan u fajl /etc/ld.so.conf. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na primer, kod nadogradnje libc5 biblioteke, fajlovi u /lib/ bi izgledali otprilike ovako: </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">libc.so.5<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">libc.so.5.4.33<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">libm.so.5<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">libm.so.5.0.9</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ovo su C i matematicke biblioteke. Kopirajte ih u neki direktorij koji je u /etc/ld.so.conf, kao sto je /usr/lib/. </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">cp -df /lib/libc.so.5* /usr/lib/<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">cp -df /lib/libm.so.5* /usr/lib/<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">ldconfig</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Nemojte zaboraviti pokrenuti ldconfig kako bi se konfiguracija librarya osvjezila. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">fajlovi </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">libc.so.5</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> i </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">libm.so.5</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> su simbolicke veze na prave biblioteke. Kod nadogradnje nove veze se nece stvoriti ako stare jos uvek postoje, osim ako uz cp koristite opciju -f. Zbog opcije -d kopiraju se same veze, a ne fajlovi na koje one pokazuju. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako morate prebrisati vezu na biblioteci, koristite -f opciju za ln. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na primer, za kopiranje novih biblioteka preko starih, probajte ovo. Prvo napravite simbolicku vezu na nove biblioteke, a zatim kopirajte i biblioteke i veze u /lib/ sledecim naredbama. </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">ln -sf ./libm.so.5.0.48 libm.so.5<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">ln -sf ./libc.so.5.0.48 libc.so.5<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">cp -df libm.so.5* /lib<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">cp -df libc.so.5* /lib</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Opet, nakon kopiranja biblioteka sjetite se da pokrenete ldconfig. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako ste zadovoljni i sve ispravno radi, mozete obrisati privremene primjerke starih biblioteka iz /usr/lib/ ili gde ste ih vec kopirali. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Je li neko portiovao/kompajlirao/napisao XXX za Linux?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Najprije potrazite u Linux Software Mapu -- nalazi se na <A href="ftp://sunsite.unc.edu/pub/Linux/docs/linux-software-map"><FONT color=#330099>ftp://sunsite.unc.edu/pub/Linux/docs/linux-software-map</FONT></A> i drugim FTP arhivama. Pretraga preko WWW-a moze se obaviti na <A href="http://www.boutell.com/lsm/"><FONT color=#330099>http://www.boutell.com/lsm/</FONT></A>. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Proverite FTP arhive -- odgovarajucim nizovima pretrazite fajlove </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">ls-lR</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> ili </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">INDEX</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Takodje pogledajte <B>Linux Projects Map</B>, <A href="ftp://ftp.ix.de/pub/ix/Linux/docs/Projects-Map.gz"><FONT color=#330099>ftp://ftp.ix.de/pub/ix/Linux/docs/Projects-Map.gz</FONT></A>. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Za Linux FTP arhive postoji pretrazivac, na <A href="http://lfw.linuxhq.com/"><FONT color=#330099>http://lfw.linuxhq.com/</FONT></A>. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Takodjer provjerite na Freshmeat WWW stranicama, <A href="http://www.freshmeat.net/"><FONT color=#330099>http://www.freshmeat.net/</FONT></A>, koje su stvarno cool. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako nista ne nadjete, mozete sami skinuti izvorni kod programa i kompajlirati ga. </SPAN></P>
+<P><FONT size=3><FONT face="Times New Roman">&nbsp;<o:p></o:p></FONT></FONT></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Mogu li koristiti kod ili kompajler kompajliran za 486 na svojoj 386?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Da, ako to nije kernel. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">GCC-ova opcija </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-m486</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> koja se koristi pri kompajliranju izvrsnih fajlova za x486 masine mjenja samo odredjene optimizacije. To rezultuje malcice vecim fajlovima koji rade nesto brze na 486. Ipak, jos uvek dobro rade na 386, uz manje pogorsanje performansi. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Medjutim, od verzije 1.3.35 kernel koristi instrukcije specificne za 486 ili Pentium ako je konfigurisan za 486 ili Pentium, pa se ne moze koristiti na 386. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">GCC se moze konfigurisati za 386 ili 486; jedina je razlika sto konfigurisanje za 386 </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-m386</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> cini predodredjenim, a konfigurisanje za 486 predodredjenim cini </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-m486.</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Postoji alfa verzija GCC-a koja zna dobro da optimizuje za 586, ali je prilicno nepouzdana, narocito kod visokih optimizacija. Pentium GCC se moze naci na </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">tsx-11.mit.edu</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> u <A href="ftp://tsx-11.mit.edu/pub/linux/ALPHA/pentium-gcc/"><FONT color=#330099>/pub/linux/ALPHA/pentium-gcc/</FONT></A>. Preporucio bih koriscenje obicnog 486 GCC-a; cuo sam da koriscenje </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-m386</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> daje kod koji bolje odgovara Pentiumu ili je barem malcice manji. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Sta znaci gcc -O6?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Za sada isto sto i </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-O2</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> (GCC 2.5) ili </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-O3</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> (GCC 2.6, 2.7). Bilo koji broj veci od toga za sada radi istu stvar. </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">Makefileovi</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> novijih kernela koriste </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-O2</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">, pa bi vjerovatno trebali i vi. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Gde su linux/*.h i asm/*.h?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Fajlovi /usr/include/linux i /usr/include/asm su cesto simbolicke veze na direktorijima u kojima su kernel headeri. Oni se obicno nalaze u </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/usr/src/kernel*/</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Zatim pomocu </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">rm</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> izbrisite bilo kakvo smece i preko </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">ln</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> napravite veze: </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">rm -rf /usr/include/linux /usr/include/asm<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">ln -sf /usr/src/linux/include/linux /usr/include/linux<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">ln -sf /usr/src/linux/include/asm /usr/include/asm</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">/usr/src/linux/include/asm je simbolicka veza na asm-&lt;arh&gt; direktorij specifican za odredjenu arhitekturu -- ako imate svjeze otpakovan izvorni kod kernela, morate napraviti simbolicke veze. Takodje, kod svjeze otpakovanog kernela morate pokrenuti </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">make config</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> kako bi se stvorio </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">linux/autoconf.h</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Dobijam greske kod kompajliranja kernela.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Pogledajte pitanje o header fajlovima. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Nemojte da zaboravite da kod primjenjivanja zakrpe na kernel koristite opciju </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-p0</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> ili </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-p1</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">: inace bi zakrpa mogla biti pogresno primjenjena. Za detalje pogledajte man stranicu patcha. </SPAN></P>
+<P><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">ld: unrecognised option `-qmagic'</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> znaci da vam treba noviji linker iz <A href="ftp://tsx-11.mit.edu/pub/linux/packages/GCC/"><FONT color=#330099>ftp://tsx-11.mit.edu/pub/linux/packages/GCC/</FONT></A>, u fajlu </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">binutils-2.8.1.0.1.bin.tar.gz</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kako napraviti djeljenu biblioteku?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na ELF-u, </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">gcc -fPIC -c *.c<o:p></o:p></SPAN></PRE><PRE><SPAN style="FONT-FAMILY: Verdana">gcc -shared -Wl,-soime,libfoo.so.1 -o libfoo.so.1.0 *.o</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako imate a.out, nabavite </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">tools-n.nn.tar.gz</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> s </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">tsx-11.mit.edu</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> u <A href="ftp://tsx-11.mit.edu/pub/linux/packages/GCC/src/"><FONT color=#330099>/pub/linux/packages/GCC/src/</FONT></A>. Dolazi s dokumentacijom koja ce vam objasniti sta treba napraviti. Primjetite da su a.out djeljene biblioteke vrlo slozena stvar. Razmislite o nadogradnji na ELF. Pogledajte <B>ELF HOWTO</B> na <A href="ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/"><FONT color=#330099>ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/</FONT></A>. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Moji izvrsni fajlovi su (vrlo) veliki.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na ELF kompajleru najcesci uzrok velikih izvrsnih fajlova je nedostatak odgovarajuce .so veze na koriscenoj biblioteci. Na svaku biblioteku kao sto je </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">libc.so.5.2.18</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> trebala bi da postoji odgovarajuca veza, odnosno </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">libc.so</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Uz a.out kompajler najcesci uzrok velikih izvrsnih fajlova je </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-g</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">, opcija linkera (kompajlera). To daje (uz informacije za pronalazenje gresaka) program koji je staticki vezan, tj. takav koji u sebi sadrzi C biblioteku umjesto koriscenja dinamickih veza. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Druge stvari koje bi trebalo istraziti su </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-O</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> i </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-O2</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">, koje ukljucuju optimiziranje (pogledajte dokumentaciju GCC-a) i </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-s</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> (odnosno naredba strip) koji u izvrsnoj datoteci brise informacije o simbolima (tako cini trazenje gresaka potpuno nemoguæim). </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Mozda cete na vrlo malim izvrsnim fajlovima koristiti </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-N</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> (manje od 8 KB uz </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-N</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">), ali ne radite to ako ne razumjete njegov uticaj na brzinu, a pogotovo ne na demonima. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Podrzava li linux thread-ove ili lakse procese</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Uz Unixov model thread-ova koji ukljucuje teze procese, sto je naravno dio standardnog kernela Linuxa, ima nekoliko implementacija laksih procesa ili thread-a. Noviji kerneli koriste model kthreads. Takodjer, za Linux postoje ovi paketi: </SPAN></P>
+<UL type=disc>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l1 level1 lfo2"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">GNU glibc2 za Linux ima opcionalnu podrsku za niti. Arhiva se nalazi na istom mestu gde i glibc2, <A href="ftp://ftp.gnu.org/pub/gnu/"><FONT color=#330099>ftp://ftp.gnu.org/pub/gnu/</FONT></A>.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l1 level1 lfo2"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na <A href="ftp://sipb.mit.edu/pub/pthread/"><FONT color=#330099>ftp://sipb.mit.edu/pub/pthread/</FONT></A> ili <A href="ftp://ftp.ibp.fr/pub/unix/threads/pthreads/"><FONT color=#330099>ftp://ftp.ibp.fr/pub/unix/threads/pthreads/</FONT></A>. Dokumentacija nije u paketu, ali se moze naci na WWW-u, na <A href="http://www.mit.edu:8001/people/proven/home_page.html"><FONT color=#330099>http://www.mit.edu:8001/people/proven/home_page.html</FONT></A>. Noviji Linux libc-ovi sadrze izvorni kod pthreadsa; GNU Ada kompajler iz <A href="ftp://sunsite.unc.edu/pub/Linux/devel/lang/ada/gnat-3.01-linux+elf.tar.gz"><FONT color=#330099>ftp://sunsite.unc.edu/pub/Linux/devel/lang/ada/gnat-3.01-linux+elf.tar.gz</FONT></A> sadrzi izvrsne fajlove koji su dobijeni iz tog izvornog koda.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l1 level1 lfo2"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na <A href="ftp://ftp.cs.washington.edu/pub/qt-001.tar.Z"><FONT color=#330099>ftp://ftp.cs.washington.edu/pub/qt-001.tar.Z</FONT></A> nalazi se QuickThreads. Vise informacija je u tehnickom izvestaju, na istom mestu u <A href="ftp://ftp.cs.washington.edu/tr/1993/05/UW-CSE-93-05-06.PS.Z"><FONT color=#330099>/tr/1993/05/UW-CSE-93-05-06.PS.Z</FONT></A>.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l1 level1 lfo2"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na <A href="ftp://gummo.doc.ic.ac.uk/rex/"><FONT color=#330099>ftp://gummo.doc.ic.ac.uk/rex/</FONT></A> nalazi se lwp, vrlo minimalna implementacija.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l1 level1 lfo2"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na <A href="ftp://ftp.cs.fsu.edu/pub/PART/"><FONT color=#330099>ftp://ftp.cs.fsu.edu/pub/PART/</FONT></A> nalazi se implementacija Ade. Korisna je zbog velike kolicine PostScript dokumentacije koja ce vam pomoci u dubljem shvatanju thread-ova. Ovo ne moze da se koristi direktno pod Linuxom.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI></UL>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Za detalje kontaktirajte autore paketa. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Gde se nalazi lint za Linux?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Otprilike jednaka funkcionalost ugradjena je u GCC. Za vecinu korisnih dodatnih upozorenja koristite opciju </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-Wall</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. Za vise detalja pogledajte prirucnik GCC-a (u Emacsu pritisnite ctrl-h, zatim i, pa odaberite GCC). </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Postoji besplatan program, lclint, koji radi otprilike isto sto i tradicionalni lint. Najava i izvorni kod mogu se naci na <A href="ftp://larch.lcs.mit.edu/pub/Larch/lclint/"><FONT color=#330099>ftp://larch.lcs.mit.edu/pub/Larch/lclint/</FONT></A>; na WWW-u pogledajte <A href="http://larch-www.lcs.mit.edu:8001/larch/lclint.html"><FONT color=#330099>http://larch-www.lcs.mit.edu:8001/larch/lclint.html</FONT></A>. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Gde se nalazi kermit za Linux?</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kermit se distribuira pod ne-GPL licencom koja uslove njegove distribucije cini pomalo razlicitim. Izvorni kod i neki izvrsni fajlovi se mogu naci na <A href="ftp://kermit.columbia.edu/"><FONT color=#330099>kermit.columbia.edu</FONT></A>. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">WWW stranica Columbia University Kermit projekta je <A href="http://www.columbia.edu/kermit"><FONT color=#330099>http://www.columbia.edu/kermit</FONT></A>. </SPAN></P><p><br><hr size=1><b>Do You Yahoo!?</b><br>
+<a href="http://rd.yahoo.com/welcome/*http://fifaworldcup.yahoo.com/fc/en/spl">Sign-up for Video Highlights</a> of 2002 FIFA World Cup
+--0-1681941949-1024693646=:60529--
+

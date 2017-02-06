@@ -1,0 +1,52 @@
+From zenit@doboj.com Thu Jul 18 08:32:29 2002
+Return-Path: <zenit@doboj.com>
+X-Sieve: cmu-sieve 2.0
+Received: from doboj.com (mail2.crystaltech.com [216.119.106.25])
+	by ns01.europronet.ba (Postfix) with ESMTP id A19B31FF20F
+	for <grungy@linux.org.ba>; Thu, 18 Jul 2002 10:32:26 +0200 (CEST)
+Date: Thu, 18 Jul 2002 01:32:29 -0700
+Message-Id: <200207180132.AA361693224@doboj.com>
+Mime-Version: 1.0
+Content-Type: multipart/mixed;
+  boundary="==IMail_v7.1=="
+From: "Denis Suhopoljac" <zenit@doboj.com>
+Reply-To: <zenit@doboj.com>
+To: Nedim Hadzimahmutovic <grungy@linux.org.ba>
+Subject: Re: Promjenjene farbe
+X-Mailer: <IMail v7.11>
+X-Attachments: ssnews.htm;
+Status: R 
+X-Status: N
+
+------------------------------------------------------------------------
+This mail message contains standard MIME attachments.  If you see this
+note, your e-mail program does not support MIME.  You may need a MIME-
+compliant mail reader to read any non-text attachments in this message.
+------------------------------------------------------------------------
+
+--==IMail_v7.1==
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+evo ga
+
+---------- Original Message ----------------------------------
+From: Nedim Hadzimahmutovic <grungy@linux.org.ba>
+Date:  Thu, 18 Jul 2002 09:41:37 +0000
+
+>i moj mail je grungy@southernstorm.net
+>i stavi da vodim i fanclub
+>
+ 
+             
+
+--==IMail_v7.1==
+Content-Type: text/plain; name="ssnews.htm"
+Content-Transfer-Encoding: 7bit
+
+<html>
+ <div align="left"><font color="#ff0000"><font face="Arial"><font size="3"><b>
+     <br>
+
+--==IMail_v7.1==--
+

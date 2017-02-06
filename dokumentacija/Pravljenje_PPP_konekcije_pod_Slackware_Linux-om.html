@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Pravljenje PPP konekcije pod Slackware Linux-om</title>
+<meta http-equiv="Content-Type" content="Pravljenje PPP konekcije pod Slackware Linux-om - Linux Dokumentacija">
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="93%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td> 
+      <p><span style="font-weight: bold; font-family: 'Times New Roman'; font-size: 16.000000pt"><font size="5" color="#000000"><i>PPP</i></font></span><i><font size="3" color="#000000"><b><br>
+        Kemal Sanjta <a href="mailto:gomez@ze.lugbih.org">gomez@ze.lugbih.org</a></b><br>
+        18.11.2002 <b>v1.0</b></font></i> </p>
+      <hr>
+      <i>Ovaj tekst pomaze korisnicima da naprave PPP konekciju pod Slackware 
+      Linux-om. Takodjer, u tekstu je objasnjeno koristenje pppsetup programa 
+      kao i fajlova u /etc/ppp direktoriju<br>
+      </i> 
+      <hr>
+      <p>Vecina ljudi danas je konektovana na Ineternet najcesce kroz neki tip 
+        dialup konekcije. Najcesce to je to <i>PPP</i>. Podesavanje <b>PPP</b>-a 
+        u <i>Slackware Linux</i>-u je prilicno lagana. Ovaj tekst ukljucije jos 
+        nekoliko alata koji pomazu podesavanje <i>PPP</i>-a. <br>
+        <br>
+        U Linux Slackware-u ukljucen je program koji se naziva <b>pppsetup</b> 
+        cija je prvenstvena svrha podesavanje vaseg sistema za koristenje. Pomenuti 
+        program izgleda kao i <b>netconfig</b> program. Prilikom pokretanja programa 
+        budite sigurni da ste logovani kao <i>root</i> korisnik. Kada se logujete 
+        kao <i>root</i> korisnik kucajte: <b><br>
+        # <i>pppsetup</i> </b></p>
+      <p align="left">Kada to uradite na vasem monitoru trebalo bi se pojaviti 
+        sljedece:</p>
+      <p align="left">&nbsp;</p>
+      <p align="center"><img src="pppsetup.gif" width="451" height="255"></p>
+      <p align="left">Ovaj program postavit ce vam seriju pitanja, na koja je 
+        naravno potrbno odgovoriti sto je tacnije moguce. Bit ce vam postavljena 
+        pitanja o modemu , o ISP telefonskom broju i slicnom. Neki uredjaji ce 
+        biti pod standardnom, sto mozete prihvatiti u vecini slucajeva. </p>
+      <p>Nakon sto je program pokrenut, on automatski pravi <i>ppp-go</i> program 
+        i <i>ppp-off</i> program. Kao sto mozemo zakljuciti ova dva programa se 
+        koriste da startuju i stopiraju PPP konekciju. Ova dva programa nalaze 
+        se u <i>/usr/sbin</i> direktoriju i potrebne su root privilegije za njihovo 
+        pokretanje. </p>
+      <p><font size="5"><b><i>/etc/ppp</i></b></font></p>
+      <p>Za vecinu Linux korisnika koristenje pppsetup-a nece predstavljati veci 
+        problem. Medjutim moze se lako desiti da se i oni iskusniji Linux korisnici 
+        prevare prilikom unosenja nekih vrijednosti. Sve konfiguracijske informacije 
+        drze se u /etc/ppp. Spisak razlicitih fajlova koji se koriste za:</p>
+      <p> <b>ip-down</b> Ova skripta je pokrenuta od strane pppd-a nakon sto je 
+        PPP konekcija zavrsena. <br>
+        <b>ip-up</b> Ova skripta pokrenuta je od strane pppd-a kada je uspostavljena 
+        uspjesna PPP konekcija. Mozete unijeti bilo koju komandu, nakon sto je 
+        uspostavljena uspjesna konekcija u ovom fajlu. <br>
+        <b>options</b> Generalne konfiguracijske opcije za pppd. <br>
+        <b>options.demand</b> Generalne konfiguracijske opcije za pppd, kada se 
+        koriste u dialing modu. <br>
+        <b>pppscript</b> Komande koje su poslane modemu. <br>
+        <b>pppsetup.txt </b>Log o tome sta ste unijeli kada ste pokrenuli pppsetup. 
+        <br>
+        <br>
+        Treba napomenuti da vecina ovih faljova nece biti tamo dok ne pokrenete 
+        pppsetup. </p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" content="Linux Dokumentacija - LugZe Zenica - Linux FAQ - Cesto Postavljana Pitanja; charset=iso-8859-1">
+	<TITLE>Linux FAQ - Linux Cesto Postavljana Pitanja Uz Odgovore</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 641  (Linux)">
+	<META NAME="CREATED" CONTENT="20020705;18024400">
+	<META NAME="CHANGED" CONTENT="20020705;18124200">
+	<STYLE>
+	<!--
+		A:visited { color: #3333ff }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="de-DE" VLINK="#3333ff" BGCOLOR="#ffffff">
+<TABLE WIDTH=97% BORDER=0 CELLPADDING=6 CELLSPACING=6 STYLE="page-break-before: always">
+	
+  <TR> 
+    <TD HEIGHT=523> 
+      <HR>
+      <P ALIGN=LEFT><B><FONT SIZE=5>Linux FAQ - Linux cesto postavljana pitanja 
+        uz odgovore </FONT><I><FONT COLOR="#000000">v 0.5</FONT></I></B> (Linux 
+        Trikovi i Upute,Vodic Kroz Linux OS) </P>
+      <P ALIGN=LEFT><B><FONT SIZE=4><FONT FACE="Arial">Nedim Hadzimahmutovic </FONT>-<FONT COLOR="#3333ff"> 
+        <A HREF="mailto:grungy@linux.org.ba">grungy@linux.org.ba</A></FONT></FONT></B></P>
+      <P ALIGN=LEFT><B><FONT SIZE=4><FONT FACE="Arial">Kemal Sanjta </FONT>-<FONT COLOR="#3333ff"> 
+        <A HREF="mailto:gomez@ze.lugbih.org">gomez@ze.lugbih.org</A></FONT></FONT></B></P>
+      <HR>
+      <P ALIGN=LEFT STYLE="margin-bottom: 0cm"><I><FONT FACE="Arial">Ovaj tekst 
+        predstavlja popis cesto postavljanih pitanja o Linuxu i njihovih odgovora. 
+        Karakteristika za ovaj dokumenat je da cete naci veliki broj linux trikova 
+        i uputa. Svi koji su pomogli prilikom stvaranja ovog teksta su svrstani 
+        medju autore.Sve sugestije i komentari su dobrodosli. Ako zelite sta dodati 
+        tekstu, molim da se obratite na mail <A HREF="mailto:grungy@linux.org.ba">grungy@linux.org.ba 
+        </A>. Neke od uputa nisu testirane i ne garantujemo da ce sasvim raditi! 
+        </FONT></I> </P>
+      <HR>
+      <P ALIGN=LEFT><B><FONT SIZE=5><FONT FACE="Arial">1. </FONT></FONT></B><U><FONT SIZE=6><FONT COLOR="#3333ff">Kako, 
+        Gdje, Sta, Zasto...</FONT></FONT></U></P>
+      <UL>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#lilo_vrati">Kako 
+            ponovo vratiti izgubljeni lilo izbornik?</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"><FONT FACE="Arial"> 
+            </FONT><A HREF="#prikazi_win"><U>Kako da vidim sadrzaj moje Windows 
+            particije?</U></A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#$home">Gdje 
+            se nalazi moj home direktorij?</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"> <A HREF="#sjeti_komande"><U><FONT FACE="Arial">Kako 
+            se sjetiti neke odredjene komande?</FONT></U></A> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#graficka_setup">Kako 
+            podesiti novu graficku karticu (novi hardver)?</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#l_moj_disk">Kako 
+            natjerati Linux da radi s mojim diskom?</A><A HREF="#lilo_vrati"></A></FONT></P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#vrati_br_datoteke">Kako 
+            vratiti obrisane datoteke?</A></FONT></P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#promjeni_vel_particije">Kako 
+            promeniti velicinu particije (bez brisanja)?</A></FONT></P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#disketa_format">Kako 
+            formatirati i napraviti fajl sistem na disketi?</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#swap_ne_radi">Zasto 
+            moj swap ne radi</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#skini_lilo1">Kako 
+            skinuti LILO da se opet startuje DOS?</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#fdformat1">Zasto 
+            ne mogu da koristim fdformat osim kao root?</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#root_sistem1">Zasto 
+            ne mogu pisati na svoj root fajl sistem!</A></FONT> </P>
+        <LI> 
+          <P STYLE="margin-bottom: 0cm"><FONT FACE="Arial"> <A HREF="#kcore1">Imam 
+            ogroman /proc/kcore! Mogu li ga obrisati?</A></FONT> </P>
+        <LI> <FONT FACE="Arial"> <A HREF="#lilo_vrati">Kako ponovo vratiti izgubljeni 
+          lilo izbornik?</A></FONT> 
+        <li><FONT FACE="Arial"><A HREF="#graficka_setup"><U>Kako formatirati i 
+          napraviti fajl sistem na disketi?</U></A><U><FONT SIZE=6><FONT COLOR="#3333ff"><BR>
+          </FONT></FONT></U></FONT><BR>
+          <BR>
+        </li>
+      </UL>
+      <P ALIGN=LEFT><BR>
+        <BR>
+      </P>
+      <P ALIGN=LEFT><B><FONT SIZE=5><FONT FACE="Arial"><FONT COLOR="#000000">2. 
+        </FONT></FONT></FONT></B><U><FONT SIZE=6><FONT COLOR="#3333ff">Cesto susretane 
+        poruke o greci.</FONT></FONT></U><FONT SIZE=2> (za uraditi)</FONT></P>
+      <UL>
+        <LI> 
+          <P ALIGN=LEFT><FONT FACE="Arial"> <A HREF="#poruka2_1">Dobivam poruke 
+            o inodeovima, blokovima i slicnim stvarima.</A></FONT> </P>
+      </UL>
+      <P ALIGN=LEFT><FONT SIZE=5><FONT FACE="Arial"><B>3.</B> <FONT COLOR="#3333ff"><U>Mjesta 
+        na kojima mozete naci jos dokumentacije o linuxu na nasem jeziku</U>:</FONT></FONT></FONT></P>
+      <UL>
+        <LI> 
+          <P ALIGN=LEFT STYLE="margin-bottom: 0cm"><B><A HREF="http://www.linux.org.ba/">www.linux.org.ba</A></B> 
+            - Udruzenje Linux Korisnika Bosne i Hercegovine (ULK BiH)</P>
+          <UL>
+            <LI> 
+              <P STYLE="margin-bottom: 0cm"> <A HREF="http://howto.linux.org.ba/">howto.linux.org.ba</A><BR>
+                <A HREF="http://start.linux.org.ba/">start.linux.org.ba</A><BR>
+                <A HREF="http://code.linux.org.ba/">code.linux.org.ba</A><BR>
+                <A HREF="http://bsd.linux.org.ba/">bsd.linux.org.ba</A><BR>
+                <A HREF="http://sigurnost.linux.org.ba/">sigurnost.linux.org.ba</A><BR>
+                <A HREF="http://gnu.linux.org.ba/">gnu.linux.org.ba</A><BR>
+                <A HREF="http://forum.linux.org.ba/">forum.linux.org.ba</A><BR>
+              </P>
+            <LI><A HREF="http://projekti.linux.org.ba/">projekti.linux.org.ba</A>
+          </UL>
+        <li> 
+          <div align="left"><a href="http://ze.lugbih.org"><b>http://ze.lugbih.org</b> 
+            </a>- Linux Udruzenje Korisnika Zenice - LugZe<br>
+            <a href="http://ze.lugbih.org%20/textware%20">http://ze.lugbih.org 
+            /textware</a><br>
+          </div>
+        </li>
+        <li> 
+          <p style="margin-bottom: 0cm"><b> <a href="http://www.linux.hr/">www.linux.hr</a></b> 
+            - Udruzenje Linux Korisnika Hrvatske (HULK)</p>
+          <ul>
+            <li> 
+              <p style="margin-bottom: 0cm"> <a href="http://dokumentacija.linux.hr/">dokumentacija.linux.hr<br>
+                </a><a href="http://faq.linux.hr/">faq.linux.hr</a></p>
+            
+          </ul>
+        <li> 
+          <p style="margin-bottom: 0cm"> <a href="http://www.tux.co.yu/">www.tux.co.yu</a> 
+            - Kraljevacki Site Posvecen Linuxu</p>
+        
+        <li> <a href="http://www.linux.org.yu/">www.linux.org.yu</a> - Linux Yugoslavia 
+          Online
+        <li><a href="http://www.linuxserbia.com/">www.linuxserbia.com</a> - Linux 
+          Serbia</li>
+      </UL>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <HR>
+      <P ALIGN=LEFT><B><FONT SIZE=5><FONT FACE="Arial">1. </FONT></FONT></B><U><FONT SIZE=6><FONT COLOR="#3333ff">Kako, 
+        Gdje, Sta, Zasto...</FONT></FONT></U></P>
+      <HR>
+      <P ALIGN=LEFT><A NAME="lilo_vrati"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><B>Kako 
+        ponovo vratiti izgubljeni lilo izbornik?</B></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><B>OPIS PROBLEMA:</B></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial">Desio vam se problem da lilo vise nije 
+        funkcionalan, npr. prilikom bootanja racunara pokaze vam se samo &quot;LI&quot; 
+        (umjesto lilo izbornika) ili ste instalirali drugi operativni sistem (windows) 
+        pored linuxa ,naknadno, i izgubili ste lilo tako da se on uopste ne pojavljuje, 
+        vec direktno se podize taj sekundarni operativni sistem. </FONT> </P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><B>RJESENJE:</B></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial">Podignite (bootajte) sistem sa vase linux 
+        boot diskete i kada se podigne linux i izvrsite prijavu korisnika, u konzoli 
+        kucate &quot;<B>lilo</B>&quot; (bez navodnika) i problem je rijesen. Racunar 
+        ce procitati lilo konfiguracijski fajl <I>/etc/lilo.conf</I> i vas stari 
+        lilo ce biti ponovo vracen i funkcionalan - ponovo zapisan u boot sektor. 
+        Ako posjedujete prvi SuSe instalacijski cd jedne od novijih distibucija 
+        a nemate linux boot diskete, sistem mozete podici i putem tog prvog, boot 
+        cd-a, kao da zelite instalirati SuSe samo sto na jednom od pocetnih koraka 
+        izaberete &quot;<I>Boot Instaled System</I>&quot; umjesto &quot;<I>New 
+        Instalation</I>&quot;, kasnije izaberete particiju na kojoj vam je instaliran 
+        vas linux (naitive particiju). Naravno ovaj korak nije potreban ako posjedujete 
+        linux boot disketu. </FONT> </P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><B>NAPOMENA:</B><BR>
+        da bi ste izvrsili ove radnje morate imati <I>root</I> (administracijske) 
+        privilegije! </FONT> </P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><B>TRIK:</B> ako imate root (administrativne) 
+        privilegije, mozete mijenjati izgled vaseg lilo izbornika. Otvorite <B>/etc/lilo.conf</B> 
+        datoteku u nekom tekst editoru i zatim pod dijelom gdje pise &quot;<B>label 
+        = windows</B>&quot; promijenite windows u nesto drugo kao XWindows ili 
+        slicno, takomijenjate imena particija koje se pojave na lilo izborniku. 
+        Poslije izvrsenih prepravki na /etc/lilo.conf datoteci morate ukucati 
+        komandu &quot;<B>lilo</B>&quot; u terminalu da bi nove vrijednosti bile 
+        zapisane u <I>boot sektor</I> - <I>MBR (Master Boot Record). </I></FONT> 
+      </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="prikazi_win"></A><FONT FACE="Arial"><B><U><FONT SIZE=4><FONT COLOR="#3366ff">Kako 
+        da vidim sadrzaj moje Windows particije?</FONT></FONT></U></B><FONT SIZE=2> 
+        (Neprikazuje se sadrzaj moje Windows swap particije) </FONT></FONT> </P>
+      <P ALIGN=LEFT><FONT FACE="Arial">Najvjerovatnije da jednostavno niste izvrsili 
+        mount (mountirali) vase windows particije (pomocu komande &quot;<B>mount</B>&quot;). 
+        To ce te uraditi ako u svom terminalu ili konzoli ukucate &quot;<B>mount 
+        /dev/hda1</B>&quot; ili<B> </B>&quot;<B>mount /dev/windows/c</B>&quot;<B> 
+        </B>(zavisno kako ste odredili, odnosno, na koju particiju instalirali 
+        windows) Da bi provjerili na kojoj vam je particiji instaliran windows 
+        ukucajte sljedecu komandu <B>&quot;cat /etc/fstab&quot;</B> i zatim pogledajte 
+        u koja particija je vfat tipa (<I>type vfat</I>), nacjesce je ta particija 
+        nazvana <I>/windows/c</I>. Iz ovoga mozete zakljuciti da fajl <I>/etc/fstab</I> 
+        sadrzi popis svih particija. </FONT> </P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><B>TRIK</B>: Komanadom &quot;<B>mount -u</B>&quot; 
+        (bez navodnika) ce te mountovati sve particije ili harddiskove koji su 
+        zapisani u <I>/etc/fstab</I> fajlu. </FONT> </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="$home"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Gdje 
+        se nalazi moj home direktorij?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial">Home direktorij nekog korisnika se nalazi 
+        na lokaciji<I> /home/ImeKorisnika</I> , recimo da se korisnika zove <I>pinguz</I> 
+        njegov home direktorij bi bio <B>/home/pinguz</B>. Jednostavniji nacin 
+        je da se ukuca &quot;<B>cd $home</B>&quot; (<I>terminalu</I>) ili samo 
+        &quot;<B>$home</B>&quot; u <I>browseru</I> (web pregledniku) kao sto su 
+        <I>konqueror</I>, <I>nautilus</I> i automatski ste u vasem <I>home</I> 
+        <I>direktoriju</I> (citava putanja vam se pokaze u adress baru). </FONT> 
+      </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="sjeti_komande"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Kako 
+        se sjetiti neke odredjene komande? </B></U></FONT></FONT></FONT> </P>
+      <P ALIGN=LEFT><FONT FACE="Arial">Ako ste se nasli u slucaju da ste zaboravili 
+        neku komandu, korisna funkcija je tipka . U terminalu ako pritisnete tipku 
+        <B>&lt;TAB&gt;</B> izlistat ce vam se sve moguce komande, a ako ukucate 
+        neko slovo pa zatim tipku <I>&lt;TAB&gt;</I> izlistat ce vam se sve komande 
+        koje pocinju sa tim slovom (mozete ukucati neki slog ili rijec pa zatim 
+        tipku <I>&lt;TAB&gt;</I> i pokazat ce vam se sve komande koje pocinju 
+        sa tim slogom/rjecju). </FONT> </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="graficka_setup"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Kako 
+        podesiti novu graficku karticu (novi hardver)?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial">Ako npr. promijenite <I>graficku karticu</I> 
+        i prilikom dizanja <I>linux</I> sistema ne pojavi se <I>graficko okruzenje</I> 
+        vec samo terminal, treba se prijaviti ta nova graficka kartica. Stvar 
+        malo postaje komplikovanija jer ste automatski baceni u terminal,ali naravno 
+        ima rjesenje i za to. Prijavite se kao root, i kucajte nardebu &quot;&quot; 
+        (bez navodnika).</FONT></P>
+      <P ALIGN=LEFT><A NAME="l_moj_disk"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Kako 
+        natjerati Linux da radi s mojim diskom?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Ako imate IDE ili EIDE disk, procitajte fajl <B>/usr/src/linux/drivers/block/README.ide</B> 
+        (dio izvornog koda Linux kernela). Taj README sadrzi dosta informacija 
+        o IDE diskovima. Mnogi savremeni IDE kontroleri obavljaju prijevod izmedju 
+        &quot;fizickih&quot; i &quot;logickih&quot; cilindara/glava/sektora. <BR>
+        <BR>
+        SCSI diskovima pristupa se preko linearnih brojeva blokova. BIOS izmislja 
+        nekakve &quot;logicke&quot; cilindre/glave/sektore kako bi podrzao DOS. 
+        <BR>
+        <BR>
+        IBM PC-kompatibilan BIOS obicno nece moci da pristupi particijama koje 
+        se sire na vise od 1024 logickih cilindara, sto ce dizanje Linux kernela 
+        s takvih particija preko LILO-a uciniti u najboljem slucaju problematicnim. 
+        <BR>
+        <BR>
+        Takve particije jos uvek mozete da koristite za Linux ili druge operativne 
+        sisteme koji kontroleru pristupaju izravno. <BR>
+        <BR>
+        Preporucuje se da napravite barem jednu Linux particiju potpuno ispod 
+        granice od 1024 logicka cilindra i dizati ga sa nje. Tada ce druge particije 
+        biti u redu.</FONT></P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="vrati_br_datoteke"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B> 
+        Kako vratiti obrisane datoteke?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Uopsteno, to je na Unixima vrlo tesko izvesti zbog njihovog multiaskinga. 
+        Radi se na mogucnosti vracanja obrisanoga pod ext2fsom, ali ne ocekujte 
+        previse. <BR>
+        <BR>
+        Postoji vise paketa koji umesto toga pruzaju nove naredbe za brisanje 
+        i kopiranje koji obrisane fajlove stavljaju u direktoriju &laquo;kanta 
+        smece&raquo; (kao RecycleBin u Windowsima).Fajlovi se mogu spasiti dok 
+        se automatski ne obrisu u pozadini. <BR>
+        <BR>
+        A mozete i pretraziti uredjaj diska koji sadrzi fajl sistem u pitanju. 
+        Postupak je slozen i morate biti logovani kao root. Ali je moguce. Na 
+        uredjaju diska izvrsite grep; tj.: <BR>
+        <BR>
+        <B>grep -b 'beleske' /dev/hda</B> <BR>
+        <BR>
+        Ako podaci nisu prebrisani, trebalo bi da uspijeteda ih vratite tekstualnim 
+        editorom. </FONT> </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="promjeni_vel_particije"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Kako 
+        promeniti velicinu particije (bez brisanja)?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Koristite program FIPS.EXE za MS-DOS, ukljucen u vecini distribucija Linuxa. 
+        <BR>
+        <BR>
+        Postoji li program za defragmentiranje ext2fs-a itd.? <BR>
+        <BR>
+        Da. Postoji defrag, program za defragmentiranje ext2fs, Minix i starih 
+        ext fajl sistema pod Linuxom. Mozete ga naci na . <BR>
+        <BR>
+        Korisnici ext2 fajl sistema verovatno mogu i bez defraga jer ext2fs ima 
+        dodatni kod kako bi se fragmentacija u vrlo zauzetim fajl sistemima smanjila.</FONT></P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="disketa_format"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Kako 
+        formatirati i napraviti fajl sistem na disketi?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Za formatiranje 3.5 inzne, high density diskete: <BR>
+        <BR>
+        <B>fdformat /dev/fd0H1440</B> <BR>
+        <BR>
+        <B>mkfs -t ext2 -m 0 /dev/fd0H1440 1440</B> <BR>
+        <BR>
+        Za 5.25 incnu disketu koristite fd0h1200 i 1200 na odgovarajucim mjestima. 
+        Za <BR>
+        &quot;B&quot; drajv koristite fd1 umesto fd0. <BR>
+        <BR>
+        Opcija -m 0 mkfs.ext2 kaze da ne cuva prostor na disku za nadkorisnika 
+        -- obicno se zadnjih 10% rezervise za roota. <BR>
+        <BR>
+        Prva naredba obavlja formatiranje na niskom nivou. Druga stvara prazan 
+        fajl sistem. Disketu mozete mountovati kao i particiju na hard disku i 
+        jednostavno cp-ovati i mv-ovati datoteke, itd.</FONT></P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="swap_ne_radi"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Zasto 
+        moj swap ne radi</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Pri dizanju sistema (odnosno kad rucno ukljucite swap) trebalo bi da vidite 
+        <BR>
+        <BR>
+        Adding Swap: NNNNk swap-space <BR>
+        <BR>
+        Ako uopste ne dobijete poruku, verovatno vam nedostaje swapon -av (naredba 
+        koja ukljucuje swap) u <B>/etc/rc.local</B> odnosno /etc/rc.d/* (skripte 
+        za dizanje sistema), ili ste zaboravili da dodate linuju u /etc/fstab, 
+        na primjer: <BR>
+        <BR>
+        <B>/dev/hda2 none swap sw</B> <BR>
+        <BR>
+        Ako vidite <BR>
+        <BR>
+        <I>Unable to find swap-space signature</I> <BR>
+        <BR>
+        zaboravili ste da pokrenete mkswap. Za detalje pogledajte man stranicu; 
+        radi dosta slicno mkfs-u. <BR>
+        <BR>
+        free bi, uz slobodnu memoriju, trebao prikazati: <BR>
+        <BR>
+        <B>total used free</B> <BR>
+        <BR>
+        <B>Swap: 10188 2960 7228</B> </FONT> </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="skini_lilo1"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Kako 
+        skinuti LILO da se opet startuje DOS?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Koristeci DOS (MS-DOS 5.0 ili noviji, ili OS/2), napisite FDISK /MBR (sto 
+        nije dokumentirano). To ce vratiti standardni MS-DOS MBR. Ako imate DR-DOS 
+        6.0, normalno udjite u FDISK i zatim odaberite opciju Re-write Master 
+        Boot Record. <BR>
+        <BR>
+        Ako nemate MS-DOS ili DR-DOS treba vam boot sektor kojeg je LILO snimio 
+        kad ste ga instalirali. Sacuvali ste ga, zar ne? Verovatno se zove boot.0301 
+        ili nesto slicno. Napisite <BR>
+        <BR>
+        <B>dd if=boot.0301 of=/dev/hda bs=445 count=1</B> <BR>
+        <BR>
+        (odnosno <B>/dev/sda</B> ako koristite SCSI disk). Budite pazljivi jer 
+        to vam moze obrisati i particijsku tabelu! Ako ste ocajni, mozete koristiti 
+        <BR>
+        <BR>
+        <B>dd if=/dev/zero of=/dev/hda bs=512 count=1</B> <BR>
+        <BR>
+        To ce potpuno obrisati particijsku tabelu i boot sektor: zatim mozete 
+        svojim omiljenim programom ponovo formatirati disk. Ali to ce sadrzaj 
+        vaseg diska ostaviti nedostupnim -- izgubicete sve ako niste strucnjak. 
+        <BR>
+        <BR>
+        Primetite da DOS MBR dize (jednu!) particiju koja je oznacena kao aktivna. 
+        Mozda ce vam trebati fdisk za postavljanje i skidanje oznaka aktivnosti 
+        na odgovarajucim particijama.</FONT></P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="fdformat1"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B> 
+        Zasto ne mogu da koristim fdformat osim kao root?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Poziv sistema za formatiranje diskete smije da koristi samo root, bez 
+        obzira na dozvole /dev/fd0*. Ako zelite da bilo koji program moze da formatira 
+        disketu, nabavite program fdformat2. On zaobilazi problem posto je set-uid 
+        na roota.</FONT></P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="root_sistem1"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B> 
+        Zasto ne mogu pisati na svoj root fajl sistem!</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        Ponovo ga mountujte. Ako je <B>/etc/fstab</B> tacan, jednostavno napisite 
+        mount -n -o remount /. Ako je <B>/etc/fstab</B> pogresan, morate zadati 
+        ime uredjaja a mozda i vrstu: dakle, <B>mount -n -o remount -t ext2 /dev/hda2 
+        /</B>. </FONT> </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <P ALIGN=LEFT><A NAME="kcore1"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Imam 
+        ogroman /proc/kcore! Mogu li ga obrisati?</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><BR>
+        <font size="2">Nijedan od fajlova u /proc zapravo ne postoji -- sve ih 
+        je ``izmislio'' kernel kako bi vam pruzio informacije o sistemu ne zauzimajuci 
+        pritom prostor na hard disku. <BR>
+        <BR>
+        <B>/proc/kcore</B> je drugo ime za memoriju u vasem racunaru; velicina 
+        mu je jednaka velicini vaseg RAM-a, a ako pocnete da ga citate kao fajl, 
+        kernel ce citati memoriju. </font></FONT> </P>
+      <P ALIGN=LEFT>&nbsp;</P>
+      <HR>
+      <P ALIGN=LEFT STYLE="margin-bottom: 0cm"><B><FONT SIZE=5><FONT FACE="Arial"><FONT COLOR="#000000">2. 
+        </FONT></FONT></FONT><U><FONT SIZE=6><FONT COLOR="#3333ff">Cesto susretane 
+        poruke o greci.</FONT></FONT></U></B><FONT SIZE=2> </FONT> </P>
+      <HR>
+      <P ALIGN=LEFT><A NAME="poruka2_1"></A><FONT COLOR="#3366ff"><FONT FACE="Arial"><FONT SIZE=4><U><B>Dobivam 
+        poruke o inodeovima, blokovima i slicnim stvarima.</B></U></FONT></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT FACE="Arial"><FONT SIZE=2><BR>
+        Mozda imate greske na fajl sistemu, vjerovatno uzrokovane nepravilnim 
+        spustanjem Linuxa prije gasenja racunara ili resetovanja. Za to vam je 
+        potreban noviji shutdown program -- na primer onaj ukljucen u paket util-linux, 
+        dostupan na sunsite-u i tsx-11. <BR>
+        <BR>
+        Ako imate srece, program fsck (ili <I>e2fsck</I> ili <I>xfsck</I> kao 
+        prikladan, ako vec <BR>
+        nemate automatsko fsck front-end) ce popraviti vas fajl sistem. Ako bas 
+        nemate <BR>
+        srece, fajl sistem je &quot;pokojan&quot; i moracete ponovo da ga pripremite 
+        pomocu <BR>
+        mkfsa (ili <I>mke2fsa</I>, <I>mkxfsa</I>, itd.) i fajlove vratiti s backup 
+        kopija. <BR>
+        <BR>
+        <B>NAPOMENA</B>: ne pokusavajte da proverite fajl sistem koji je mountovan 
+        za citanje <BR>
+        i pisanje -- to vazi i za root particiju ako niste videli pri boot-ovanju 
+        <BR>
+        <BR>
+        <B>VFS: mounted root ... read-only</B></FONT></FONT></P>
+      <P ALIGN=LEFT><FONT SIZE=2>&nbsp;</FONT></P>
+      <HR>
+    </TD>
+	</TR>
+</TABLE>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm">copyleft <A HREF="http://www.linux.org.ba/">ULK
+BiH</A> , <A HREF="http://ze.lugbih.org/">LugZe</A> 
+</P>
+</BODY>
+</HTML>

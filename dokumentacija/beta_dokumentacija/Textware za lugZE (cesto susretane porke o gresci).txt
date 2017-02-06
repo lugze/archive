@@ -1,0 +1,243 @@
+
+Cesto susretane poruke o gresci.Modprobe ne moze da nadje modul “XXX” i slicne poruke.
+Ovakve se poruke uglavnom pojavljuju pri dizanju ili gasenju sistema. Ako se modprobe, insmod ili rmmod zale o nemogucnosti pronalazenja modula, fajlu /etc/modules.conf ili /etc/modutils/aliases, koji vec imate, dodajte sljedece. 
+
+alias <ime-modula> off
+
+I koristite ime modula koje se pojavljuje u poruci o gresci. 
+
+ 
+Unknown terminal type linux i slicno.
+U ranim 1.3.x kernelima predodredjeni tip terminala za konzolu se promjenio iz console u linux. Morate editovati /etc/termcap i promjeniti red 
+
+console|con80x25:\
+
+u 
+
+linux|console|con80x25:\
+
+(Tu ce mozda biti i dodatni dumb -- ako je tako, izbrisite ga.) 
+
+Kako bi editor proradio mozda cete morati da napisete 
+
+TERM=console
+
+(u bashu ili kshu) odnosno 
+
+setenv TERM console
+
+(csh, tcsh). 
+
+Neki programi umjesto /etc/termcap koriste /usr/lib/terminfo. Za takve programe nadogradite terminfo, koji je dio ncursesa. 
+lp1 on fire
+To je sala/tradicionalna poruka koja pokazuje kako je vas printer prijavio nekakvu gresku, ali ta greska nije valjana. To je mozda zbog nekakvog I/O ili IRQ konflikta -- provjerite kako je vasa kartica namjestena. Neki ljudi kazu da ovu poruku dobiju kad im je printer ugasen. Valjda nije stvarno zapaljen... 
+
+U novijim kernelima ta poruka izgleda kao lp1 reported invalid error status (on fire, eh?). 
+INET: Warning: old style ioctl... called!
+Pokusavate da koristite stare alate za namjestanje mreze. Novi se mogu naci na ftp://ftp.linux.org.uk/pub/linux/Networking/PROGRAMS/NetTools/ 
+
+ 
+ld: unrecognized option '-m486'
+Imate staru verziju lda. Instalirajte noviji binutils -- on sadrzi svjeziji ld. Na ftp://tsx-11.mit.edu/pub/linux/packages/GCC/ potrazite binutils-2.6.0.2.bin.tar.gz. 
+GCC kaze Internal compiler error
+Ako se greska ponavlja (tj. uvijek dogadja na istom mjestu u istom fajlu -- cak i nakon sto ste ponovno digli sistem, na stabilnom kernelu) otkrili ste gresku u GCC-u. Za detalje o prijavljivanju greske pogledajte Info dokumentaciju GCC-a (u Emacsu napisite C-i i, pa u meniju izaberite GCC) -- prije toga provjerite da li imate najnoviju verziju. 
+
+To vjerovatno nije problem specifican za Linux. Ako niste kompajlirali program koji kompajliraju i mnogi drugi korisnici Linuxa, poruke o gresci nemojte slati u comp.os.linux grupe. 
+
+Ako se problem ne moze ponoviti, mozda imate greske u memoriji .
+make kaze Error 139
+Vas kompajler (gcc) je izbacio core. Vjerovatno imate pokvarenu, pogresnu ili staru verziju GCC-a -- nabavite najnovije izdanje. Moguce je i da vam je ponestalo swapa. 
+
+Ako to ne sredi problem, vjerovatno se pojavljuju greske u memoriji ili na disku. Provjerite da li su takt, wait stanja i vrijeme osvjezavanja za vase SIMM-ove i kes tacni (i hardverski prirucnici ponekad nisu u pravu). Ako je tako, imate neke cudne SIMM-ove ili nepouzdanu maticnu plocu ili hard disk ili kontroler. 
+
+Linux je, kao i svaki drugi Unix, odlican za testiranje memorije -- mnogo bolji od programa iste svrhe pod MS-DOS-om. 
+shell-init: permission denied kad se logujem.
+Vas root direktorij i svi direktoriji pored vaseg home direktorija moraju imati dozvole za citanje i izvrsavanje svih. O rjesavanju tog problema pogledajte man stranicu chmoda ili neku knjigu o Unixu. 
+No utmp entry. You must exec... kad se logujem.
+Zeznut vam je /var/run/utmp. U svom /etc/rc.local odnosno /etc/rc.d/* morate imati 
+
+> /var/run/utmp
+
+Na nekim starijim sistemima utmp takodje moze biti u /var/adm/ ili /etc/. 
+Warning -- bdflush not running.
+Moderni kerneli koriste bolju strategiju pisanja kesiranih blokova na disk. Uz promjene u kernelu, to ukljucuje zamjenu starog programa update koji je sve pisao otprilike svakih 30 sekundi s osjetljivijim demonom (zapravo parom demona), poznatim kao bdflush. 
+
+Nabavite bdflush-n.n.tar.gz sa istog mjesta kao i izvorni kod kernela, kompajlirajte ga i instalirajte. Trebao bi da se pokretce prije uobicajenih provjera fajl sistema. Dobro ce raditi i uz starije kernele, pa nema potrebe zadrzavati stari update. 
+Warning: obsolete routing request made.
+O ovom se ne morate brinuti. Poruka znaci da je vasa verzija routea malo zastarjela u odnosu na kernel. Poruka ce nestati ako nabavite novu verziju routea s mjesta odakle ste nabavili izvorni kod kernela. 
+EXT2-fs warning: mounting unchecked filesystem.
+Pokrenite e2fsck (odnosno fsck -t ext2 ako imate fsck program) uz opciju -a kako bi skinuo dirty oznaku, a zatim cisto demountovati particiju tokom svakog gasenja sistema. 
+
+Najlaksi nacin da to napravite je nabaviti najnoviji fsck, umount i shutdown iz paketa util-linux Rika Faitha. Provjerite da li ih vase /etc/rc*/ skripte tacno koriste. 
+
+Napomena: ne pokusavajte da provjerite fajl sistem koji je mountovan za pisanje -- to vazi i za root particiju ako niste vidjeli 
+
+VFS: mounted root ... read-only
+
+pri dizanju sistema. Stvari trebaju biti postavljene tako da se root fajl sistem prvo mountuje samo za citanje, provjerava ako je potrebnno, a zatim ponovno montira za citanje i pisanje. Vise o tome procitajte u dokumentaciji util-linuxa. 
+
+Primjetite da mountu trebate da date opciju -n da ne bi pokusao da osvjezi /etc/mtab jer se root fajl sistem jos uvek moze samo citati -- inace mount ne bi radio. 
+ EXT2-fs warning: maximal count reached.
+To je poruka kernela kod mountovanja fajl sistema koji je oznacen kao cist, ali je ``broj mountovanja od zadnje provjere'' dosegao odredjenu vrednost. Rjesenje je nabavljanje najnovije verzije ext2fs alata.
+
+  
+
+Maksimalni broj mountovanja se moze pregledati i promjeniti pomocu programa tune2fs iz tog paketa. 
+ EXT2-fs warning: checktime reached.
+Kernel od verzije 1.0 podrzava provjeravanje fajl sistema na osnovu proteklog vremena od zadnje provjere kao i broja mountovanja. Nabavite najnoviju verziju ext2fs alata.
+df kaze Cannot read table of mounted filesystems.
+Vjerovatno je nesto pogresno u vasem /etc/mtab ili /etc/fstab fajlu. Ako imate noviju verziju mounta, /etc/mtab bi se pri dizanju trebao isprazniti ili izbrisati (u /etc/rc.local odnosno /etc/rc.d/*) s necim poput 
+
+rm -f /etc/mtab*
+
+Kod nekih verzije SLS-a u /etc/rc* se pomocu rdeva o root particiji stvara zapis u /etc/mtab. To je nepravilno -- novije verzije mounta rade to automatski. 
+
+Neke druge verzije SLS-a imaju red u /etc/fstab koji izgleda ovako: 
+
+/dev/sdb1   /root   ext2   defaults
+
+To je pogresno. /root bi trebao biti jednostavno /. 
+fdisk kaze Partition X has different physical/logical...
+Ako je broj particije (X) 1, radi se o istom problemu kao u fdisk: Partition 1 does not start on cylinder boundary 
+
+. 
+
+Ako particija pocinje ili se zavrsava na cilindru s brojem vecim od 1024, ovo se dogadja jer se standardni DOS format informacija o geometriji na particionoj tabeli ne moze suociti s vise od 10 bitova. 
+ fdisk: Partition 1 does not start on cylinder boundary
+Verzija fdiska koja dolazi s mnogim Linux sistemima stvara particije koje ne mogu proci na vlastitim testovima. Nazalost, ako ste ve instalirali svoj sistem ne mozete puno preduzeti, osim kopiranja podataka s particije, njenog brisanja i ponovnog stvaranja i kopiranja podataka natrag. 
+
+Problem mozete izbjeci nabavljanjem najnovije verzije fdiska iz paketa util-linux Rika Faitha (na svim glavnim FTP arhivama). Takodjer, ako vam treba particija 1 koja pocinje na prvom cilindru, ovako mozete dobiti particiju koja se svidja fdisku: 
+
+   Normalno stvorite particiju 1. Ispis pomocu p datce poruku o gresci. 
+   Napisite u za pretvaranje jedinica u sektore, a zatim ponovo p. Zapisite broj iz stupca End. 
+   Izbrisite particiju 1. 
+   Dok ste jos u sektorima, ponovno stvorite particiju 1. Prvi sektor treba odgovarati broju sektora na traci. To je broj sektora u prvom redu ispisa preko p. Neka zadnji sektor odgovara vrednosti iz 2. koraka. 
+   Napisite u za prelazak u cilindre i nastavite s drugim particijama. 
+
+Poruku o nezauzetim sektorima zanemarite -- odnose se na sektore prve trake, izuzevsi MBR, koji se ne koriste ako prvu particiju zapocnete u 2. traci. 
+fdisk kaze: partition b has an odd number of sectors.
+U particionisanju PC diskova koriste se sektori od 512 bajtova, no Linux koristi blokove od 1 KB. Ako imate particiju s neparnim brojem sektora zadnji se sektor ne koristi. Poruku zanemarite. 
+mtools kazu cannot initialise drive XYZ
+To znaci da mtools ne moze da pristupi disku. To moze biti iz nekoliko razloga. 
+
+Cesto se radi o netacnim dozvolama uredjaja disketnog pogona (/dev/fd0* i /dev/fd1*) -- korisnik koji pokrece mtools mora imati odgovarajuci pristup. Za detalje pogledajte man stranicu chmoda. 
+
+Vecina verzija mtoolsa koji se distribuiraju s Linux sistemima (ne standardna GNU verzija) za pronalazenje uredjaja i gustoca koriste sadrzaj fajla /etc/mtools, a ne informacije ukljucene u izvrsni fajl. Greske u tom fajlu cesto uzrokuju probleme. O tome cesto nema dokumentacije. 
+
+Napomena -- nikad nemojte koristiti mtools za pristupanje fajlovima na vec mountovanoj particiji ili disketi! 
+Na pocetku dizanja: Memory tight
+To znaci da imate vrlo velik kernel, pa Linux mora izvoditi neke posebne carolije u radu s memorijom kako bi se dignuo preko BIOS-a. Nema veze s kolicinom vase fizicke memorije. Poruku zanemarite ili napravite kernel koji sadrzi samo podrsku i mogucnosti koje vam trebaju. 
+syslog mi kaze ``end_request: I/O error, ...''.
+Ova i slicne poruke skoro uvijek znace hardversku gresku u radu s hard diskom. 
+
+To je cesto simptom defektnog hard diska. Jedini nacin izbjegavanja daljnjeg gubitka podataka je potpuno gasenje sistema. Zatim morate provjeriti da li podaci na disku imaju rezervne kopije i vratiti ih na ispravan tvrdi disk. 
+
+Ova poruka moze znaciti i losu vezu sa diskom, pogotovo na sistemu koji ste sami sastavili. Ako instalirate IDE disk, UVIJEK koristite nove kablove. To je vjerovatno dobro raditi i kod SCSI diskova. 
+
+U jednom slucaju ova je greska koincidirala s losom vezom izmedju maticne ploce i kucista. Pre svaljivanja krivice na sam hard disk provjerite da li su sve elektricne veze ciste i cvrste. 
+
+ 
+You don't exist. Go away.
+Ovo nije virusna infekcija :-). Dolazi od programa kao sto su write, talk i wall ako UID uz koji ih pokrecete ne odgovara valjanom korisniku (vjerovatno zbog greske u /etc/passwd) ili zbog toga sto sesija (tacnije pseudoterminal) koju koristite nije pravilno zapisana u fajlu utmp (vjerovatno zbog toga sto ste je cudno pokrenuli). 
+
+
+
+---------------------------------
+Do You Yahoo!?
+Sign-up for Video Highlights of 2002 FIFA World Cup
+--0-233061983-1024618791=:86356
+Content-Type: text/html; charset=us-ascii
+
+<P>Pozdrav,</P>
+<P>Nedime sredio sam još jedan dio texta za lugZE textware koji se tiæe grešaka koje se javljaju pri radu.Mislim da æe ti se svidjeti ovaj text.Još samo da ti kažem da sam poèeo obraðivati onu tvoju brošuru.Mogu ti reæi da je jako lijepo objašnjeno sve.Obradio sam komande ls,cd i pwd a radim na komandama less i more.Ovo je samo informativno.Znaš šta daleko je naprednije od DOS-a,ali i nije teško.U vezi ovog texta za svaki sluèaj ti ga pregledaj i obradi.</P>
+<P>KEMO</P>
+<H1 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Cesto susretane poruke o gresci.</SPAN></H1>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Modprobe ne moze da nadje modul “XXX” i slicne poruke.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ovakve se poruke uglavnom pojavljuju pri dizanju ili gasenju sistema. Ako se modprobe, insmod ili rmmod zale o nemogucnosti pronalazenja modula, fajlu /etc/modules.conf ili /etc/modutils/aliases, koji vec imate, dodajte sljedece. </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">alias &lt;ime-modula&gt; off</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">I koristite ime modula koje se pojavljuje u poruci o gresci. </SPAN></P>
+<P><FONT size=3><FONT face="Times New Roman">&nbsp;<?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p></FONT></FONT></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Unknown terminal type linux i slicno.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">U ranim 1.3.x kernelima predodredjeni tip terminala za konzolu se promjenio iz </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">console</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> u </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">linux</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. Morate editovati /etc/termcap i promjeniti red </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">console|con80x25:\</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">u </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">linux|console|con80x25:\</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">(Tu ce mozda biti i dodatni </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">dumb</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> -- ako je tako, izbrisite ga.) </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kako bi editor proradio mozda cete morati da napisete </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">TERM=console</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">(u bashu ili kshu) odnosno </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">setenv TERM console</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">(csh, tcsh). </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Neki programi umjesto /etc/termcap koriste /usr/lib/terminfo. Za takve programe nadogradite terminfo, koji je dio ncursesa. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">lp1 on fire</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">To je sala/tradicionalna poruka koja pokazuje kako je vas printer prijavio nekakvu gresku, ali ta greska nije valjana. To je mozda zbog nekakvog I/O ili IRQ konflikta -- provjerite kako je vasa kartica namjestena. Neki ljudi kazu da ovu poruku dobiju kad im je printer ugasen. Valjda nije stvarno zapaljen... </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">U novijim kernelima ta poruka izgleda kao </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">lp1 reported invalid error status (on fire, eh?)</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">INET: Warning: old style ioctl... called!</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Pokusavate da koristite stare alate za namjestanje mreze. Novi se mogu naci na <A href="ftp://ftp.linux.org.uk/pub/linux/Networking/PROGRAMS/NetTools/"><FONT color=#330099>ftp://ftp.linux.org.uk/pub/linux/Networking/PROGRAMS/NetTools/</FONT></A> </SPAN></P>
+<P><FONT size=3><FONT face="Times New Roman">&nbsp;<o:p></o:p></FONT></FONT></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">ld: unrecognized option '-m486'</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Imate staru verziju lda. Instalirajte noviji binutils -- on sadrzi svjeziji ld. Na <A href="ftp://tsx-11.mit.edu/pub/linux/packages/GCC/"><FONT color=#330099>ftp://tsx-11.mit.edu/pub/linux/packages/GCC/</FONT></A> potrazite </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">binutils-2.6.0.2.bin.tar.gz</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">GCC kaze Internal compiler error</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako se greska ponavlja (tj. uvijek dogadja na istom mjestu u istom fajlu -- cak i nakon sto ste ponovno digli sistem, na stabilnom kernelu) otkrili ste gresku u GCC-u. Za detalje o prijavljivanju greske pogledajte Info dokumentaciju GCC-a (u Emacsu napisite C-i i, pa u meniju izaberite GCC) -- prije toga provjerite da li imate najnoviju verziju. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">To vjerovatno nije problem specifican za Linux. Ako niste kompajlirali program koji kompajliraju i mnogi drugi korisnici Linuxa, poruke o gresci nemojte slati u </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">comp.os.linux</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> grupe. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako se problem ne moze ponoviti, mozda imate greske u memoriji .</SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">make kaze Error 139</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Vas kompajler (gcc) je izbacio </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">core</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. Vjerovatno imate pokvarenu, pogresnu ili staru verziju GCC-a -- nabavite najnovije izdanje. Moguce je i da vam je ponestalo swapa. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako to ne sredi problem, vjerovatno se pojavljuju greske u memoriji ili na disku. Provjerite da li su takt, wait stanja i vrijeme osvjezavanja za vase SIMM-ove i kes tacni (i hardverski prirucnici ponekad nisu u pravu). Ako je tako, imate neke cudne SIMM-ove ili nepouzdanu maticnu plocu ili hard disk ili kontroler. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Linux je, kao i svaki drugi Unix, odlican za testiranje memorije -- mnogo bolji od programa iste svrhe pod MS-DOS-om. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">shell-init: permission denied kad se logujem.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Vas root direktorij i svi direktoriji pored vaseg home direktorija moraju imati dozvole za citanje i izvrsavanje svih. O rjesavanju tog problema pogledajte man stranicu chmoda ili neku knjigu o Unixu. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">No utmp entry. You must exec... kad se logujem.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Zeznut vam je /var/run/utmp. U svom /etc/rc.local odnosno </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/etc/rc.d/*</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> morate imati </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">&gt; /var/run/utmp</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na nekim starijim sistemima </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">utmp</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> takodje moze biti u /var/adm/ ili /etc/. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Warning -- bdflush not running.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Moderni kerneli koriste bolju strategiju pisanja kesiranih blokova na disk. Uz promjene u kernelu, to ukljucuje zamjenu starog programa update koji je sve pisao otprilike svakih 30 sekundi s osjetljivijim demonom (zapravo parom demona), poznatim kao bdflush. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Nabavite </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">bdflush-n.n.tar.gz</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> sa istog mjesta kao i izvorni kod kernela, kompajlirajte ga i instalirajte. Trebao bi da se pokretce prije uobicajenih provjera fajl sistema. Dobro ce raditi i uz starije kernele, pa nema potrebe zadrzavati stari update. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Warning: obsolete routing request made.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">O ovom se ne morate brinuti. Poruka znaci da je vasa verzija routea malo zastarjela u odnosu na kernel. Poruka ce nestati ako nabavite novu verziju routea s mjesta odakle ste nabavili izvorni kod kernela. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">EXT2-fs warning: mounting unchecked filesystem.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Pokrenite e2fsck (odnosno </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">fsck -t ext2</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> ako imate fsck program) uz opciju </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-a</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> kako bi skinuo <B>dirty</B> oznaku, a zatim cisto demountovati particiju tokom svakog gasenja sistema. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Najlaksi nacin da to napravite je nabaviti najnoviji fsck, umount i shutdown iz paketa util-linux Rika Faitha. Provjerite da li ih vase </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/etc/rc*/</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> skripte tacno koriste. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Napomena: ne pokusavajte da provjerite fajl sistem koji je mountovan za pisanje -- to vazi i za root particiju ako niste vidjeli </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">VFS: mounted root ... read-only</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">pri dizanju sistema. Stvari trebaju biti postavljene tako da se root fajl sistem prvo mountuje samo za citanje, provjerava ako je potrebnno, a zatim ponovno montira za citanje i pisanje. Vise o tome procitajte u dokumentaciji util-linuxa. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Primjetite da mountu trebate da date opciju </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">-n</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> da ne bi pokusao da osvjezi /etc/mtab jer se root fajl sistem jos uvek moze samo citati -- inace mount ne bi radio. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"><SPAN style="mso-spacerun: yes">&nbsp;</SPAN>EXT2-fs warning: maximal count reached.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">To je poruka kernela kod mountovanja fajl sistema koji je oznacen kao cist, ali je ``broj mountovanja od zadnje provjere'' dosegao odredjenu vrednost. Rjesenje je nabavljanje najnovije verzije ext2fs alata.<o:p></o:p></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"><SPAN style="mso-spacerun: yes">&nbsp; </SPAN></SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Maksimalni broj mountovanja se moze pregledati i promjeniti pomocu programa tune2fs iz tog paketa. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"><SPAN style="mso-spacerun: yes">&nbsp;</SPAN>EXT2-fs warning: checktime reached.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kernel od verzije 1.0 podrzava provjeravanje fajl sistema na osnovu proteklog vremena od zadnje provjere kao i broja mountovanja. Nabavite najnoviju verziju ext2fs alata.</SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">df kaze Cannot read table of mounted filesystems.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Vjerovatno je nesto pogresno u vasem /etc/mtab ili /etc/fstab fajlu. Ako imate noviju verziju mounta, /etc/mtab bi se pri dizanju trebao isprazniti ili izbrisati (u /etc/rc.local odnosno </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/etc/rc.d/*</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">) s necim poput </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">rm -f /etc/mtab*</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Kod nekih verzije SLS-a u </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/etc/rc*</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> se pomocu rdeva o root particiji stvara zapis u /etc/mtab. To je nepravilno -- novije verzije mounta rade to automatski. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Neke druge verzije SLS-a imaju red u /etc/fstab koji izgleda ovako: </SPAN></P><PRE><SPAN style="FONT-FAMILY: Verdana">/dev/sdb1&nbsp;&nbsp; /root&nbsp;&nbsp; ext2&nbsp;&nbsp; defaults</SPAN></PRE>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">To je pogresno. </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/root</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> bi trebao biti jednostavno </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">fdisk kaze Partition X has different physical/logical...</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako je broj particije (X) 1, radi se o istom problemu kao u <A href="http://us.f143.mail.yahoo.com/ym/Compose?YY=44561#fdisk: Partition 1 does not start on cylinder boundary">fdisk: Partition 1 does not start on cylinder boundary</A> </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ako particija pocinje ili se zavrsava na cilindru s brojem vecim od 1024, ovo se dogadja jer se standardni DOS format informacija o geometriji na particionoj tabeli ne moze suociti s vise od 10 bitova. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"><SPAN style="mso-spacerun: yes">&nbsp;</SPAN>fdisk: Partition 1 does not start on cylinder boundary</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Verzija fdiska koja dolazi s mnogim Linux sistemima stvara particije koje ne mogu proci na vlastitim testovima. Nazalost, ako ste ve instalirali svoj sistem ne mozete puno preduzeti, osim kopiranja podataka s particije, njenog brisanja i ponovnog stvaranja i kopiranja podataka natrag. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Problem mozete izbjeci nabavljanjem najnovije verzije fdiska iz paketa util-linux Rika Faitha (na svim glavnim FTP arhivama). Takodjer, ako vam treba particija 1 koja pocinje na prvom cilindru, ovako mozete dobiti particiju koja se svidja fdisku: </SPAN></P>
+<UL type=disc>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Normalno stvorite particiju 1. Ispis pomocu </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">p</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> datce poruku o gresci.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Napisite </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">u</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> za pretvaranje jedinica u sektore, a zatim ponovo </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">p</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. Zapisite broj iz stupca <B>End</B>.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Izbrisite particiju 1.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Dok ste jos u sektorima, ponovno stvorite particiju 1. Prvi sektor treba odgovarati broju sektora na traci. To je broj sektora u prvom redu ispisa preko </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">p</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">. Neka zadnji sektor odgovara vrednosti iz 2. koraka.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI>
+<LI class=MsoNormal style="MARGIN: 0cm 0cm 0pt; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: list 36.0pt; mso-list: l0 level1 lfo1"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Napisite u za prelazak u cilindre i nastavite s drugim particijama.</SPAN><FONT face="Times New Roman" size=3> </FONT></LI></UL>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Poruku o nezauzetim sektorima zanemarite -- odnose se na sektore prve trake, izuzevsi MBR, koji se ne koriste ako prvu particiju zapocnete u 2. traci. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">fdisk kaze: partition b has an odd number of sectors.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">U particionisanju PC diskova koriste se sektori od 512 bajtova, no Linux koristi blokove od 1 KB. Ako imate particiju s neparnim brojem sektora zadnji se sektor ne koristi. Poruku zanemarite. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">mtools kazu cannot initialise drive XYZ</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">To znaci da mtools ne moze da pristupi disku. To moze biti iz nekoliko razloga. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Cesto se radi o netacnim dozvolama uredjaja disketnog pogona (</SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/dev/fd0*</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> i </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">/dev/fd1*</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">) -- korisnik koji pokrece mtools mora imati odgovarajuci pristup. Za detalje pogledajte man stranicu chmoda. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Vecina verzija mtoolsa koji se distribuiraju s Linux sistemima (ne standardna GNU verzija) za pronalazenje uredjaja i gustoca koriste sadrzaj fajla /etc/mtools, a ne informacije ukljucene u izvrsni fajl. Greske u tom fajlu cesto uzrokuju probleme. O tome cesto nema dokumentacije. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Napomena -- nikad nemojte koristiti mtools za pristupanje fajlovima na vec mountovanoj particiji ili disketi! </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Na pocetku dizanja: Memory tight</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">To znaci da imate vrlo velik kernel, pa Linux mora izvoditi neke posebne carolije u radu s memorijom kako bi se dignuo preko BIOS-a. Nema veze s kolicinom vase fizicke memorije. Poruku zanemarite ili napravite kernel koji sadrzi samo podrsku i mogucnosti koje vam trebaju. </SPAN></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">syslog mi kaze ``end_request: I/O error, ...''.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ova i slicne poruke skoro uvijek znace hardversku gresku u radu s hard diskom. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">To je cesto simptom defektnog hard diska. Jedini nacin izbjegavanja daljnjeg gubitka podataka je potpuno gasenje sistema. Zatim morate provjeriti da li podaci na disku imaju rezervne kopije i vratiti ih na ispravan tvrdi disk. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ova poruka moze znaciti i losu vezu sa diskom, pogotovo na sistemu koji ste sami sastavili. Ako instalirate IDE disk, <I>UVIJEK</I> koristite nove kablove. To je vjerovatno dobro raditi i kod SCSI diskova. </SPAN></P>
+<P><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">U jednom slucaju ova je greska koincidirala s losom vezom izmedju maticne ploce i kucista. Pre svaljivanja krivice na sam hard disk provjerite da li su sve elektricne veze ciste i cvrste. </SPAN></P>
+<P><FONT size=3><FONT face="Times New Roman">&nbsp;<o:p></o:p></FONT></FONT></P>
+<H2 style="MARGIN: auto 0cm"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">You don't exist. Go away.</SPAN></H2>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana">Ovo nije virusna infekcija :-). Dolazi od programa kao sto su write, talk i wall ako UID uz koji ih pokrecete ne odgovara valjanom korisniku (vjerovatno zbog greske u /etc/passwd) ili zbog toga sto sesija (tacnije pseudoterminal) koju koristite nije pravilno zapisana u fajlu </SPAN><TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">utmp</SPAN></TT><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana"> (vjerovatno zbog toga sto ste je cudno pokrenuli). </SPAN></P><p><br><hr size=1><b>Do You Yahoo!?</b><br>
+<a href="http://rd.yahoo.com/welcome/*http://fifaworldcup.yahoo.com/fc/en/spl">Sign-up for Video Highlights</a> of 2002 FIFA World Cup
+--0-233061983-1024618791=:86356--
+
